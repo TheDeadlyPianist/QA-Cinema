@@ -1,0 +1,49 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<div id="banner">
+    <img width="100%" src="http://joycynovelist.com/wp-content/uploads/2016/08/Cinema-Banner-001.jpg">
+</div>
+
+<nav id='nav_bar'>
+    <div class="floatleft">
+        <ul>
+            <li><a id="homebtn" href="../">Home</a> | <a href="../listing">Listings</a> | <a href="../about">About Us</a> | <a href="../deals">Deals</a></li></ul>
+    </div>
+
+    <div class="floatright">
+        <ul>
+        <li class="dropdown" style="padding-right: 20px">
+            <a href="javascript:void(0)" class="dropbtn">Log In</a>
+            <div class="dropdown-content">
+                <a>Log In</a>
+                <a>Sign Up</a>
+            </div>
+        </li>
+        <li class="navbar-right"><form style="padding-top: 23px">
+            <input type="text" id="searchbar" class="searchbox" placeholder="Search for an Item..." required>
+            <input type="button" class="searchbutton" value="Search">
+        </form>
+        </li>
+        </ul>
+    </div>
+</nav>
+
+
+<script>
+            $(document).ready(function() {
+
+                $(window).scroll(function () {
+                    //if you hard code, then use console
+                    //.log to determine when you want the
+                    //nav bar to stick.
+                    console.log($(window).scrollTop())
+                    if ($(window).scrollTop() > document.getElementById("banner").offsetHeight) {
+                        $('#nav_bar').addClass('navbar-fixed');
+                    }
+                    if ($(window).scrollTop() < document.getElementById("banner").offsetHeight + 1) {
+                        $('#nav_bar').removeClass('navbar-fixed');
+                    }
+                });
+
+                document.getElementById("nav_bar").style.height = document.getElementById("homebtn").offsetHeight + "px"
+            });
+    </script>

@@ -4,6 +4,13 @@
 
 # Home page
 GET     /                           controllers.Application.index
-GET     /test                       controllers.Application.test
-# Map static resources from the /public folder to the /assets URL path
+
+GET     /testSeating                controllers.Application.seating(seatingPlan:String)
+
+GET     /listing                    controllers.Application.theListing
+
+GET     /about                      controllers.Application.theAbout
+
+GET     /deals                      controllers.Application.theDeals
+
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
