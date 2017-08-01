@@ -28,4 +28,7 @@ class Application extends Controller {
     Ok(views.html.seatingSystem(useSeats))
   }
 
+  def test = Action {
+    Ok(views.html.Temp())
+  }
 }
