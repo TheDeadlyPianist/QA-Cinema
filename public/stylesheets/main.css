@@ -6,7 +6,18 @@ body {
 h1 {
     padding:20px;
 }
-ul {
+/*Navbar*/
+#header.fixed{
+    background-color: #FFFFFF;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    -webkit-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+    color: #000;
+}
+nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -17,20 +28,20 @@ ul {
     top:0;
     width: 100%;
 }
-li {
+nav li {
     float: left;
 }
-li a:hover, .dropdown:hover .dropbtn {
+nav li a:hover, .dropdown:hover .dropbtn {
     background-color: #b04c70;
 }
-li a, .dropbtn {
+nav li a, .dropbtn {
     display: inline-block;
     color: #ffffff;
     padding: 25px 20px;
     text-decoration: none;
     text-align: center;
 }
-li.dropdown {
+nav li.dropdown {
     display: inline-block;
 }
 .dropdown-content {
@@ -72,6 +83,14 @@ li.dropdown {
     float:right;
 }
 
+/*Navbar=>Dropdown*/
+nav #smallscreen {
+    display: none;
+}
+@media (max-width: 960px) {
+    nav ul     { display: none; }
+    nav #smallscreen { display: inline-block; }
+}
 /*Search Bar*/
 .searchbox {
     background:rgba(50, 50, 50, 0.2);
