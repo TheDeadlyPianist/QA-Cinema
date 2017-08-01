@@ -27,8 +27,4 @@ class Application extends Controller {
     val useSeats:Array[Int] = seatingObj(seatingPlan)
     Ok(views.html.seatingSystem(useSeats))
   }
-
-  def test = Action {
-    Ok(views.html.Temp())
-  }
 }
