@@ -1,4 +1,4 @@
-@(seating:Array[Int])
+@(useSeats:Array[Int])(numberOfRows:Int)(seatLabels:Array[String])
 
 <head>
     <meta charset="utf-8">
@@ -11,13 +11,18 @@
 </head>
 
 <body>
-    @{
-        implicit var letterMap: Map[Int, Char] = Map()
-        implicit val lengthOfSeats = seating.count(_ == 2) + 1
-        implicit val numbers: Array[Int] = Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24)
-        implicit val letters: Array[Char] = Array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z').slice(0, lengthOfSeats).reverse
 
+    @for(i <- useSeats.indices) {
+        @useSeats(i) match {
+            case 4 => {<br>}
+            case 3 => {<span class="emptyRow"></span>}
+            case 2 => {<br>}
+            case 1 => {<img src="@routes.Assets.at("images/emptySeat.png")" class="clickSeat" id=@seatLabels(i)>}
+            case 0 => {<span class="emptyRow"></span>}
+            case _ => {}
+        }
     }
+
     <style>
         .emptyRow {
             padding-top:30px;
