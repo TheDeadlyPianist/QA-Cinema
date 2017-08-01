@@ -1,0 +1,34 @@
+#footer {
+    color: white;
+    background-color: #ff7eab;
+    text-align: center;
+}
+
+#footerBottom {
+    background-color: #b04c70;
+    width:100%;
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a:link {
+    color: white;
+}
+
+/* visited link */
+a:visited {
+    color: #646464;
+}
+
+/* mouse over link */
+a:hover {
+    color: darkblue;
+}
+
+/* selected link */
+a:active {
+    color: grey;
+}
