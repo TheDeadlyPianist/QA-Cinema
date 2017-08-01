@@ -1,0 +1,36 @@
+.footer {
+    color: white;
+    position: inherit;
+    background-color: #ff7eab;
+    text-align: center;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+#footer_links{
+    float:left;
+    width:33.3%;
+    text-align:center;
+    background-color: #ff7eab;
+}
+
+#openingHours{
+    width:33.3%;
+    float:left;
+    text-align:center;
+    background-color: #ff7eab;
+}
+#contacts{
+    float: left;
+    width:33.4%;
+    text-align:center;
+    background-color: #ff7eab;
+}
+.footerBottom {
+    background-color: #b04c70;
+}
+
+ul {
+    list-style-type: none;
+}
