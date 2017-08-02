@@ -11,14 +11,13 @@
     <!-- Bootstrap -->
 </head>
 
-<body>
-
+<body onresize="resize()">
     <div class="seatSelector col-md-6">
         <div style="width:100%;">@for(i <- useSeats.indices) {
             @useSeats(i) match {
-                case 4 => {<br>}
+                case 4 => {<div class="emptyRow"></div>}
                 case 3 => {<span class="emptyRow"></span>}
-                case 2 => {<br>}
+                case 2 => {<br class="emptyRow">}
                 case 1 => {<img src="@routes.Assets.at("images/emptySeat.png")" class="clickSeat seatImg" id=@seatLabels(i) onclick="seatClickedOn(id)">}
                 case 0 => {<span class="emptyRow"></span>}
                 case _ => {}
@@ -26,10 +25,11 @@
         }</div>
     </div>
     <div class="col-md-2 inputField" align="right">
-        Adult Seats: <input id="adult" type="number" value=0 onchange="deleteOverFlow()"><br>
-        Child Seats: <input id="child" type="number" value=0 onchange="deleteOverFlow()"><br>
-        Elderly Seats: <input id="oap" type="number" value=0 onchange="deleteOverFlow()"><br>
-        Student Seats: <input id="drunkard" type="number" value=0 onchange="deleteOverFlow()">
+        Adult Seats: <input id="adult" type="number" value=0 onchange="deleteOverFlow()"><br><br>
+        Child Seats: <input id="child" type="number" value=0 onchange="deleteOverFlow()"><br><br>
+        Elderly Seats: <input id="oap" type="number" value=0 onchange="deleteOverFlow()"><br><br>
+        Student Seats: <input id="drunkard" type="number" value=0 onchange="deleteOverFlow()"><br><br>
+        <button>Submit</button>
     </div>
     <div class="col-md-4" style="width"></div>
 
@@ -50,7 +50,7 @@
             background-color: #64a8ab;
         }
         .seatImg {
-
+            width: 50px;
         }
         .seatSelector {
             padding: 1% 1% 1% 1%;
@@ -60,47 +60,65 @@
 </body>
 
 <script>
-        let selectedSeats = new Map;
-        let seatsNeeded = 0;
-        let curSeats = 0;
-        let seatOrder = Array();
+    resize();
 
-        function seatClickedOn(seatLabel) {
-            seatsNeeded = parseInt(document.getElementById("adult").value, 10)
-                    + parseInt(document.getElementById("child").value, 10)
-                    + parseInt(document.getElementById("oap").value, 10)
-                    + parseInt(document.getElementById("drunkard").value, 10);
+    let selectedSeats = new Map;
+    let seatsNeeded = 0;
+    let curSeats = 0;
+    let seatOrder = Array();
 
-            if(!selectedSeats[seatLabel]) {
-                seatOrder.push(seatLabel);
-                selectedSeats[seatLabel] = true;
-                let colChange = document.getElementById(seatLabel);
-                colChange.src = "@routes.Assets.at("images/selectedSeat.png")";
-            } else if(selectedSeats[seatLabel]){
-                for(i=0;i<seatOrder.length;i++) {
-                    if(seatOrder[i] == seatLabel) {
-                        seatOrder.splice(i, 1);
-                    }
+    function seatClickedOn(seatLabel) {
+        seatsNeeded = parseInt(document.getElementById("adult").value, 10)
+                + parseInt(document.getElementById("child").value, 10)
+                + parseInt(document.getElementById("oap").value, 10)
+                + parseInt(document.getElementById("drunkard").value, 10);
+
+        if(!selectedSeats[seatLabel]) {
+            seatOrder.push(seatLabel);
+            selectedSeats[seatLabel] = true;
+            let colChange = document.getElementById(seatLabel);
+            colChange.src = "@routes.Assets.at("images/selectedSeat.png")";
+        } else if(selectedSeats[seatLabel]){
+            for(i=0;i<seatOrder.length;i++) {
+                if(seatOrder[i] == seatLabel) {
+                    seatOrder.splice(i, 1);
                 }
-                selectedSeats[seatLabel] = false;
-                let colChange = document.getElementById(seatLabel);
-                colChange.src = "@routes.Assets.at("images/emptySeat.png")";
             }
-            curSeats = seatOrder.length;
-            deleteOverFlow();
+            selectedSeats[seatLabel] = false;
+            let colChange = document.getElementById(seatLabel);
+            colChange.src = "@routes.Assets.at("images/emptySeat.png")";
         }
-        function deleteOverFlow() {
-            seatsNeeded = parseInt(document.getElementById("adult").value, 10)
-                    + parseInt(document.getElementById("child").value, 10)
-                    + parseInt(document.getElementById("oap").value, 10)
-                    + parseInt(document.getElementById("drunkard").value, 10);
+        curSeats = seatOrder.length;
+        deleteOverFlow();
+    }
+    function deleteOverFlow() {
+        seatsNeeded = parseInt(document.getElementById("adult").value, 10)
+                + parseInt(document.getElementById("child").value, 10)
+                + parseInt(document.getElementById("oap").value, 10)
+                + parseInt(document.getElementById("drunkard").value, 10);
 
-            while(curSeats > seatsNeeded) {
-                let colChange = document.getElementById(seatOrder[0]);
-                colChange.src = "@routes.Assets.at("images/emptySeat.png")";
-                selectedSeats[seatOrder[0]] = false;
-                seatOrder.shift();
-                curSeats = seatOrder.length;
-            }
+        while(curSeats > seatsNeeded) {
+            let colChange = document.getElementById(seatOrder[0]);
+            colChange.src = "@routes.Assets.at("images/emptySeat.png")";
+            selectedSeats[seatOrder[0]] = false;
+            seatOrder.shift();
+            curSeats = seatOrder.length;
         }
+    }
+
+    function resize() {
+        let screenReso = window.screen.availWidth*0.5;
+        let newSize = window.innerWidth*0.5;
+        let sizeRatio = newSize/screenReso;
+        let seats = document.getElementsByClassName("seatImg");
+        console.log(sizeRatio);
+        for(i=0;i<seats.length;i++) {
+            seats[i].style.width = (50*sizeRatio) + "px";
+        }
+        seats = document.getElementsByClassName("emptyRow");
+        for(i=0;i<seats.length;i++) {
+            seats[i].style.paddingLeft = (54*sizeRatio) + "px";
+            seats[i].style.paddingTop = (30*sizeRatio) + "px";
+        }
+    }
 </script>
