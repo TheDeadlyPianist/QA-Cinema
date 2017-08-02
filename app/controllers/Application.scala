@@ -1,10 +1,17 @@
 package controllers
 
+import org.mongodb.scala.{Completed, Document, MongoClient, MongoCollection, MongoDatabase, Observable, Observer}
+import org.mongodb.scala.model.Updates._
 import play.api._
 import play.api.mvc._
+
 import scalaEnum.seatingPlanArray._
 
 class Application extends Controller {
+
+//  val mongoClient:MongoClient = MongoClient()
+//  val mongoDB:MongoDatabase = mongoClient.getDatabase("mongodb://duane:pass@ds129723.mlab.com:29723/qacinema")
+//  val receipts:MongoCollection[Document] = mongoDB.getCollection("receipts")
 
   def index = Action {
     Ok(views.html.index("Index: Success"))
@@ -46,7 +53,7 @@ class Application extends Controller {
       }
     })
 
-    Ok(views.html.seatingSystem(useSeats)(lengthOfSeats)(seatLabels))
+    Ok(views.html.seatingSystem(useSeats)(lengthOfSeats)(seatLabels)(("name"->"Logan", "screen"->1)))
   }
 
 }
