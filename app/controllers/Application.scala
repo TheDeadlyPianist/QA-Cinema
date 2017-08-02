@@ -9,10 +9,10 @@ import scalaEnum.seatingPlanArray._
 
 class Application extends Controller {
 
-//  val mongoClient:MongoClient = MongoClient()
-//  val mongoDB:MongoDatabase = mongoClient.getDatabase("mongodb://duane:pass@ds129723.mlab.com:29723/qacinema")
-//  val receipts:MongoCollection[Document] = mongoDB.getCollection("receipts")
-
+  val mongoClient:MongoClient = MongoClient("mongodb://duane:pass@ds129723.mlab.com:29723/qacinema")
+  val mongoDB:MongoDatabase = mongoClient.getDatabase("qacinema")
+  val receipts:MongoCollection[Document] = mongoDB.getCollection("receipts")
+  println(receipts.find())
   def index = Action {
     Ok(views.html.index("Index: Success"))
   }
