@@ -10,25 +10,25 @@
     text-align: center;
 }
 
-ul {
+#footerBottom ul {
     list-style-type: none;
 }
 
-a:link {
+#footerBottom a:link {
     color: white;
 }
 
 /* visited link */
-a:visited {
+#footerBottom a:visited {
     color: #646464;
 }
 
 /* mouse over link */
-a:hover {
+#footerBottom a:hover {
     color: darkblue;
 }
 
 /* selected link */
-a:active {
+#footerBottom a:active {
     color: grey;
 }
