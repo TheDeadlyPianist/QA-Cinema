@@ -202,3 +202,50 @@ li.dropdown {
     color: #3498db;
     text-decoration: none;
 }
+
+
+/* Movies Carousel CSS */
+
+#myCarousel{
+    padding-top: 2% ;
+}
+.carousel-control.left
+{
+    background: none;
+}
+.carousel-control.right
+{
+    background: none;
+}
+
+.carousel-control
+{
+    position: absolute;
+    top: 45%;
+    bottom: 0;
+    left: 0;
+    width: 15%;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    opacity: 1;
+    text-shadow: none;
+}
+.carousel-control:hover
+{
+    color: #000;
+}
+
+.carousel-caption
+{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    background: rgba(0,0,0,0.4);
+}
