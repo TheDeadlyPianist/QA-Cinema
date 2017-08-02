@@ -1,6 +1,7 @@
 @(useSeats:Array[Int])(numberOfRows:Int)(seatLabels:Array[String])
 
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,16 +13,25 @@
 
 <body>
 
-    @for(i <- useSeats.indices) {
-        @useSeats(i) match {
-            case 4 => {<br>}
-            case 3 => {<span class="emptyRow"></span>}
-            case 2 => {<br>}
-            case 1 => {<img src="@routes.Assets.at("images/emptySeat.png")" class="clickSeat" id=@seatLabels(i)>}
-            case 0 => {<span class="emptyRow"></span>}
-            case _ => {}
-        }
-    }
+    <div class="seatSelector col-md-6">
+        <div style="width:100%;">@for(i <- useSeats.indices) {
+            @useSeats(i) match {
+                case 4 => {<br>}
+                case 3 => {<span class="emptyRow"></span>}
+                case 2 => {<br>}
+                case 1 => {<img src="@routes.Assets.at("images/emptySeat.png")" class="clickSeat seatImg" id=@seatLabels(i) onclick="seatClickedOn(id)">}
+                case 0 => {<span class="emptyRow"></span>}
+                case _ => {}
+            }
+        }</div>
+    </div>
+    <div class="col-md-2 inputField" align="right">
+        Adult Seats: <input id="adult" type="number" value=0 onchange="deleteOverFlow()"><br>
+        Child Seats: <input id="child" type="number" value=0 onchange="deleteOverFlow()"><br>
+        Elderly Seats: <input id="oap" type="number" value=0 onchange="deleteOverFlow()"><br>
+        Student Seats: <input id="drunkard" type="number" value=0 onchange="deleteOverFlow()">
+    </div>
+    <div class="col-md-4" style="width"></div>
 
     <style>
         .emptyRow {
@@ -32,5 +42,65 @@
             filter: drop-shadow(5px 5px 5px rgba(0, 0, 170, 0.6));
             cursor: pointer;
         }
+        .clickSeat:hover {
+            filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 1));
+        }
+        .inputField {
+            padding: 1% 1% 1% 1%;
+            background-color: #64a8ab;
+        }
+        .seatImg {
+
+        }
+        .seatSelector {
+            padding: 1% 1% 1% 1%;
+            background-color: #64a8ab;
+        }
     </style>
 </body>
+
+<script>
+        let selectedSeats = new Map;
+        let seatsNeeded = 0;
+        let curSeats = 0;
+        let seatOrder = Array();
+
+        function seatClickedOn(seatLabel) {
+            seatsNeeded = parseInt(document.getElementById("adult").value, 10)
+                    + parseInt(document.getElementById("child").value, 10)
+                    + parseInt(document.getElementById("oap").value, 10)
+                    + parseInt(document.getElementById("drunkard").value, 10);
+
+            if(!selectedSeats[seatLabel]) {
+                seatOrder.push(seatLabel);
+                selectedSeats[seatLabel] = true;
+                let colChange = document.getElementById(seatLabel);
+                colChange.src = "@routes.Assets.at("images/selectedSeat.png")";
+            } else if(selectedSeats[seatLabel]){
+                for(i=0;i<seatOrder.length;i++) {
+                    if(seatOrder[i] == seatLabel) {
+                        seatOrder.splice(i, 1);
+                    }
+                }
+                selectedSeats[seatLabel] = false;
+                let colChange = document.getElementById(seatLabel);
+                colChange.src = "@routes.Assets.at("images/emptySeat.png")";
+            }
+            curSeats = seatOrder.length;
+            deleteOverFlow();
+        }
+        function deleteOverFlow() {
+            seatsNeeded = parseInt(document.getElementById("adult").value, 10)
+                    + parseInt(document.getElementById("child").value, 10)
+                    + parseInt(document.getElementById("oap").value, 10)
+                    + parseInt(document.getElementById("drunkard").value, 10);
+
+            while(curSeats > seatsNeeded) {
+                let colChange = document.getElementById(seatOrder[0]);
+                colChange.src = "@routes.Assets.at("images/emptySeat.png")";
+                selectedSeats[seatOrder[0]] = false;
+                seatOrder.shift();
+                curSeats = seatOrder.length;
+            }
+        }
+</script>
