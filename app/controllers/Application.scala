@@ -55,5 +55,4 @@ class Application extends Controller {
 
     Ok(views.html.seatingSystem(useSeats)(lengthOfSeats)(seatLabels)(("name"->"Logan", "screen"->1)))
   }
-
 }
