@@ -14,5 +14,5 @@ object ContactDetails{
       "subject" -> nonEmptyText,
       "content" -> nonEmptyText
     )(ContactDetails.apply)(ContactDetails.unapply)
-  }
+}
 

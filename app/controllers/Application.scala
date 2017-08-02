@@ -1,7 +1,7 @@
 package controllers
 
-import play.api._
-import play.api.mvc._
+import models.ContactDetails
+
 import scalaEnum.seatingPlanArray._
 
 class Application extends Controller {
@@ -29,7 +29,17 @@ class Application extends Controller {
   }
 
   def contactUs = Action {
-    Ok(views.html.contactUs())
+    Ok(views.html.contactUs(ContactDetails.contactForm))
   }
+
+  def submitForm = {
+    val formValidationResult = ContactDetails.contactForm.bindFromRequest
+    formValidationResult.fold({ formWithErrors =>
+      BadRequest(views.html.ContactDetails(formWithErrors))
+    }, { contactDetails =>
+
+    })
+  }
+
 
 }
