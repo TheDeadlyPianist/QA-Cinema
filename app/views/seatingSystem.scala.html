@@ -1,4 +1,4 @@
-@(useSeats:Array[Int])(numberOfRows:Int)(seatLabels:Array[String])(filmInfo:Object)
+@(useSeats:Array[Int])(numberOfRows:Int)(seatLabels:Array[String])(filmInfo:Object)(timeList:Array[String])
 
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -25,6 +25,13 @@
         }</div>
     </div>
     <div class="col-md-2 inputField" align="right">
+        Select Time:
+            <select>
+                <option value="null">Please Select a Time</option>
+                @for(i <- timeList.indices) {
+                    <option value=@timeList(i)>@timeList(i)</option>
+                }
+            </select><br><br>
         Adult Seats: <input id="adult" type="number" value=0 onchange="deleteOverFlow()"><br><br>
         Child Seats: <input id="child" type="number" value=0 onchange="deleteOverFlow()"><br><br>
         Elderly Seats: <input id="oap" type="number" value=0 onchange="deleteOverFlow()"><br><br>
