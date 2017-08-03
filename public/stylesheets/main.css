@@ -317,3 +317,13 @@ li.dropdown {
     from{opacity:0.2;}
     to{opcacity:1;}
 }
+
+.col-100#theList {
+    text-align:center !important;
+}
+
+#theList img{
+    width:40%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
