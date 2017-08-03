@@ -1,8 +1,10 @@
-
-
+html {
+    min-height: 100%;
+    background-color: black;
+}
 body {
     margin: 0;
-    background-color: white;
+    background-color: black;
     font-family: "Calibri", sans-serif;
 }
 h1 {
@@ -10,7 +12,7 @@ h1 {
 }
 /*Navbar*/
 #header.fixed{
-    background-color: #FFFFFF;
+    background-color: black;
     left: 0;
     position: fixed;
     top: 0;
@@ -63,11 +65,7 @@ nav li.dropdown {
 }
 .dropdown-content a:hover {background-color: #813772
 }
-body {
-    margin: 0;
-    background-color: white;
-    font-family: "Calibri", sans-serif;
-}
+
 h1 {
     padding:20px;
 }
@@ -215,6 +213,7 @@ li.dropdown {
 .col-10 {
     width: 10%;
     float: left;
+    background-color: black;
 }
 
 .col-20 {
