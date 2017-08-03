@@ -1,11 +1,13 @@
-@(form: Form[ContactDetails])(implicit messages: Messages)
-@navbar()
+@(form: Form[ContactDetails])(implicit messages: Messages, flash: Flash)
 
-<section>
+<link rel="stylesheet" type="text/css" href='@routes.Assets.at("stylesheets/main.css")'>
+<div class="col-100">@navbar()</div>
+
+<section style="color: white">
     <h1><ins>Contact US</ins></h1>
 </section>
-<section>
-    <div>
+<section style="color: white">
+    <div >
         <h3>Contact Details</h3>
         <p>Email</p>
         <p>Phone</p>
@@ -13,11 +15,15 @@
         <p>Twitter</p>
     </div>
 </section>
-<section>
+<section style="color: white">
     <div>
         <p>If you have any questions and would like to send us a message directly you can use the form below to send us
             a message directly. We will try to respond to your message as soon as we can</p>
     </div>
+    <div>
+        <p>@flash.get("messageSent").getOrElse("")</p>
+    </div>
+
     <form>
         @helper.form(routes.Application.submitForm){
             @helper.inputText(form("email"), '_label -> "email", '_showConstraints -> false)
@@ -29,4 +35,4 @@
     </form>
 </section>
 
-@defaultFooter()
+<div class="col-100">@defaultFooter()</div>

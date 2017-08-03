@@ -27,8 +27,6 @@ import scala.concurrent.{Await, Future}
 import scalaEnum.seatingPlanArray._
 import scalaj.http.Http
 
-class Application @Inject()(val messagesApi: MessagesApi)extends Controller with I18nSupport {
-
 class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerClient)
   extends Controller with I18nSupport {
 
@@ -107,10 +105,6 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     )
   }
 
-  def contactUs = Action { implicit request =>
-    Ok(views.html.contactUs(ContactDetails.contactForm))
-  }
-
   def sendEmail(from: String, name: String, subject: String, text: String): Unit ={
     val email = Email(
       subject,
@@ -127,22 +121,7 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
       BadRequest(views.html.contactUs(formWithErrors))
     }, { contactDetails =>
       sendEmail(contactDetails.email, contactDetails.name, contactDetails.subject, contactDetails.content)
-      Ok(views.html.contactUs(ContactDetails.contactForm))
+      Redirect("/contactUs").flashing("messageSent" -> "Thank You. Your message has been sent")
     })
   }
-
-  def contactUs = Action { implicit request =>
-    Ok(views.html.contactUs(ContactDetails.contactForm))
-  }
-
-  def submitForm = Action { implicit request =>
-    val formValidationResult = ContactDetails.contactForm.bindFromRequest
-    formValidationResult.fold({ formWithErrors =>
-      BadRequest(views.html.contactUs(formWithErrors))
-    }, { contactDetails =>
-      Ok(views.html.contactUs(formValidationResult))
-    })
-  }
-
-
 }
