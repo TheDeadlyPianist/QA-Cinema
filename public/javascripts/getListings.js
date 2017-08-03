@@ -3,50 +3,57 @@ function movieSearch(){
 
     var movieInfo = [
         {
+            movieID:"284053",
+            moviename: "Thor: Ragnarok",
+            movieyear: "2017"
+        },{
             movieID: "315635",
             moviename: "Spider-Man: Homecoming",
             movieyear: "2017",
-        }, {
+        },{
             movieID: "374720",
             moviename: "Dunkirk",
             movieyear: "2017",
-        }
-        ,{
+        },{
             movieID: "339964",
             moviename: "Valerian and the City of a Thousand Planets",
-            movieyear: "2017",
+            movieyear: "2017"
         },{
             movieID: "281338",
             moviename: "War For The Planet Of The Apes",
-            movieyear: "2017",
+            movieyear: "2017"
+        },{
+            movieID: "277834",
+            moviename: "Moana",
+            movieyear: "2016"
         },{
             movieID: "324852",
             moviename: "Despicable Me 3",
-            movieyear: "2017",
-        }, {
+            movieyear: "2017"
+        },{
             movieID: "283995",
             moviename: "Guardians of the Galaxy Vol. 2",
             movieyear: "2017"
         },{
             movieID: "378236",
             moviename: "The Emoji Movie",
-            movieyear: "2017",
+            movieyear: "2017"
         },{
             movieID: "416477",
             moviename: "The Big Sick",
-            movieyear: "2017",
+            movieyear: "2017"
         },{
             movieID: "353491",
             moviename: "The Dark Tower",
-            movieyear: "2017",
+            movieyear: "2017"
         },{
             movieID: "297762",
             moviename: "Wonder Woman",
-            movieyear: "2017",
+            movieyear: "2017"
         },{
             movieID: "395834",
             moviename: "Wind River",
-            movieyear: "2017",
+            movieyear: "2017"
         },{
             movieID: "562",
             moviename: "Die Hard",
@@ -76,14 +83,15 @@ function movieSearch(){
             moviename: "Mad Max: Fury Road",
             movieyear: "2015"
         },{
-            movieID:"284053",
-            moviename: "Thor: Ragnarok",
-            movieyear: "2017"
-        },{
             movieID:" 263115",
             moviename: "Logan",
             movieyear: "2017"
+        },{
+            movieID:" 335984",
+            moviename: "Blade Runner 2049",
+            movieyear: "2017"
         }
+
 
     ];
 
@@ -102,14 +110,14 @@ function movieSearch(){
         $.ajax(settings).done(function (response) {
             console.log(response);
 
-            document.getElementById("theList").innerHTML += '<div class="col-25"><div class="item"><div><h3><a href="/movieInfo?movieID='+response.id+'">'+response.original_title+'</a></h3></div><img class="listImg" src="https://image.tmdb.org/t/p/original'+response.poster_path+'" alt=""></div></div>';
+            document.getElementById("theList").innerHTML += '<div class="col-20"><div class="item"><div><h3><a class="hyperColour" href="/movieInfo?movieID='+response.id+'">'+response.original_title+'</a></h3></div><img class="listImg" src="https://image.tmdb.org/t/p/original'+response.poster_path+'" alt=""></div></div>';
             // description
             //<div class="theDescCont"><div class="theDesc">'+response.overview+'</div></div>
 
         });
 
     });
-    document.getElementById("theList").innerHTML += '<p class="listTitle" text-align="center"><b><u>NOW SHOWING</u></b></p>'
+    document.getElementById("theList").innerHTML += '<div class="divTitle"><p class="listTitle" text-align="center"><b><u>NOW SHOWING</u></b></p></div>'
 
 }
 $(document).ready(function(){
