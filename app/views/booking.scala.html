@@ -1,6 +1,6 @@
 @(useSeats:Array[Int])(numberOfRows:Int)(seatLabels:Array[String])(filmInfo:String)(timerList:Array[String])
 <html>
   <div class="col-100">@navbar()</div>
-  <div class="col-100">@seatingSystem(useSeats)(numberOfRows)(seatLabels)(filmInfo)(timerList)</div>
+  <div class="col-100">@seatingSystem(useSeats)(numberOfRows)(seatLabels)("Logan")(timerList)</div>
   <div class="col-100">@defaultFooter()</div>
 </html>

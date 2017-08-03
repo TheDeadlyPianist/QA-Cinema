@@ -345,3 +345,14 @@ li.dropdown {
 .listTitle{
     font-size: 24pt;
 }
+
+#movieDetails img{
+    width: 40%;
+    padding-top: 4%;
+    padding-left: 6%;
+}
+
+#movieDetails h2{
+    color: white;
+    padding-left: 6%;
+}
