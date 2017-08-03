@@ -1,0 +1,32 @@
+@(message :String)(arrayMovies:Array[Map[String, String]])
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <script src="@routes.Assets.at("javascripts/basicCarousel.js")" rel="javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet">
+
+
+
+    <div class="col-100">@navbar()</div>
+
+    <div id="theList" class="col-100">
+
+        <div class="col-50">
+        @for(i <- arrayMovies.indices) {
+            <img src=@arrayMovies(i)("imageUrl")>
+            }
+            @for(i <- arrayMovies.indices) {
+                <h2>@arrayMovies(i)("title")</h2>
+            }
+        </div>
+
+    </div>
+
+
+    <div class="col-100">@defaultFooter()</div>
+
+</body>
