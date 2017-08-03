@@ -3,6 +3,12 @@
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
 <body>
     <div class="col-100">@navbar()</div>
-    <div class="col-100"><p>THIS IS THE LISTING PAGE</p></div>
+
+    <div id="theList" class="col-100">
+
+        <script src="@routes.Assets.at("javascripts/getListings.js")" rel="javascript"></script>
+    </div>
+
     <div class="col-100">@defaultFooter()</div>
+
 </body>
