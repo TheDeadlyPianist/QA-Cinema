@@ -1,7 +1,6 @@
 @(useSeats:Array[Int])(numberOfRows:Int)(seatLabels:Array[String])(filmInfo:Object)(timerList:Array[String])
 <html>
-  @navbar()
-  @seatingSystem(useSeats)(numberOfRows)(seatLabels)(("name"->"Logan", "screen"->1, "length"->120))(timerList)
-  <div class="col-lg-12"></div>
-  @defaultFooter()
+  <div class="col-100">@navbar()</div>
+  <div class="col-100">@seatingSystem(useSeats)(numberOfRows)(seatLabels)(("name"->"Logan", "screen"->1, "length"->120))(timerList)</div>
+  <div class="col-100">@defaultFooter()</div>
 </html>
