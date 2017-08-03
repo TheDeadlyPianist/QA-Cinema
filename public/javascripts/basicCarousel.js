@@ -43,4 +43,6 @@ function newShow(newSelected, oldSelected) {
     selected = newSelected;
 }
 
+init();
+
 window.setInterval(next, 12000);
