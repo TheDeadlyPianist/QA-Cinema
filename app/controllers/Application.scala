@@ -42,7 +42,7 @@ class Application extends Controller {
         case result => result
       }
       val returnV = Json.parse(Await.result(stuffs, 10 seconds).body)
-      pushArray += Map("title" -> ((returnV \ "results")(0)\"title").as[String], "imageUrl" -> ("https://image.tmdb.org/t/p/original" + ((returnV \ "results")(0)\"backdrop_path").as[String]), "id" -> ((returnV \ "results")(0)\"id").as[Int].toString())
+      pushArray += Map("title" -> ((returnV \ "results")(0)\"title").as[String], "imageUrl" -> ("https://image.tmdb.org/t/p/original" + ((returnV \ "results")(0)\"backdrop_path").as[String]), "id" -> (((returnV \ "results")(0)\"id").as[Int].toString()))
     }
 
     Ok(views.html.index("Index: Success")(pushArray.toArray))
@@ -86,7 +86,7 @@ class Application extends Controller {
     })
 
     Ok(
-      views.html.booking(useSeats)(lengthOfSeats)(seatLabels)(("name"->"Logan", "screen"->1, "length"->120))(timeList)
+      views.html.booking(useSeats)(lengthOfSeats)(seatLabels)("Logan")(timeList)
     )
   }
 }
