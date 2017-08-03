@@ -38,20 +38,24 @@
 
                     var homeMarker = new google.maps.Marker({
                         position: cinema,
-                        map: map
+                        map: map,
+                        icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/movies.png'
+
                     });
 
                     infowindow = new google.maps.InfoWindow();
                     var service = new google.maps.places.PlacesService(map);
-                    service.nearbySearch({
-                        location: cinema,
-                        radius: 1000,
-                        type: ['bar']
-                    }, callback);
-
+                    function createRest(string) {
+                        service.nearbySearch({
+                            location: cinema,
+                            radius: 1000,
+                            type: [string]
+                        }, callback);
+                    }
                     function callback(results, status) {
                         if (status === google.maps.places.PlacesServiceStatus.OK) {
                             for (var i = 0; i < results.length; i++) {
+                                console.log(results[i]);
                                 createMarker(results[i]);
                             }
                         }
@@ -59,18 +63,30 @@
 
                     function createMarker(place) {
                         var placeLoc = place.geometry.location;
+                        if(place.types.includes("bar")){
                         var marker = new google.maps.Marker({
                             map: map,
-                            position: place.geometry.location
-                        });
+                            position: place.geometry.location,
+                            icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/restaurant.png'
+                        });}
+                        else if(place.types.includes("restaurant")){
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: place.geometry.location,
+                                icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/bar.png'
+                            });
+                        }
 
                         google.maps.event.addListener(marker, 'click', function () {
                             infowindow.setContent(place.name);
                             infowindow.open(map, this);
                         });
                     }
-                }
 
+                    createRest('restaurant');
+                    createRest('bar')
+
+                }
         </script>
         <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDULYRqPbZDrCSmoKNXZJPR3enCXhI226Q&libraries=places&callback=initMap" async defer>
