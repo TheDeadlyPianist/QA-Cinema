@@ -1,34 +1,30 @@
 #footer {
     color: white;
-    background-color: #ff7eab;
     text-align: center;
+    width: 100%;
 }
 
 #footerBottom {
-    background-color: #b04c70;
-    width:100%;
     text-align: center;
+    width: 100%;
 }
 
-ul {
-    list-style-type: none;
-}
-
-a:link {
+#footer a:link {
+    text-decoration: none;
     color: white;
 }
 
 /* visited link */
-a:visited {
-    color: #646464;
+#footer a:visited {
+    color: white;
 }
 
 /* mouse over link */
-a:hover {
-    color: darkblue;
+#footer a:hover {
+    color: gray;
 }
 
 /* selected link */
-a:active {
-    color: grey;
+#footer a:active {
+    color: white;
 }

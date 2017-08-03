@@ -1,13 +1,7 @@
-@(message :String)
-<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-<body>
-    @navbar()
-    @nowShowingMovies()
-    <div id='body_div'>
+@import org.mongodb.scala.bson.collection.mutable.Document
+@(message :String)(moviesArray:Array[Map[String, String]])
 
-        // -- code goes here -- //
-
-    </div>
-
-
-</body>
+<div class="col-100">@navbar()</div>
+<div class="col-100">@nowShowingMovies(moviesArray)</div>
+<a class="twitter-timeline" data-width="400" data-height="600" href="https://twitter.com/qacinemas">Tweets by QA Cinemas</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<div class="col-100">@defaultFooter()</div>
