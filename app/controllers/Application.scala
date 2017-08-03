@@ -1,10 +1,14 @@
 package controllers
 
+import javax.inject.Inject
+
 import models.ContactDetails
+import play.api.mvc.{Action, Controller}
+import play.api.i18n.{I18nSupport, MessagesApi}
 
 import scalaEnum.seatingPlanArray._
 
-class Application extends Controller {
+class Application @Inject()(val messagesApi: MessagesApi)extends Controller with I18nSupport {
 
   def index = Action {
     Ok(views.html.index("Index: Success"))
@@ -28,16 +32,16 @@ class Application extends Controller {
     Ok(views.html.seatingSystem(useSeats))
   }
 
-  def contactUs = Action {
+  def contactUs = Action { implicit request =>
     Ok(views.html.contactUs(ContactDetails.contactForm))
   }
 
-  def submitForm = {
+  def submitForm = Action { implicit request =>
     val formValidationResult = ContactDetails.contactForm.bindFromRequest
     formValidationResult.fold({ formWithErrors =>
-      BadRequest(views.html.ContactDetails(formWithErrors))
+      BadRequest(views.html.contactUs(formWithErrors))
     }, { contactDetails =>
-
+      Ok(views.html.contactUs(formValidationResult))
     })
   }
 

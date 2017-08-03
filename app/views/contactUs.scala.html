@@ -1,4 +1,4 @@
-@(form: Form[ContactDetails])
+@(form: Form[ContactDetails])(implicit messages: Messages)
 @navbar()
 
 <section>
@@ -19,24 +19,13 @@
             a message directly. We will try to respond to your message as soon as we can</p>
     </div>
     <form>
-        <div>
-            Email: <input id="emailAddress" type="email" alt="Please enter your email address"
-                        placeholder="Please enter your email adress">
-        </div>
-        <br>
-        <div>
-            Name: <input id="name" type="text" alt="Please enter your name" placeholder="Please enter your name">
-        </div>
-        <br>
-        <div>
-            About: <input id="about" type="text" alt="Please enter the subject of your question"
-                        placeholder="Please enter the subject of your question">
-        </div>
-        <br>
-        <div>
-            Question: <input id="question" type="text" alt="Please enter your question"
-                        placeholder="Please enter your question">
-        </div>
+        @helper.form(routes.Application.submitForm){
+            @helper.inputText(form("email"), '_label -> "email", '_showConstraints -> false)
+            @helper.inputText(form("name"), '_label -> "name", '_showConstraints -> false)
+            @helper.inputText(form("subject"), '_label -> "subject", '_showConstraints -> false)
+            @helper.inputText(form("content"), '_label -> "content", '_showConstraints -> false)
+            <button type="submit"> Send </button>
+        }
     </form>
 </section>
 
