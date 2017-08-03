@@ -22,9 +22,9 @@ class Application extends Controller {
     val exampleMovieArray:Array[Map[String, String]] = Array(Map("title" -> "Logan", "imageUrl" -> "http://spartanoracle.com/wp-content/uploads/2017/05/logan.jpg"), Map("title" -> "Spiderman Homecomeing", "imageUrl" -> "http://www.sonypictures.com/movies/spidermanhomecoming/assets/images/6216f0d376efe2bf2645ba6b9d941a45eaabf50e.jpg"))
 
     val dbArray = Array(Document("title" -> "Logan"), Document("title" -> "Spiderman Homecoming"))
-
-    val moviesInDB = movies.find().results()
-    println(moviesInDB)
+//
+//    val moviesInDB = movies.find().results()
+//    println(moviesInDB)
 
     Ok(views.html.index("Index: Success")(exampleMovieArray))
   }
