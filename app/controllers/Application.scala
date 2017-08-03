@@ -22,6 +22,14 @@ class Application extends Controller {
     Ok(views.html.deals("Deals: Success"))
   }
 
+  def register = Action {
+    Ok(views.html.register())
+  }
+
+  def login = Action {
+    Ok(views.html.login())
+  }
+
   def seating(seatingPlan:String) = Action {
     val seatingObj:Map[String, Array[Int]] = Map("seats1" -> seats1, "seats2" -> seats2)
     val useSeats:Array[Int] = seatingObj(seatingPlan)

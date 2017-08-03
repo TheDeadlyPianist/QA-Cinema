@@ -14,3 +14,7 @@ GET     /about                      controllers.Application.theAbout
 GET     /deals                      controllers.Application.theDeals
 
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+GET     /register                   controllers.Application.register
+
+GET     /login                      controllers.Application.login
