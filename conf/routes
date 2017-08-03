@@ -18,3 +18,7 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET     /register                   controllers.Application.register
 
 GET     /login                      controllers.Application.login
+
+GET     /payment                    controllers.Application.payment
+
+POST    /charge                     controllers.Application.payment()

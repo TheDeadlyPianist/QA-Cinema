@@ -30,6 +30,10 @@ class Application extends Controller {
     Ok(views.html.login())
   }
 
+  def payment = Action {
+    Ok(views.html.payment())
+  }
+
   def seating(seatingPlan:String) = Action {
     val seatingObj:Map[String, Array[Int]] = Map("seats1" -> seats1, "seats2" -> seats2)
     val useSeats:Array[Int] = seatingObj(seatingPlan)
