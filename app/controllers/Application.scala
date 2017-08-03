@@ -4,28 +4,49 @@ import org.mongodb.scala.{Completed, Document, MongoClient, MongoCollection, Mon
 import org.mongodb.scala.model.Updates._
 import controllers.Helpers._
 import play.api._
+import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 
+import scala.collection.mutable.ArrayBuffer
+import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{Await, Future}
 import scalaEnum.seatingPlanArray._
+import scalaj.http.Http
 
 class Application extends Controller {
 
-  val mongoClient:MongoClient = MongoClient("mongodb://duane:pass@ds129723.mlab.com:29723/qacinema")
+  val mongoClient:MongoClient = MongoClient("mongodb://duane:duane@ds129723.mlab.com:29723/qacinema")
   val mongoDB:MongoDatabase = mongoClient.getDatabase("qacinema")
   val receipts:MongoCollection[Document] = mongoDB.getCollection("receipts")
   val movies:MongoCollection[Document] = mongoDB.getCollection("movies")
 
-  println("results: " + receipts.find())
-
   def index = Action {
-    val exampleMovieArray:Array[Map[String, String]] = Array(Map("title" -> "Logan", "imageUrl" -> "http://spartanoracle.com/wp-content/uploads/2017/05/logan.jpg"), Map("title" -> "Spiderman Homecomeing", "imageUrl" -> "http://www.sonypictures.com/movies/spidermanhomecoming/assets/images/6216f0d376efe2bf2645ba6b9d941a45eaabf50e.jpg"))
+    var pushArray:ArrayBuffer[Map[String, String]] = ArrayBuffer()
 
-    val dbArray = Array(Document("title" -> "Logan"), Document("title" -> "Spiderman Homecoming"))
-//
-//    val moviesInDB = movies.find().results()
-//    println(moviesInDB)
+    val pullDB = Future{movies.find().results()}
+    pullDB.onSuccess {
+      case result => result
+    }
+    val moviesInDB = Await.result[Seq[Document]](pullDB, 10 seconds)
 
-    Ok(views.html.index("Index: Success")(exampleMovieArray))
+    for(i <- 0 until moviesInDB.length) {
+      println(moviesInDB(i))
+      val newName = moviesInDB(i)("title").asString().getValue
+      val newYear = moviesInDB(i)("year").asInt32().getValue
+      println(newYear)
+      val newURL = s"https://api.themoviedb.org/3/search/movie?api_key=324938bccc324fb58e236a92cb0a9bc3&language=en-US&query=$newName&page=1&include_adult=true&year=$newYear".replace(" ", "%20")
+      println(newURL)
+      val stuffs = Future{Http(newURL).asString}
+      stuffs.onSuccess{
+        case result => result
+      }
+      val returnV = Json.parse(Await.result(stuffs, 10 seconds).body)
+
+      pushArray += Map("title" -> ((returnV \ "results")(0)\"title").as[String], "imageUrl" -> ("https://image.tmdb.org/t/p/original" + ((returnV \ "results")(0)\"backdrop_path").as[String]))
+    }
+
+    Ok(views.html.index("Index: Success")(pushArray.toArray))
   }
 
   def theListing = Action {
