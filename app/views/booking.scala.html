@@ -1,6 +1,6 @@
-@(useSeats:Array[Int])(numberOfRows:Int)(seatLabels:Array[String])(filmInfo:Object)(timerList:Array[String])
+@(useSeats:Array[Int])(numberOfRows:Int)(seatLabels:Array[String])(filmInfo:String)(timerList:Array[String])
 <html>
   <div class="col-100">@navbar()</div>
-  <div class="col-100">@seatingSystem(useSeats)(numberOfRows)(seatLabels)(("name"->"Logan", "screen"->1, "length"->120))(timerList)</div>
+  <div class="col-100">@seatingSystem(useSeats)(numberOfRows)(seatLabels)("Logan")(timerList)</div>
   <div class="col-100">@defaultFooter()</div>
 </html>
