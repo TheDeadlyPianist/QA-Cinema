@@ -1,34 +1,29 @@
 #footer {
     color: white;
-    background-color: #ff7eab;
     text-align: center;
+    width: 100%;
 }
 
 #footerBottom {
-    background-color: #b04c70;
-    width:100%;
     text-align: center;
+    width: 100%;
 }
 
-#footerBottom ul {
-    list-style-type: none;
-}
-
-#footerBottom a:link {
+#footer a:link {
     color: white;
 }
 
 /* visited link */
-#footerBottom a:visited {
-    color: #646464;
+#footer a:visited {
+    color: white;
 }
 
 /* mouse over link */
-#footerBottom a:hover {
-    color: darkblue;
+#footer a:hover {
+    color: gray;
 }
 
 /* selected link */
-#footerBottom a:active {
-    color: grey;
+#footer a:active {
+    color: white;
 }
