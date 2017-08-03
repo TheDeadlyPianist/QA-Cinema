@@ -316,3 +316,32 @@ li.dropdown {
     from{opacity:0.2;}
     to{opcacity:1;}
 }
+
+.item{
+    border-style: solid;
+    border-width: 1px;
+    margin:5%;
+}
+
+.listImg{
+    width:90%;
+    margin-bottom: 7%;
+}
+
+.col-100#theList {
+    text-align:center !important;
+}
+
+.theDescCont{
+    text-align: center;
+    width:100%;
+}
+.theDesc{
+    text-align: left!important;
+    width: 50%;
+    display: inline-block
+}
+
+.listTitle{
+    font-size: 24pt;
+}
