@@ -1,10 +1,10 @@
 html {
     min-height: 100%;
-    background-color: black;
+    background-color: #111;
 }
 body {
     margin: 0;
-    background-color: black;
+    background-color: #111;
     font-family: "Calibri", sans-serif;
 }
 h1 {
@@ -321,6 +321,7 @@ li.dropdown {
     border-style: solid;
     border-width: 1px;
     margin:5%;
+    background-color: #333;
 }
 
 .listImg{
@@ -330,8 +331,10 @@ li.dropdown {
 
 .col-100#theList {
     text-align:center !important;
+    margin-bottom:1%;
 }
 
+/*
 .theDescCont{
     text-align: center;
     width:100%;
@@ -341,9 +344,21 @@ li.dropdown {
     width: 50%;
     display: inline-block
 }
-
+*/
 .listTitle{
     font-size: 24pt;
+    color:#ccc;
+}
+
+.hyperColour{
+    color:#ddd;
+}
+
+.divTitle{
+    border-style: solid;
+    border-width: 1px;
+    background-color:#333;
+    margin-bottom: 1%;
 }
 
 #movieDetails img{
