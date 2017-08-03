@@ -4,6 +4,7 @@
 
 # Home page
 GET     /                           controllers.Application.index
+
 GET     /testSeating                controllers.Application.seating(seatingPlan:String)
 
 GET     /listing                    controllers.Application.theListing
@@ -14,5 +15,4 @@ GET     /deals                      controllers.Application.theDeals
 GET     /contactUs                  controllers.Application.submitForm
 POST    /contactUs                  controllers.Application.submitForm
 
-# Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

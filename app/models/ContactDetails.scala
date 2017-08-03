@@ -3,8 +3,6 @@ package models
 import play.api.data.{Form, Mapping}
 import play.api.data.Forms._
 
-import scala.collection.mutable.ArrayBuffer
-
 case class ContactDetails(email: String, name: String, subject: String, content: String)
 
 object ContactDetails{
@@ -17,8 +15,7 @@ object ContactDetails{
       "email" -> emailValidation,
       "name" -> nonEmptyText,
       "subject" -> nonEmptyText,
-      "content" -> nonEmptyText
+      "content" -> nonEmptyText(10,500)
     )(ContactDetails.apply)(ContactDetails.unapply)
   )
 }
-

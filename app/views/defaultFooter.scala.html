@@ -1,38 +1,27 @@
 <link rel="stylesheet" type="text/css" href='@routes.Assets.at("stylesheets/footer.css")'>
-<link rel="stylesheet" type="text/css" href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
 
-<script src='@routes.Assets.at("jquery/jquery.min.js")'></script>
-<script src='@routes.Assets.at("javascripts/bootstrap.min.js")'></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-
-<footer class="footer" id="footer">
-  <div class="footer-above">
-    <div class="container">
-      <div class="row">
-        <div class="footer-col col-xs-6 col-sm-4">
-          <h3><ins>Links</ins></h3>
-          <a href="/contactUs">Contact Us</a> <br>
-          <a href="/about">About Us</a><br>
-          <a href="http://www.bbfc.co.uk/what-classification">Classifications</a>
-        </div>
-        <div class="footer-col col-xs-6 col-sm-4">
-          <h3><ins>Opening Hours</ins></h3>
-          Mon-Thu - 9:00-11:00<br>
-          Fri-Sat - 9:00-12:00<br>
-          Sun     - 9:00-10:00
-        </div>
-        <div class="footer-col col-xs-6 col-sm-4">
-          <h3><ins>Social Media</ins></h3>
-          Twitter<br>
-          Facebook<br>
-          Instagram
-        </div>
-      </div>
-
-    </div>
-    <br>
-    <div id="footerBottom">
-      <small>&copy; Copyright 2058, Example Corporation</small>
-    </div>
+<div class="col-100">
+  <div id="footer">
+    <ul class="col-33" style="font-size: 13pt">
+      <h3>Links</h3>
+        <a href="/contactUs">Contact Us</a> <br>
+      <a href="/about">About Us</a><br>
+      <a href="http://www.bbfc.co.uk/what-classification">Classifications</a>
+    </ul>
+    <ul class="col-33" style="font-size: 13pt">
+      <h3>Opening Hours</h3>
+      Mon-Sun - 9:00-23:30<br>
+    </ul>
+    <ul class="col-33" style="font-size: 13pt">
+      <h3>Social Media</h3>
+      <a href="https://twitter.com/QaCinemas"><img src="@routes.Assets.at("images/twitterLogo.png")" alt="Twitter" width="42" height="42" border="0"></a>
+      <a href="https://www.facebook.com/qacinemas/"><img src="@routes.Assets.at("images/facebookLogo.png")" alt="Facebook" width="42" height="42" border="0"></a>
+      <a href="https://www.instagram.com/qacinemas/"><img src="@routes.Assets.at("images/instagramLogo.png")" background-color="white" alt="Instagram" width="42" height="42" border="0"></a>
+      <br><br><br>
+    </ul>
   </div>
-</footer>
+  <br>
+  <div id="footerBottom" style="color: white; background-color: #062f4f">
+    <small>&copy; Copyright 2017, QA Cinemas</small>
+  </div>
+</div>
