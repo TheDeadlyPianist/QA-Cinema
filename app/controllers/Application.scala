@@ -43,7 +43,7 @@ class Application extends Controller {
       }
       val returnV = Json.parse(Await.result(stuffs, 10 seconds).body)
 
-      pushArray += Map("title" -> ((returnV \ "results")(0)\"title").as[String], "imageUrl" -> ("https://image.tmdb.org/t/p/original" + ((returnV \ "results")(0)\"backdrop_path").as[String]))
+      pushArray += Map("title" -> ((returnV \ "results")(0)\"title").as[String], "imageUrl" -> ("https://image.tmdb.org/t/p/original" + ((returnV \ "results")(0)\"backdrop_path").as[String]), "id" -> ((returnV \ "results")(0)\"id").as[Int].toString())
     }
 
     Ok(views.html.index("Index: Success")(pushArray.toArray))
@@ -61,8 +61,16 @@ class Application extends Controller {
     Ok(views.html.deals("Deals: Success"))
   }
 
-  def seating(seatingPlan:String) = Action {
-    val seatingObj:Map[String, Array[Int]] = Map("seats1" -> seats1, "seats2" -> seats2)
+  def seating(filmName:String) = Action {
+
+    val searchQuery = Document("title" -> filmName)
+    val getFilmDocument = Future{movies.find(searchQuery).results()}
+    getFilmDocument.onSuccess {
+      case result => result
+    }
+    val seatingPlan = "screen" + Await.result(getFilmDocument, 10 seconds)(0)("screen").asInt32().intValue()
+
+    val seatingObj:Map[String, Array[Int]] = Map("screen1" -> seats1, "screen2" -> seats2)
     val useSeats:Array[Int] = seatingObj(seatingPlan)
     var letterMap: Map[Int, Char] = Map()
     val lengthOfSeats = useSeats.count(_ == 2) + 1
@@ -71,9 +79,24 @@ class Application extends Controller {
     for(i <- 0 until lengthOfSeats) {
       letterMap += numbers(i) -> letters(i)
     }
+    //=============================================================================================================================================================================================
 
-    var timeList:Array[String] = Array("9:00", "11:00")
+    val times:Array[Int] = Array(540, 1410)
+    val filmLength = Await.result(getFilmDocument, 10 seconds)(0)("length").asInt32().intValue() + 20
 
+    val timeList:Seq[String] = for(i <- times(0) to times(1) by filmLength if(i +filmLength < times(1))) yield {
+      var newInt = i
+      var hours = 0
+      while(newInt >= 60) {
+        newInt -= 60
+        hours += 1
+      }
+      var minutes:String = if(newInt < 10) {s"0$newInt"} else {newInt.toString()}
+
+      hours + ":" + minutes
+    }
+
+    //=============================================================================================================================================================================================
     var letN:Int = 0
     var rowN:Int = 0
     val seatLabels = useSeats.map(i => {
@@ -87,7 +110,7 @@ class Application extends Controller {
     })
 
     Ok(
-      views.html.booking(useSeats)(lengthOfSeats)(seatLabels)(("name"->"Logan", "screen"->1, "length"->120))(timeList)
+      views.html.booking(useSeats)(lengthOfSeats)(seatLabels)(filmName)(timeList)
     )
   }
 
