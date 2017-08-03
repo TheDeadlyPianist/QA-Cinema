@@ -6,7 +6,6 @@ import controllers.Helpers._
 import play.api._
 import play.api.mvc._
 
-import scala.xml.Xhtml
 import scalaEnum.seatingPlanArray._
 
 class Application extends Controller {
