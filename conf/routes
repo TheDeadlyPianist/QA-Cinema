@@ -12,6 +12,8 @@ GET     /listing                    controllers.Application.theListing
 GET     /about                      controllers.Application.theAbout
 
 GET     /deals                      controllers.Application.theDeals
+GET    /contactUs                  controllers.Application.submitForm
+POST    /contactUs                  controllers.Application.submitForm
 
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
