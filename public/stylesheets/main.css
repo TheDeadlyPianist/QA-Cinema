@@ -1,10 +1,10 @@
 html {
     min-height: 100%;
-    background-color: black;
+    background-color: #111;
 }
 body {
     margin: 0;
-    background-color: black;
+    background-color: #111;
     font-family: "Calibri", sans-serif;
     font-size: 18px;
 }
@@ -342,6 +342,61 @@ li.dropdown {
 @keyframes newSel {
     from{opacity:0.2;}
     to{opcacity:1;}
+}
+
+.item{
+    border-style: solid;
+    border-width: 1px;
+    margin:5%;
+    background-color: #333;
+}
+
+.listImg{
+    width:90%;
+    margin-bottom: 7%;
+}
+
+.col-100#theList {
+    text-align:center !important;
+    margin-bottom:1%;
+}
+
+/*
+.theDescCont{
+    text-align: center;
+    width:100%;
+}
+.theDesc{
+    text-align: left!important;
+    width: 50%;
+    display: inline-block
+}
+*/
+.listTitle{
+    font-size: 24pt;
+    color:#ccc;
+}
+
+.hyperColour{
+    color:#ddd;
+}
+
+.divTitle{
+    border-style: solid;
+    border-width: 1px;
+    background-color:#333;
+    margin-bottom: 1%;
+}
+
+#movieDetails img{
+    width: 40%;
+    padding-top: 4%;
+    padding-left: 6%;
+}
+
+#movieDetails h2{
+    color: white;
+    padding-left: 6%;
 }
 
 input[type=text].basicInput {

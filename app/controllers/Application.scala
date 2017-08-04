@@ -57,7 +57,7 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
       }
       val returnV = Json.parse(Await.result(stuffs, 10 seconds).body)
 
-      pushArray += Map("title" -> ((returnV \ "results")(0)\"title").as[String], "imageUrl" -> ("https://image.tmdb.org/t/p/original" + ((returnV \ "results")(0)\"backdrop_path").as[String]))
+      pushArray += Map("title" -> ((returnV \ "results")(0)\"title").as[String], "imageUrl" -> ("https://image.tmdb.org/t/p/original" + ((returnV \ "results")(0)\"backdrop_path").as[String]), "id" -> ((returnV \ "results")(0)\"id").as[Int].toString())
     }
 
     Ok(views.html.index("Index: Success")(pushArray.toArray))
@@ -75,8 +75,16 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     Ok(views.html.deals("Deals: Success"))
   }
 
-  def seating(seatingPlan:String) = Action {
-    val seatingObj:Map[String, Array[Int]] = Map("seats1" -> seats1, "seats2" -> seats2)
+  def seating(filmName:String) = Action {
+
+    val searchQuery = Document("title" -> filmName)
+    val getFilmDocument = Future{movies.find(searchQuery).results()}
+    getFilmDocument.onSuccess {
+      case result => result
+    }
+    val seatingPlan = "screen" + Await.result(getFilmDocument, 10 seconds)(0)("screen").asInt32().intValue()
+
+    val seatingObj:Map[String, Array[Int]] = Map("screen1" -> seats1, "screen2" -> seats2)
     val useSeats:Array[Int] = seatingObj(seatingPlan)
     var letterMap: Map[Int, Char] = Map()
     val lengthOfSeats = useSeats.count(_ == 2) + 1
@@ -85,9 +93,24 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     for(i <- 0 until lengthOfSeats) {
       letterMap += numbers(i) -> letters(i)
     }
+    //=============================================================================================================================================================================================
 
-    var timeList:Array[String] = Array("9:00", "11:00")
+    val times:Array[Int] = Array(540, 1410)
+    val filmLength = Await.result(getFilmDocument, 10 seconds)(0)("length").asInt32().intValue() + 20
 
+    val timeList:Seq[String] = for(i <- times(0) to times(1) by filmLength if(i +filmLength < times(1))) yield {
+      var newInt = i
+      var hours = 0
+      while(newInt >= 60) {
+        newInt -= 60
+        hours += 1
+      }
+      var minutes:String = if(newInt < 10) {s"0$newInt"} else {newInt.toString()}
+
+      hours + ":" + minutes
+    }
+
+    //=============================================================================================================================================================================================
     var letN:Int = 0
     var rowN:Int = 0
     val seatLabels = useSeats.map(i => {
@@ -101,10 +124,9 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     })
 
     Ok(
-      views.html.booking(useSeats)(lengthOfSeats)(seatLabels)(("name"->"Logan", "screen"->1, "length"->120))(timeList)
+      views.html.booking(useSeats)(lengthOfSeats)(seatLabels)(filmName)(timeList)
     )
   }
-
   def sendEmail(from: String, name: String, subject: String, text: String): Unit ={
     val email = Email(
       subject,
@@ -123,5 +145,23 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
       sendEmail(contactDetails.email, contactDetails.name, contactDetails.subject, contactDetails.content)
       Redirect("/contactUs").flashing("messageSent" -> "Thank You. Your message has been sent")
     })
+  }
+  def theMovieInfo(movieID:Int) = Action {
+    var p:ArrayBuffer[Map[String, String]] = ArrayBuffer()
+
+    val newURL = s"https://api.themoviedb.org/3/movie/$movieID?api_key=324938bccc324fb58e236a92cb0a9bc3".replace(" ", "%20")
+    println(newURL)
+
+    val stuffs = Future{Http(newURL).asString}
+    stuffs.onSuccess{
+        case result => result
+    }
+    val returnV = Json.parse(Await.result(stuffs, 10 seconds).body)
+
+    p += Map("title" -> (returnV \ "title").as[String], "imageUrl" -> ("https://image.tmdb.org/t/p/original" + (returnV \ "poster_path").as[String]))
+
+
+
+    Ok(views.html.moviesInfo("MovieInfo: Success")(p.toArray))
   }
 }

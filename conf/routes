@@ -5,7 +5,7 @@
 # Home page
 GET     /                           controllers.Application.index
 
-GET     /testSeating                controllers.Application.seating(seatingPlan:String)
+GET     /testSeating                controllers.Application.seating(filmName:String)
 
 GET     /listing                    controllers.Application.theListing
 
@@ -16,3 +16,5 @@ GET    /contactUs                  controllers.Application.submitForm
 POST    /contactUs                  controllers.Application.submitForm
 
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+GET     /movieInfo                  controllers.Application.theMovieInfo(movieID:Int)
