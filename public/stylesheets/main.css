@@ -361,13 +361,14 @@ li.dropdown {
     margin-bottom: 1%;
 }
 
-#movieDetails img{
-    width: 40%;
+#movieImage img{
+    width: 100%;
     padding-top: 4%;
-    padding-left: 6%;
+    padding-left: 4%;
+    padding-bottom: 4%;
 }
 
-#movieDetails h2{
+#movieInformation h1,h2,h3{
     color: white;
     padding-left: 6%;
 }
