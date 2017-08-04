@@ -67,6 +67,19 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     Ok(views.html.listing("Listing: Success"))
   }
 
+
+  def register = Action {
+    Ok(views.html.register())
+  }
+
+  def login = Action {
+    Ok(views.html.login())
+  }
+
+  def payment = Action {
+    Ok(views.html.payment())
+  }
+
   def theAbout = Action {
     Ok(views.html.about("About: Success"))
   }
