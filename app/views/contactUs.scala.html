@@ -1,0 +1,38 @@
+@(form: Form[ContactDetails])(implicit messages: Messages, flash: Flash)
+
+<link rel="stylesheet" type="text/css" href='@routes.Assets.at("stylesheets/main.css")'>
+<div class="col-100">@navbar()</div>
+
+<section style="color: white">
+    <h1><ins>Contact US</ins></h1>
+</section>
+<section style="color: white">
+    <div >
+        <h3>Contact Details</h3>
+        <p>Email</p>
+        <p>Phone</p>
+        <p>Facebook</p>
+        <p>Twitter</p>
+    </div>
+</section>
+<section style="color: white">
+    <div>
+        <p>If you have any questions and would like to send us a message directly you can use the form below to send us
+            a message directly. We will try to respond to your message as soon as we can</p>
+    </div>
+    <div>
+        <p>@flash.get("messageSent").getOrElse("")</p>
+    </div>
+
+    <form>
+        @helper.form(routes.Application.submitForm){
+            @helper.inputText(form("email"), '_label -> "email", '_showConstraints -> false)
+            @helper.inputText(form("name"), '_label -> "name", '_showConstraints -> false)
+            @helper.inputText(form("subject"), '_label -> "subject", '_showConstraints -> false)
+            @helper.inputText(form("content"), '_label -> "content", '_showConstraints -> false)
+            <button type="submit"> Send </button>
+        }
+    </form>
+</section>
+
+<div class="col-100">@defaultFooter()</div>

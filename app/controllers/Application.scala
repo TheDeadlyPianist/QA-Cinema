@@ -1,5 +1,18 @@
 package controllers
 
+import javax.inject.Inject
+
+import models.ContactDetails
+import play.api.mvc.{Action, Controller}
+import play.api.i18n.{I18nSupport, MessagesApi}
+
+import models.ContactDetails
+import play.api.mvc.{Action, Controller}
+import play.api.i18n.{I18nSupport, MessagesApi}
+import javax.inject.Inject
+
+import play.api.libs.mailer._
+
 import org.mongodb.scala.{Completed, Document, MongoClient, MongoCollection, MongoDatabase, Observable, Observer}
 import org.mongodb.scala.model.Updates._
 import controllers.Helpers._
@@ -14,7 +27,8 @@ import scala.concurrent.{Await, Future}
 import scalaEnum.seatingPlanArray._
 import scalaj.http.Http
 
-class Application extends Controller {
+class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerClient)
+  extends Controller with I18nSupport {
 
   val mongoClient:MongoClient = MongoClient("mongodb://duane:duane@ds129723.mlab.com:29723/qacinema")
   val mongoDB:MongoDatabase = mongoClient.getDatabase("qacinema")
@@ -113,23 +127,28 @@ class Application extends Controller {
       views.html.booking(useSeats)(lengthOfSeats)(seatLabels)(filmName)(timeList)
     )
   }
+  def sendEmail(from: String, name: String, subject: String, text: String): Unit ={
+    val email = Email(
+      subject,
+      from,
+      Seq("To <Qaodeon@gmail.com>"),
+      bodyText = Some(text + "    From: " + name + " Email: " + from )
+    )
+    mailerClient.send(email)
+  }
 
+  def submitForm = Action { implicit request =>
+    val formValidationResult = ContactDetails.contactForm.bindFromRequest
+    formValidationResult.fold({ formWithErrors =>
+      BadRequest(views.html.contactUs(formWithErrors))
+    }, { contactDetails =>
+      sendEmail(contactDetails.email, contactDetails.name, contactDetails.subject, contactDetails.content)
+      Redirect("/contactUs").flashing("messageSent" -> "Thank You. Your message has been sent")
+    })
+  }
   def theMovieInfo(movieID:Int) = Action {
 
     Ok(views.html.moviesInfo("MovieInfo: Success")(movieID))
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
