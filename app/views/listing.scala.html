@@ -1,8 +1,14 @@
 @(message: String)
 
-<p>THIS IS THE LISTING PAGE</p>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+<body>
+    <div class="col-100">@navbar()</div>
 
-<a href="../">HOME</a>
-<a href="../listing">LISTINGS</a>
-<a href="../about">ABOUT</a>
-<a href="../deals">DEALS</a>
+    <div id="theList" class="col-100">
+
+        <script src="@routes.Assets.at("javascripts/getListings.js")" rel="javascript"></script>
+    </div>
+
+    <div class="col-100">@defaultFooter()</div>
+
+</body>

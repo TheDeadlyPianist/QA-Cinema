@@ -1,8 +1,98 @@
 @(message: String)
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+<head>
+    <style>
+            /* Always set the map height explicitly to define the size of the div
+             * element that contains the map. */
+            #map {
+                height: 50%;
+                width: 50%;
+                margin: 0;
+                padding: 0;
 
-<p>THIS IS THE ABOUT PAGE</p>
+                /* Optional: Makes the sample page fill the window. */
+                /*html, body {*/
+                /*height: 100%;*/
+                /*margin: 0;*/
+                /*padding: 0;*/
+                /*}*/
+            }
 
-<a href="../">HOME</a>
-<a href="../listing">LISTINGS</a>
-<a href="../about">ABOUT</a>
-<a href="../deals">DEALS</a>
+    </style>
+    <div class="col-100">@navbar()</div>
+</head>
+<body>
+    <div class="col-100" id="map">
+        <script>
+                var map;
+                var infowindow;
+
+                function initMap() {
+                    var cinema = new google.maps.LatLng(53.474589, -2.286499);
+
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 15,
+                        center: cinema,
+                        mapTypeId: 'terrain'
+                    });
+
+                    var homeMarker = new google.maps.Marker({
+                        position: cinema,
+                        map: map,
+                        icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/movies.png'
+
+                    });
+
+                    infowindow = new google.maps.InfoWindow();
+                    var service = new google.maps.places.PlacesService(map);
+                    function createRest(string) {
+                        service.nearbySearch({
+                            location: cinema,
+                            radius: 1000,
+                            type: [string]
+                        }, callback);
+                    }
+                    function callback(results, status) {
+                        if (status === google.maps.places.PlacesServiceStatus.OK) {
+                            for (var i = 0; i < results.length; i++) {
+                                console.log(results[i]);
+                                createMarker(results[i]);
+                            }
+                        }
+                    }
+
+                    function createMarker(place) {
+                        var placeLoc = place.geometry.location;
+                        if(place.types.includes("bar")){
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: place.geometry.location,
+                            icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/restaurant.png'
+                        });}
+                        else if(place.types.includes("restaurant")){
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: place.geometry.location,
+                                icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/bar.png'
+                            });
+                        }
+
+                        google.maps.event.addListener(marker, 'click', function () {
+                            infowindow.setContent(place.name);
+                            infowindow.open(map, this);
+                        });
+                    }
+
+                    createRest('restaurant');
+                    createRest('bar')
+
+                }
+        </script>
+        <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDULYRqPbZDrCSmoKNXZJPR3enCXhI226Q&libraries=places&callback=initMap" async defer>
+        </script>
+    </div>
+    <div class="col-100">@defaultFooter()</div>
+</body>
+
+
