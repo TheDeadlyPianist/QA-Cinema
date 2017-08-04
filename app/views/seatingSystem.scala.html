@@ -13,7 +13,7 @@
 
 <body onresize="resize()">
     <div id="movieTitle" style="color: white; text-align: center; margin-top: 4%; font-size: 500%">@filmInfo</div>
-    <div class="seatSelector col-50" style="border: solid; border-color: #727272">
+    <div class="seatSelector col-50" style="border: solid #727272;">
         <div align="center">@for(i <- useSeats.indices) {
             @useSeats(i) match {
                 case 4 => {<div class="emptyRow"></div>}
