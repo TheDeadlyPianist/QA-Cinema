@@ -5,7 +5,8 @@
 # Home page
 GET     /                           controllers.Application.index
 
-GET     /seatBooking                controllers.Application.seating(filmName:String)
+GET     /seatBooking                controllers.Application.seating(filmName:String, date:String)
+POST    /sendRecepitRequest         controllers.Application.seatingRequest()
 
 GET     /listing                    controllers.Application.theListing
 
