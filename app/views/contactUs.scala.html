@@ -1,38 +1,50 @@
 @(form: Form[ContactDetails])(implicit messages: Messages, flash: Flash)
+<html>
+    <link rel="stylesheet" type="text/css" href='@routes.Assets.at("stylesheets/main.css")'>
+    <div class="col-100">@navbar()</div>
+    <body >
+        <section style="color: white" class="sideSize">
+            <h1 class="noPadding"><ins>Contact US</ins></h1>
+            <p> We thrive to make your trip to QACinema the best experience possible. In order to achieve this we like
+                to receive feedback so that we can enhance your next visit. This section contains all the information that
+                you need in order to contact us.
+            </p>
+        </section>
+        <section style="color: white" class="sideSize">
+            <div >
+                <h3>Contact Details</h3>
+                <p>Email - qaodeon@@gmail.com</p>
+                <p>Phone - 01123 456 789</p>
+                <p>Facebook - <a class="link" href="https://www.facebook.com/qacinemas/">click here to go to our facebook page</a></p>
+                <p>Twitter - <a class="link" href="https://www.twitter.com/qacinemas/">click here to go to our twitter page</a> </p>
+            </div>
+        </section>
+        <section style="color: white" class="sideSize">
+            <div>
+                <h3>Send Us A Message Directly</h3>
+                <p>If you have any questions and would like to send us a message directly you can use the form below to
+                    send us a message directly. We will try to respond to your message as soon as we can</p>
+            </div>
+            <div>
+                <p class="feedbackMessage">@flash.get("messageSent").getOrElse("")</p>
+            </div>
 
-<link rel="stylesheet" type="text/css" href='@routes.Assets.at("stylesheets/main.css")'>
-<div class="col-100">@navbar()</div>
-
-<section style="color: white">
-    <h1><ins>Contact US</ins></h1>
-</section>
-<section style="color: white">
-    <div >
-        <h3>Contact Details</h3>
-        <p>Email</p>
-        <p>Phone</p>
-        <p>Facebook</p>
-        <p>Twitter</p>
-    </div>
-</section>
-<section style="color: white">
-    <div>
-        <p>If you have any questions and would like to send us a message directly you can use the form below to send us
-            a message directly. We will try to respond to your message as soon as we can</p>
-    </div>
-    <div>
-        <p>@flash.get("messageSent").getOrElse("")</p>
-    </div>
-
-    <form>
-        @helper.form(routes.Application.submitForm){
-            @helper.inputText(form("email"), '_label -> "email", '_showConstraints -> false)
-            @helper.inputText(form("name"), '_label -> "name", '_showConstraints -> false)
-            @helper.inputText(form("subject"), '_label -> "subject", '_showConstraints -> false)
-            @helper.inputText(form("content"), '_label -> "content", '_showConstraints -> false)
-            <button type="submit"> Send </button>
-        }
-    </form>
-</section>
-
-<div class="col-100">@defaultFooter()</div>
+            <form>
+            @helper.form(routes.Application.submitForm){
+                @helper.inputText(form("email"), '_label -> "Email Address", '_showConstraints -> false, 'class -> "basicInput",
+                    'placeholder -> "Please enter your email address", 'alt -> "Please enter your email address")
+                @helper.inputText(form("name"), '_label -> "Your Name", '_showConstraints -> false, 'class -> "basicInput",
+                    'placeholder -> "Please enter your name", 'alt -> "Please enter your name")
+                @helper.inputText(form("subject"), '_label -> "Question Subject", '_showConstraints -> false, 'class -> "basicInput",
+                    'placeholder -> "Please enter the subject of your question",
+                    'alt -> "Please enter the subject of your question")
+                @helper.textarea(form("content"), '_label -> "Your Question", '_showConstraints -> false, 'class -> "contact",
+                    'placeholder -> "Please enter your question. minimum 10 characters, maximum 500",
+                    'alt -> "Please enter your question. Minimum 10 characters, Maximum 500", 'maxlength -> "500")
+                <button type="submit" class="largeBtn"> Send </button>
+            }
+            </form>
+        </section>
+    </body>
+    <div class="col-100">@defaultFooter()</div>
+</html>
