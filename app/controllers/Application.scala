@@ -90,4 +90,36 @@ class Application extends Controller {
       views.html.booking(useSeats)(lengthOfSeats)(seatLabels)(("name"->"Logan", "screen"->1, "length"->120))(timeList)
     )
   }
+
+  def theMovieInfo(movieID:Int) = Action {
+    var p:ArrayBuffer[Map[String, String]] = ArrayBuffer()
+
+    val newURL = s"https://api.themoviedb.org/3/movie/$movieID?api_key=324938bccc324fb58e236a92cb0a9bc3".replace(" ", "%20")
+    println(newURL)
+
+    val stuffs = Future{Http(newURL).asString}
+    stuffs.onSuccess{
+        case result => result
+    }
+    val returnV = Json.parse(Await.result(stuffs, 10 seconds).body)
+
+    p += Map("title" -> (returnV \ "title").as[String], "imageUrl" -> ("https://image.tmdb.org/t/p/original" + (returnV \ "poster_path").as[String]))
+
+
+
+    Ok(views.html.moviesInfo("MovieInfo: Success")(p.toArray))
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
