@@ -1,0 +1,48 @@
+@navbar()
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script data-main="scripts/main" src='@routes.Assets.at("requirejs/require.js")'></script>
+</head>
+<body>
+
+
+
+  <div class="container">
+
+
+    <form action='@routes.Assets.at("javascripts/stripePayment.js")' method="POST">
+      <script
+      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="pk_test_KWyw9m8hsxsgelLoigCo42Cr"
+      data-amount="999"
+      data-name="Demo Site"
+      data-description="Widget"
+      data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+      data-locale="auto"
+      data-zip-code="true"
+      data-currency="gbp">
+  </script>
+        <!--    This should be changed as it relates to the charge amount-->
+      @*<input type="hidden" name= "chargeAmount" value="2000">*@
+
+    </form>
+
+
+  </div>
+
+  <script src='@routes.Assets.at("javascripts/stripePayment.js")'></script>
+
+</body>
+</html>
