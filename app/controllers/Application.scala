@@ -45,12 +45,9 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     val moviesInDB = Await.result[Seq[Document]](pullDB, 10 seconds)
 
     for(i <- 0 until moviesInDB.length) {
-      println(moviesInDB(i))
       val newName = moviesInDB(i)("title").asString().getValue
       val newYear = moviesInDB(i)("year").asInt32().getValue
-      println(newYear)
       val newURL = s"https://api.themoviedb.org/3/search/movie?api_key=324938bccc324fb58e236a92cb0a9bc3&language=en-US&query=$newName&page=1&include_adult=true&year=$newYear".replace(" ", "%20")
-      println(newURL)
       val stuffs = Future{Http(newURL).asString}
       stuffs.onSuccess{
         case result => result
@@ -88,7 +85,9 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     Ok(views.html.deals("Deals: Success"))
   }
 
-  def seating(filmName:String) = Action {
+  def seating(filmName:String, date:String) = Action {
+
+    val queryDate = date.toInt
 
     val searchQuery = Document("title" -> filmName)
     val getFilmDocument = Future{movies.find(searchQuery).results()}
@@ -137,9 +136,30 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     })
 
     Ok(
-      views.html.booking(useSeats)(lengthOfSeats)(seatLabels)(filmName)(timeList)
+      views.html.booking(useSeats)(lengthOfSeats)(seatLabels)(filmName)(timeList)(queryDate)
     )
   }
+
+  def seatingRequest = Action { implicit request =>
+    val retVal = Json.parse(request.body.toString().replace("AnyContentAsText(", "").replace(")", ""))
+
+    val filmTitle = (retVal \ "filmTitle").as[String]
+    val time = (retVal \ "time").as[String]
+    val date = (retVal \ "date").as[String].toInt
+    val seats = (retVal \ "seats").as[String].split(",")
+    val cost = (retVal \ "totalCost").as[Float].toString()
+
+    val inputQuery = Document("filmTitle"->filmTitle,"time"->time,"date"->date,"cost"->cost,"seats"->(for(i <- 0 until seats.length) yield {seats(i)}))
+
+    val future = Future(receipts.insertOne(inputQuery).results())
+    future.onSuccess{
+      case result => result
+    }
+    Await.result(future, 10 seconds)
+
+    Redirect("/")
+  }
+
   def sendEmail(from: String, name: String, subject: String, text: String): Unit ={
     val email = Email(
       subject,
