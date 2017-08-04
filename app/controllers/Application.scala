@@ -179,6 +179,7 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
       Redirect("/contactUs").flashing("messageSent" -> "Thank You. Your message has been sent")
     })
   }
+
   def theMovieInfo(movieID:Int) = Action {
 
     Ok(views.html.moviesInfo("MovieInfo: Success")(movieID))
