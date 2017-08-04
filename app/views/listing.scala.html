@@ -1,12 +1,12 @@
 @(message: String)
-
+<script src="@routes.Assets.at("javascripts/watermark.js")" rel="javascript" type="text/javascript"></script>
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
 <body>
     <div class="col-100">@navbar()</div>
 
-    <div id="theList" class="col-100">
 
-        <script src="@routes.Assets.at("javascripts/getListings.js")" rel="javascript"></script>
+    <div id="theList" class="col-100">
+        <script src="@routes.Assets.at("javascripts/getListings.js")" rel="javascript" type="text/javascript"></script>
     </div>
 
     <div class="col-100">@defaultFooter()</div>

@@ -92,7 +92,6 @@ function movieSearch(){
             movieyear: "2017"
         }
 
-
     ];
 
     $.each(movieInfo, function(key, movie) {
@@ -106,11 +105,29 @@ function movieSearch(){
             "data": "{}"
         };
 
-
         $.ajax(settings).done(function (response) {
             console.log(response);
 
-            document.getElementById("theList").innerHTML += '<div class="col-20"><div class="item"><div><h3><a class="hyperColour" href="/movieInfo?movieID='+response.id+'">'+response.original_title+'</a></h3></div><img class="listImg" src="https://image.tmdb.org/t/p/original'+response.poster_path+'" alt=""></div></div>';
+            document.getElementById("theList").innerHTML += '<div class="col-20"><div class="item"><div><h3><a class="hyperColour" href="/movieInfo?movieID=' + response.id + '">' + response.original_title + '</a></h3></div><div id="theWM"></div></div>';
+
+            // <img id="img' + response.movieID + '" class="listImg" src="https://image.tmdb.org/t/p/original' + response.poster_path + '">
+            watermark(['https://image.tmdb.org/t/p/original' + response.poster_path, 'https://image.tmdb.org/t/p/original' + response.poster_path],
+                function (img) {
+
+                    img.crossOrigin = 'Anonymous';
+
+                })
+
+                .image(watermark.image.lowerRight(0.5))
+
+                .then(function (img) {
+
+                    document.getElementById('theWM').appendChild(img);
+
+                });
+
+            //<img class="listImg" src="https://image.tmdb.org/t/p/original'+response.poster_path+'"
+
             // description
             //<div class="theDescCont"><div class="theDesc">'+response.overview+'</div></div>
 
