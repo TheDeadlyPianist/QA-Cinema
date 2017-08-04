@@ -8,17 +8,16 @@
     <script src="@routes.Assets.at("javascripts/basicCarousel.js")" rel="javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet">
-
     <div class="selfContainer basicPad" style="width: 75%; margin: auto;">
         <div class="itemList">
             @for(i <- movieArray.indices) {
-                <img class="cImg listItem" src=@movieArray(i)("imageUrl")>
+                <a href="/movieInfo?movieID=@movieArray(i)("id")"><img class="cImg listItem" src=@movieArray(i)("imageUrl")></a>
             }
         </div>
 
         <div class="textContainer">
             @for(i <- movieArray.indices) {
-                <div class="imgText">@movieArray(i)("title")</div>
+                <div class="imgText" style="user-select: none">@movieArray(i)("title")</div>
             }
         </div>
 
