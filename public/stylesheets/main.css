@@ -375,7 +375,7 @@ li.dropdown {
 }
 
 #movieTrailer {
-    padding-top: 1%;
+    padding-top: 4%;
     padding-bottom: 2%;
     text-align: center;
 
@@ -399,4 +399,9 @@ li.dropdown {
     display: inline-block;
     font-size: 16px;
 
+}
+
+#ageRatingImg{
+    padding-top: 2%;
+    width: 8%;
 }
