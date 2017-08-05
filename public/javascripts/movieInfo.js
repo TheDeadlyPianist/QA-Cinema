@@ -1,5 +1,6 @@
 $(document).ready(function(){
     getMovieInformation();
+    getMovieTrailer();
 });
 
 function getMovieInformation(){
@@ -23,23 +24,22 @@ function getMovieInformation(){
 
         for(var i=0; i < response.genres.length; i++){
 
-           genres += response.genres[i].name + " , ";
+           genres += response.genres[i].name +  '</br>';
 
         }
 
-        $('<h2 id="genres">'+"Genres: " + genres+'</h2>').appendTo('#movieInformation')
-
+        $('<h2 id="genres">'+"Genres: " + '</br></br>' + genres +'</h2>').appendTo('#movieInformation')
 
 
         var productionCompanies = ""
 
         for(var i=0; i < response.production_companies.length; i++){
 
-            productionCompanies += response.production_companies[i].name + " , ";
+            productionCompanies += response.production_companies[i].name + '</br>';
 
         }
 
-        $('<h2 id="productionCompanies">'+"Production Companies: " + productionCompanies+'</h2>').appendTo('#movieInformation')
+        $('<h2 id="productionCompanies">'+"Production Companies: " + '</br></br>' + productionCompanies+'</h2>').appendTo('#movieInformation')
 
         getAgeRating();
 
@@ -61,7 +61,7 @@ function getAgeRating(){
     $.ajax(settings).done(function (response) {
         console.log(response);
 
-        var ageRating = ""
+        var ageRating = "";
         for (var i = 0; i < response.results.length; i++) {
             if (response.results[i].iso_3166_1 == "GB"){
                 for (var j = 0; j  < response.results[i].release_dates.length; j ++) {
@@ -70,8 +70,39 @@ function getAgeRating(){
             }
         }
 
-        $('<h2 id="ageRating">'+"Age Rating: " + ageRating+'</h2>').appendTo('#movieInformation');
+        $('<h2 id="ageRating">'+"Age Rating: " + ageRating+'</h2></br>').appendTo('#movieInformation');
+        $('<button id="bookTicketBtn" onclick="bookTicket()">Book</button>').appendTo('#movieInformation')
+    });
+}
+
+
+function getMovieTrailer(){
+
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://api.themoviedb.org/3/movie/"+movieIDGlobalObject.movieid+"/videos?api_key=324938bccc324fb58e236a92cb0a9bc3",
+        "method": "GET",
+        "headers": {},
+        "data": "{}"
+    };
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+
+        var videoLink = "";
+
+        videoLink = response.results[0].key;
+
+        $('<iframe src="https://www.youtube.com/embed/'+videoLink+'" frameborder="0" allowfullscreen id="filmTrailer" align="middle"></iframe>').appendTo('#movieTrailer')
+
 
     });
+
+}
+
+function bookTicket() {
+
+    alert("Book Ticket")
 
 }
