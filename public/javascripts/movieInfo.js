@@ -1,6 +1,5 @@
 $(document).ready(function(){
     getMovieInformation();
-    getAgeRating();
 });
 
 function getMovieInformation(){
@@ -17,9 +16,8 @@ function getMovieInformation(){
     $.ajax(settings).done(function (response) {
         console.log(response);
 
-        $(('<h1>'+response.original_title+'</h1>' + '<h2>Release Date: '+response.release_date+'</h2>' + '<h2>Runtime: '+response.runtime+' Minutes</h2>' + '<h2>Overview: '+response.overview+'</h2>')).appendTo('#movieInformation');
+        $(('<h1>'+response.original_title+'</h1>' + '<h2>Release Date: '+response.release_date+'</h2>' + '<h2>Runtime: '+response.runtime+' Minutes</h2>' + '<h2>Movie Rating: '+response.vote_average+'</h2>' + '<h2>Overview: '+response.overview+'</h2>')).appendTo('#movieInformation');
         $('<img src="https://image.tmdb.org/t/p/original'+response.poster_path+'">').appendTo('#movieImage');
-
 
         var genres = ""
 
@@ -43,6 +41,8 @@ function getMovieInformation(){
 
         $('<h2 id="productionCompanies">'+"Production Companies: " + productionCompanies+'</h2>').appendTo('#movieInformation')
 
+        getAgeRating();
+
     });
 
 }
@@ -61,12 +61,17 @@ function getAgeRating(){
     $.ajax(settings).done(function (response) {
         console.log(response);
 
-        var sortedBatKickNames = sidekicks.filter(function (el) {
-            return (el.hero === "Batman");
-        }).map(function(el) {
-            return el.name;
-        }).sort();
-        
+        var ageRating = ""
+        for (var i = 0; i < response.results.length; i++) {
+            if (response.results[i].iso_3166_1 == "GB"){
+                for (var j = 0; j  < response.results[i].release_dates.length; j ++) {
+                    ageRating += response.results[i].release_dates[j].certification;
+                }
+            }
+        }
+
+        $('<h2 id="ageRating">'+"Age Rating: " + ageRating+'</h2>').appendTo('#movieInformation');
+
     });
 
 }
