@@ -26,7 +26,7 @@ function getMovieInformation(){
 
            genres += response.genres[i].name +  '</br>';
 
-        }
+        };
 
         $('<h2 id="genres">'+"Genres: " + '</br></br>' + genres +'</h2>').appendTo('#movieInformation')
 
@@ -37,7 +37,7 @@ function getMovieInformation(){
 
             productionCompanies += response.production_companies[i].name + '</br>';
 
-        }
+        };
 
         $('<h2 id="productionCompanies">'+"Production Companies: " + '</br></br>' + productionCompanies+'</h2>').appendTo('#movieInformation')
 
@@ -83,13 +83,13 @@ function getAgeRating(){
                         ageRating += "http://www.erotictradeonly.com/wp-content/uploads/2014/01/LOGO_BBFC_R18-175x109.jpg"
                     }
 
-                }
-            }
-        }
+                };
+            };
+        };
 
         //$('<h2 id="ageRating">'+"Age Rating: " + ageRating+'</h2></br>').appendTo('#movieInformation');
         $('<h2 id="ageRating">'+"Age Rating: " + '</br>' + '<img src="'+ageRating+'" id="ageRatingImg">'+'</h2>').appendTo('#movieInformation');
-        $('<button id="bookTicketBtn" onclick="bookTicket()">Book</button>').appendTo('#movieInformation')
+        $('<button id="bookTicketBtn" onclick="bookTicket()">Book</button>').appendTo('#movieInformation');
     });
 }
 
@@ -112,7 +112,7 @@ function getMovieTrailer(){
 
         videoLink = response.results[0].key;
 
-        $('<iframe src="https://www.youtube.com/embed/'+videoLink+'" frameborder="0" allowfullscreen id="filmTrailer" align="middle"></iframe>').appendTo('#movieTrailer')
+        $('<iframe src="https://www.youtube.com/embed/'+videoLink+'" frameborder="0" allowfullscreen id="filmTrailer" align="middle"></iframe>').appendTo('#movieTrailer');
 
 
     });
