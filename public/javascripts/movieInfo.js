@@ -20,7 +20,7 @@ function getMovieInformation(){
         $(('<h1>'+response.original_title+'</h1>' + '<h2>Release Date: '+response.release_date+'</h2>' + '<h2>Runtime: '+response.runtime+' Minutes</h2>' + '<h2>Movie Rating: '+response.vote_average+'</h2>' + '<h2>Overview: '+response.overview+'</h2>')).appendTo('#movieInformation');
         $('<img src="https://image.tmdb.org/t/p/original'+response.poster_path+'">').appendTo('#movieImage');
 
-        var genres = ""
+        var genres = "";
 
         for(var i=0; i < response.genres.length; i++){
 
@@ -28,10 +28,10 @@ function getMovieInformation(){
 
         };
 
-        $('<h2 id="genres">'+"Genres: " + '</br></br>' + genres +'</h2>').appendTo('#movieInformation')
+        $('<h2 id="genres">'+"Genres: " + '</br></br>' + genres +'</h2>').appendTo('#movieInformation');
 
 
-        var productionCompanies = ""
+        var productionCompanies = "";
 
         for(var i=0; i < response.production_companies.length; i++){
 
@@ -39,7 +39,7 @@ function getMovieInformation(){
 
         };
 
-        $('<h2 id="productionCompanies">'+"Production Companies: " + '</br></br>' + productionCompanies+'</h2>').appendTo('#movieInformation')
+        $('<h2 id="productionCompanies">'+"Production Companies: " + '</br></br>' + productionCompanies+'</h2>').appendTo('#movieInformation');
 
         getAgeRating();
 
