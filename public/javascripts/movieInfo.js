@@ -17,6 +17,7 @@ function getMovieInformation(){
     $.ajax(settings).done(function (response) {
         console.log(response);
 
+
         $(('<h1>'+response.original_title+'</h1>' + '<h2>Release Date: '+response.release_date+'</h2>' + '<h2>Runtime: '+response.runtime+' Minutes</h2>' + '<h2>Movie Rating: '+response.vote_average+'</h2>' + '<h2>Overview: '+response.overview+'</h2>')).appendTo('#movieInformation');
         $('<img src="https://image.tmdb.org/t/p/original'+response.poster_path+'">').appendTo('#movieImage');
 
@@ -68,19 +69,19 @@ function getAgeRating(){
                 for (var j = 0; j  < response.results[i].release_dates.length; j ++) {
 
                     if(response.results[i].release_dates[j].certification == "U"){
-                        ageRating += "https://vignette4.wikia.nocookie.net/memoryalpha/images/3/37/BBFC_U.png/revision/20120614184504/scale-to-width-down/120?path-prefix=en"
+                        ageRating += "https://vignette4.wikia.nocookie.net/memoryalpha/images/3/37/BBFC_U.png/revision/20120614184504/scale-to-width-down/120?path-prefix=en";
                     }else if(response.results[i].release_dates[j].certification == "PG"){
-                        ageRating += "https://jaybullimore98.files.wordpress.com/2014/12/pg.png"
+                        ageRating += "https://jaybullimore98.files.wordpress.com/2014/12/pg.png";
                     }else if(response.results[i].release_dates[j].certification == "12"){
-                        ageRating += "https://jaybullimore98.files.wordpress.com/2014/12/12.png"
+                        ageRating += "https://jaybullimore98.files.wordpress.com/2014/12/12.png";
                     }else if(response.results[i].release_dates[j].certification == "12A"){
-                        ageRating += "https://jaybullimore98.files.wordpress.com/2014/12/12a.png"
+                        ageRating += "https://jaybullimore98.files.wordpress.com/2014/12/12a.png";
                     }else if(response.results[i].release_dates[j].certification == "15"){
-                        ageRating += "https://jaybullimore98.files.wordpress.com/2014/12/15.png"
+                        ageRating += "https://jaybullimore98.files.wordpress.com/2014/12/15.png";
                     }else if(response.results[i].release_dates[j].certification == "18"){
-                        ageRating += "https://jaybullimore98.files.wordpress.com/2014/12/18.png"
+                        ageRating += "https://jaybullimore98.files.wordpress.com/2014/12/18.png";
                     }else if(response.results[i].release_dates[j].certification == "R18"){
-                        ageRating += "http://www.erotictradeonly.com/wp-content/uploads/2014/01/LOGO_BBFC_R18-175x109.jpg"
+                        ageRating += "http://www.erotictradeonly.com/wp-content/uploads/2014/01/LOGO_BBFC_R18-175x109.jpg";
                     }
 
                 };
@@ -88,8 +89,8 @@ function getAgeRating(){
         };
 
         //$('<h2 id="ageRating">'+"Age Rating: " + ageRating+'</h2></br>').appendTo('#movieInformation');
-        $('<h2 id="ageRating">'+"Age Rating: " + '</br>' + '<img src="'+ageRating+'" id="ageRatingImg">'+'</h2>').appendTo('#movieInformation');
-        $('<button id="bookTicketBtn" onclick="bookTicket()">Book</button>').appendTo('#movieInformation');
+        $('<h2 id="ageRating">'+"Age Rating: " + '</br>' + '<img src="'+ageRating+'" id="ageRatingImg">'+'</h2>' + '<button id="bookTicketBtn" onclick="bookTicket()">Book</button>').appendTo('#movieInformation');
+
     });
 }
 
