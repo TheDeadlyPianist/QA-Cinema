@@ -23,6 +23,6 @@ GET     /login                      controllers.Application.login
 
 GET     /payment                    controllers.Application.payment
 
-POST    /charge                     controllers.Application.payment()
+POST    /charge                     controllers.Application.testAction()
 
 GET     /movieInfo                  controllers.Application.theMovieInfo(movieID:Int)

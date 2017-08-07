@@ -77,8 +77,9 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
   }
 
   def payment = Action {
-    Ok(views.html.payment())
+    Ok(views.html.payment());
   }
+
 
   def theAbout = Action {
     Ok(views.html.about("About: Success"))
@@ -86,6 +87,10 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
 
   def theDeals = Action {
     Ok(views.html.deals("Deals: Success"))
+  }
+
+  def testAction = Action {
+    Ok( "<script src=\"@routes.Assets.at(\"javascripts/stripePayment.js\")\" rel=\"javascript\"></script>").as("text/html")
   }
 
   def seating(filmName:String) = Action {

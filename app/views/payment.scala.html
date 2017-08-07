@@ -8,41 +8,64 @@
 <br>
 <br>
 <br>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <script data-main="scripts/main" src='@routes.Assets.at("requirejs/require.js")'></script>
-</head>
-<body>
+
+
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>Title</title>
+      <script data-main="scripts/main" src='@routes.Assets.at("requirejs/require.js")'></script>
+      <script src="@routes.Assets.at("javascripts/stripePayment.js")" rel="javascript"></script>
+
+    </head>
+    <body>
+
+        <!-- this is copied from the Stripe checkout embed -->
+      @*<form action="/charge" method="POST">*@
+        @*<script*@
+        @*src="https://checkout.stripe.com/checkout.js" class="stripe-button"*@
+        @*data-key="pk_test_KWyw9m8hsxsgelLoigCo42Cr"*@
+        @*data-amount="999"*@
+        @*data-currency="gbp"*@
+        @*data-name="Test payment"*@
+        @*data-description=""*@
+        @*data-image="https://stripe.com/img/documentation/checkout/marketplace.png"*@
+        @*data-locale="auto">*@
+    @*</script>*@
+      @*</form>*@
+
+      @*<form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">*@
+        @*<input type="hidden" name="cmd" value="_s-xclick">*@
+        @*<input type="hidden" name="hosted_button_id" value="KZCLCQFZSR7QG">*@
+        @*<table>*@
+          @*<tr><td><input type="hidden" name="on0" value="Items">Items</td></tr><tr><td><select name="os0">*@
+          @*<option value="Ticket1">Ticket1 £10.00 GBP</option>*@
+          @*<option value="Ticket2">Ticket2 £5.00 GBP</option>*@
+          @*<option value="Ticket3">Ticket3 £2.00 GBP</option>*@
+        @*</select> </td></tr>*@
+        @*</table>*@
+        @*<input type="hidden" name="currency_code" value="GBP">*@
+        @*<input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online!">*@
+        @*<img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">*@
+      @*</form>*@
+
+
+      <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="SVQASUZ5YVLPU">
+        <input type="image" src="https://www.sandbox.paypal.com/en_US/GB/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online!">
+        <img alt="" border="0" src="https://www.sandbox.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+      </form>
 
 
 
-  <div class="container">
+
+      <script src="https://js.stripe.com/v3/"></script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+      <script type="text/javascript" src='@routes.Assets.at("javascripts/checkout.js")'></script>
+
+    </body>
+  </html>
 
 
-    <form action='@routes.Assets.at("javascripts/stripePayment.js")' method="POST">
-      <script
-      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-      data-key="pk_test_KWyw9m8hsxsgelLoigCo42Cr"
-      data-amount="999"
-      data-name="Demo Site"
-      data-description="Widget"
-      data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-      data-locale="auto"
-      data-zip-code="true"
-      data-currency="gbp">
-  </script>
-        <!--    This should be changed as it relates to the charge amount-->
-      @*<input type="hidden" name= "chargeAmount" value="2000">*@
-
-    </form>
-
-
-  </div>
-
-  <script src='@routes.Assets.at("javascripts/stripePayment.js")'></script>
-
-</body>
-</html>
