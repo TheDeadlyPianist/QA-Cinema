@@ -388,16 +388,70 @@ li.dropdown {
     margin-bottom: 1%;
 }
 
+#movieInfoContent{
+    margin-top: 2%;
+    margin-right: 5%;
+    text-align: center;
+}
 #movieImage img{
-    width: 100%;
+    width: 95%;
     padding-top: 4%;
     padding-left: 4%;
     padding-bottom: 4%;
 }
 
+#movieImage{
+    border-style: solid;
+    border-width: 5px;
+    background-color: #333;
+    padding-right: 1%;
+    margin: 1%;
+}
+
+#movieInformation{
+    border-style: solid;
+    border-width: 5px;
+    background-color: #333;
+    padding-right: 1%;
+    margin: 1%;
+}
 #movieInformation h1,h2,h3{
     color: white;
     padding-left: 6%;
+    text-align: justify;
+}
+
+#movieTrailer {
+    padding-top: 4%;
+    padding-bottom: 2%;
+    text-align: center;
+
+}
+
+#filmTrailer {
+    width: 65%;
+    height: 65%;
+}
+
+#bookTicketBtn{
+    position:absolute;
+    left: 38%;
+    margin-top: 1%;
+
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 1% 4%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+
+}
+
+#ageRatingImg{
+    padding-top: 2%;
+    width: 8%;
 }
 
 input[type=text].basicInput {
