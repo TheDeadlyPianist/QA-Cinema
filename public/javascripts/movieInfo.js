@@ -136,7 +136,7 @@ function bookTicket() {
     var totalTime = getHours + ":" + getMinutes;
     var properlyFormatted = formatDate.getFullYear() + ("0" + (formatDate.getMonth() + 1)).slice(-2) + ("0" + formatDate.getDate()).slice(-2);
 
-    window.location = "/seatBooking?filmName="+getTitle+"&date="+properlyFormatted+"&time="+totalTime;
+    window.location = "/seatBooking?filmName="+getTitle+"&date="+properlyFormatted+"&time=9:00";
 
 }
 
