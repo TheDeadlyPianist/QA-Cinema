@@ -1,7 +1,7 @@
 import org.specs2.mutable._
 import org.specs2.runner._
 import org.junit.runner._
-
+import org.openqa.selenium.By
 import play.api.test._
 import play.api.test.Helpers._
 
@@ -20,6 +20,23 @@ class IntegrationSpec extends Specification {
       println(browser.webDriver.getPageSource)
 
       browser.title() must contain("Home")
+      println(browser.webDriver.getCurrentUrl)
+      val homebutton = webDriver.findElement(By.id("homebtn"))
+      homebutton.click()
+      println(browser.webDriver.getCurrentUrl)
+      val listingbutton = webDriver.findElement(By.id("listingsbutton"))
+      listingbutton.click()
+      println(browser.webDriver.getCurrentUrl)
+      val aboutusbutton = webDriver.findElement(By.id("aboutbutton"))
+      aboutusbutton.click()
+      println(browser.webDriver.getCurrentUrl)
+      val dealsbutton = webDriver.findElement(By.id("dealsbutton"))
+      dealsbutton.click()
+      println(browser.webDriver.getCurrentUrl)
+      webDriver.findElement(By.id("searchbar")).sendKeys("logan")
+      val searchbutton = webDriver.findElement(By.id("searchbutton"))
+      searchbutton.click()
+      println(browser.webDriver.getCurrentUrl)
     }
   }
 }

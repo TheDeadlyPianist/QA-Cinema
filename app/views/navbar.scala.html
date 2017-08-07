@@ -1,4 +1,4 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <div id="banner">
     <img width="100%" style=": center" src="@routes.Assets.at("images/neon.png")">
 </div>
@@ -6,7 +6,10 @@
 <nav id='nav_bar'>
     <div class="floatleft">
         <ul>
-            <li><a id="homebtn" href="../">Home</a> | <a href="../listing">Listings</a> | <a href="../about">About Us</a> | <a href="../deals">Deals</a></li></ul>
+            <li><a id="homebtn" href="../">Home</a>
+                <a id="listingsbutton" href="../listing">Listings</a>
+                <a id="aboutbutton" href="../about">About Us</a>
+                <a id="dealsbutton" href="../deals">Deals</a></li></ul>
     </div>
 
     <div class="floatright">
@@ -20,7 +23,7 @@
         </li>
         <li class="navbar-right"><form style="padding-top: 23px">
             <input type="text" id="searchbar" class="searchbox" placeholder="Search for an Item..." required>
-            <input type="button" class="searchbutton" value="Search" onclick="doSearch(document.getElementById('searchbar').value)">
+            <input id="searchbutton" type="button" class="searchbutton" value="Search" onclick="doSearch(document.getElementById('searchbar').value)">
         </form>
         </li>
         </ul>
