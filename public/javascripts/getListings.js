@@ -1,5 +1,5 @@
 
-function movieSearch(theSwitch){
+function movieSearch(theSwitch, inSearch){
 
     document.getElementById("theList").innerHTML = ""
     var movieInfo = [
@@ -52,10 +52,6 @@ function movieSearch(theSwitch){
             moviename: "Wind River",
             movieyear: "2017"
         },{
-            movieID: "562",
-            moviename: "Die Hard",
-            movieyear: "1988"
-        },{
             movieID: "251516",
             moviename: "Kung Fury",
             movieyear: "2015"
@@ -80,12 +76,40 @@ function movieSearch(theSwitch){
             moviename: "Mad Max: Fury Road",
             movieyear: "2015"
         },{
-            movieID:" 263115",
+            movieID:"263115",
             moviename: "Logan",
             movieyear: "2017"
         },{
-            movieID:" 335984",
+            movieID:"335984",
             moviename: "Blade Runner 2049",
+            movieyear: "2017"
+        },{
+            movieID:"284054",
+            moviename: "Black Panther",
+            movieyear: "2018"
+        },{
+            movieID:"141052",
+            moviename: "Justice League",
+            movieyear: "2017"
+        },{
+            movieID:"181808",
+            moviename: "Star Wars: The Last Jedi",
+            movieyear: "2017"
+        },{
+            movieID:"343668",
+            moviename: "Kingsman: The Golden Circle",
+            movieyear: "2017"
+        },{
+            movieID:"268896",
+            moviename: "Pacific Rim: Uprising",
+            movieyear: "2018"
+        },{
+            movieID:"293167",
+            moviename: "Kong: Skull Island",
+            movieyear: "2017"
+        },{
+            movieID:"339403",
+            moviename: "Baby Driver",
             movieyear: "2017"
         }
 
@@ -111,29 +135,32 @@ function movieSearch(theSwitch){
             {
                 if(movDate <= theDate)
                 {
-                    document.getElementById("theList").innerHTML += '<div class="col-20"><div class="item"><div><h3><a class="hyperColour" href="/movieInfo?movieID=' + response.id + '">' + response.original_title + '</a></h3><img id="img' + response.movieID + '" class="listImg" src="https://image.tmdb.org/t/p/original' + response.poster_path + '"></div></div>';
+                    document.getElementById("theList").innerHTML += '<div class="col-20"><div class="item"><div><h3><a id="mov'+response.id+'" class="hyperColour" href="/movieInfo?movieID=' + response.id + '">' + response.original_title + '</a></h3><img id="img' + response.movieID + '" class="listImg" src="https://image.tmdb.org/t/p/original' + response.poster_path + '" onclick="imgClick(' + response.id + ')"></div></div>';
                 }
             }
             else if(theSwitch == 1)
             {
                 if(movDate > theDate)
                 {
-                    document.getElementById("theList").innerHTML += '<div class="col-20"><div class="item"><div><h3><a class="hyperColour" href="/movieInfo?movieID=' + response.id + '">' + response.original_title + '</a></h3><img id="img' + response.movieID + '" class="listImg" src="https://image.tmdb.org/t/p/original' + response.poster_path + '"></div></div>';
+                    document.getElementById("theList").innerHTML += '<div class="col-20"><div class="item"><div><h3><a id="mov'+response.id+'" class="hyperColour" href="/movieInfo?movieID=' + response.id + '">' + response.original_title + '</a></h3><img id="img' + response.movieID + '" class="listImg" src="https://image.tmdb.org/t/p/original' + response.poster_path + '" onclick="imgClick(' + response.id + ')"></div></div>';
                 }
             }
 
+            else if(theSwitch == 2 && inSearch.trim() != "")
+            {
+                if(response.original_title.toLowerCase().includes(inSearch.toLowerCase()) )
+                {
+                    document.getElementById("theList").innerHTML += '<div class="col-20"><div class="item"><div><h3><a id="mov'+response.id+'" class="hyperColour" href="/movieInfo?movieID=' + response.id + '">' + response.original_title + '</a></h3><img id="img' + response.movieID + '" class="listImg" src="https://image.tmdb.org/t/p/original' + response.poster_path + '" onclick="imgClick(' + response.id + ')"></div></div>';
+                }
+            }
             console.log(response);
 
         });
 
     });
-    document.getElementById("theList").innerHTML += '<div class="divTitle"><div class="listMiddle"><div id="leftTab" class="listBottom"  onclick="doNowShowing()"><a class="listTitle" href="javascript:void(0);"  text-align="center"><b>NOW SHOWING</b></a></div><div ID="rightTab" class="listBottom"  onclick="doUpcoming()"><a class="listTitle" href="javascript:void(0);"  text-align="center"><b>UPCOMING RELEASES</b></a></div></div></div>'
 
 }
-/*
-$(document).ready(function(){
 
-    movieSearch()
-
-});
-*/
+function imgClick(theID){
+    document.getElementById("mov"+theID).click();
+}
