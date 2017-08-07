@@ -131,9 +131,7 @@ function bookTicket() {
     var strUser = e.options[e.selectedIndex].value.toString();
 
     var formatDate = new Date(strUser);
-    var getHours = formatDate.getHours();
-    var getMinutes = ('0'+formatDate.getMinutes()).substr(-2);
-    var totalTime = getHours + ":" + getMinutes;
+    var totalTime = "9:00"
     var properlyFormatted = formatDate.getFullYear() + ("0" + (formatDate.getMonth() + 1)).slice(-2) + ("0" + formatDate.getDate()).slice(-2);
 
     window.location = "/seatBooking?filmName="+getTitle+"&date="+properlyFormatted+"&time="+totalTime;
