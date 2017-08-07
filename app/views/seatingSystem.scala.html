@@ -1,4 +1,4 @@
-@(useSeats:Array[Int])(numberOfRows:Int)(seatLabels:Array[String])(filmInfo:Object)(timeList:Array[String])
+@(useSeats:Array[Int])(numberOfRows:Int)(seatLabels:Array[String])(filmInfo:String)(timeList:Seq[String])
 
 <head>
     @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">*@
@@ -12,8 +12,9 @@
 </head>
 
 <body onresize="resize()">
+    <div id="movieTitle" style="color: white; text-align: center; margin-top: 4%; font-size: 500%">@filmInfo</div>
     <div class="seatSelector col-50" style="border: solid; border-color: #727272">
-        <div style="width:100%;">@for(i <- useSeats.indices) {
+        <div align="center">@for(i <- useSeats.indices) {
             @useSeats(i) match {
                 case 4 => {<div class="emptyRow"></div>}
                 case 3 => {<span class="emptyRow"></span>}
@@ -22,20 +23,21 @@
                 case 0 => {<span class="emptyRow"></span>}
                 case _ => {}
             }
-        }</div>
+        }
+        </div>
     </div>
-    <div class="col-20" align="right" style="padding-top: 5%;">
-        Select Time:
+    <div class="col-20" align="right" style="margin-top: 10%;">
+        <span style="color: white">Select Time:</span>
             <select>
                 <option value="null">Please Select a Time</option>
                 @for(i <- timeList.indices) {
                     <option value=@timeList(i)>@timeList(i)</option>
                 }
             </select><br><br>
-        Adult Seats: <input id="adult" type="number" value=0 onchange="deleteOverFlow()"><br><br>
-        Child Seats: <input id="child" type="number" value=0 onchange="deleteOverFlow()"><br><br>
-        Elderly Seats: <input id="oap" type="number" value=0 onchange="deleteOverFlow()"><br><br>
-        Student Seats: <input id="drunkard" type="number" value=0 onchange="deleteOverFlow()"><br><br>
+        <span style="color: white">Adult Seats: </span><input id="adult" type="number" value=0 onchange="deleteOverFlow()"><br><br>
+        <span style="color: white">Child Seats: </span><input id="child" type="number" value=0 onchange="deleteOverFlow()"><br><br>
+        <span style="color: white">Elderly Seats: </span><input id="oap" type="number" value=0 onchange="deleteOverFlow()"><br><br>
+        <span style="color: white">Student Seats: </span><input id="drunkard" type="number" value=0 onchange="deleteOverFlow()"><br><br>
         <button>Submit</button>
     </div>
 
@@ -56,13 +58,16 @@
             background-color: #64a8ab;
         }
         .seatImg {
-            width: 50px;
+
         }
         .seatSelector {
+            margin: 5% 1% 10% 1%;
             padding: 1% 1% 1% 1%;
-            background-color: #64a8ab;
+            background-color: rgb(6,80,138);
+            min-width: 500px;
         }
     </style>
+
 </body>
 
 <script>
@@ -116,6 +121,7 @@
         let screenReso = window.screen.availWidth*0.5;
         let newSize = window.innerWidth*0.5;
         let sizeRatio = newSize/screenReso;
+        if(sizeRatio<0.35){sizeRatio = 0.35}
         let seats = document.getElementsByClassName("seatImg");
         console.log(sizeRatio);
         for(i=0;i<seats.length;i++) {
@@ -126,5 +132,14 @@
             seats[i].style.paddingLeft = (54*sizeRatio) + "px";
             seats[i].style.paddingTop = (30*sizeRatio) + "px";
         }
+    }
+
+    function debugSubmit() {
+        let adult = document.getElementById("adult").value;
+        let child = document.getElementById("child").value;
+        let oap = document.getElementById("oap").value;
+        let pleb = document.getElementById("drunkard").value;
+
+
     }
 </script>

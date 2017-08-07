@@ -1,8 +1,10 @@
-
-
+html {
+    min-height: 100%;
+    background-color: #111;
+}
 body {
     margin: 0;
-    background-color: white;
+    background-color: #111;
     font-family: "Calibri", sans-serif;
 }
 h1 {
@@ -10,7 +12,7 @@ h1 {
 }
 /*Navbar*/
 #header.fixed{
-    background-color: #FFFFFF;
+    background-color: black;
     left: 0;
     position: fixed;
     top: 0;
@@ -24,7 +26,7 @@ nav ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: rgba(6, 47, 79, 0.97);
+    background-color: #062f4f;
     font-family: "Calibri", sans-serif, bold;
     font-size: 20px;
     top:0;
@@ -63,11 +65,7 @@ nav li.dropdown {
 }
 .dropdown-content a:hover {background-color: #813772
 }
-body {
-    margin: 0;
-    background-color: white;
-    font-family: "Calibri", sans-serif;
-}
+
 h1 {
     padding:20px;
 }
@@ -76,7 +74,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: rgba(6, 47, 79, 0.97);
+    background-color: #062f4f;
     font-family: "Calibri", sans-serif, bold;
     font-size: 20px;
     top:0;
@@ -215,6 +213,7 @@ li.dropdown {
 .col-10 {
     width: 10%;
     float: left;
+    background-color: black;
 }
 
 .col-20 {
@@ -316,4 +315,60 @@ li.dropdown {
 @keyframes newSel {
     from{opacity:0.2;}
     to{opcacity:1;}
+}
+
+.item{
+    border-style: solid;
+    border-width: 1px;
+    margin:5%;
+    background-color: #333;
+}
+
+.listImg{
+    width:90%;
+    margin-bottom: 7%;
+}
+
+.col-100#theList {
+    text-align:center !important;
+    margin-bottom:1%;
+}
+
+/*
+.theDescCont{
+    text-align: center;
+    width:100%;
+}
+.theDesc{
+    text-align: left!important;
+    width: 50%;
+    display: inline-block
+}
+*/
+.listTitle{
+    font-size: 24pt;
+    color:#ccc;
+}
+
+.hyperColour{
+    color:#ddd;
+}
+
+.divTitle{
+    border-style: solid;
+    border-width: 1px;
+    background-color:#333;
+    margin-bottom: 1%;
+}
+
+#movieImage img{
+    width: 100%;
+    padding-top: 4%;
+    padding-left: 4%;
+    padding-bottom: 4%;
+}
+
+#movieInformation h1,h2,h3{
+    color: white;
+    padding-left: 6%;
 }
