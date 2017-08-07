@@ -5,17 +5,16 @@ import javax.inject.Inject
 import models.ContactDetails
 import play.api.mvc.{Action, Controller}
 import play.api.i18n.{I18nSupport, MessagesApi}
-
 import models.ContactDetails
 import play.api.mvc.{Action, Controller}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import javax.inject.Inject
 
 import play.api.libs.mailer._
-
 import org.mongodb.scala.{Completed, Document, MongoClient, MongoCollection, MongoDatabase, Observable, Observer}
 import org.mongodb.scala.model.Updates._
 import controllers.Helpers._
+import org.mongodb.scala.bson.BsonString
 import play.api._
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
@@ -85,7 +84,11 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     Ok(views.html.deals("Deals: Success"))
   }
 
-  def seating(filmName:String, date:String) = Action {
+  def theSearch(inString:String) = Action {
+    Ok(views.html.search(inString))
+  }
+
+  def seating(filmName:String, date:String, time:String) = Action {
 
     val queryDate = date.toInt
 
@@ -97,7 +100,7 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     val seatingPlan = "screen" + Await.result(getFilmDocument, 10 seconds)(0)("screen").asInt32().intValue()
 
     val seatingObj:Map[String, Array[Int]] = Map("screen1" -> seats1, "screen2" -> seats2)
-    val useSeats:Array[Int] = seatingObj(seatingPlan)
+    var useSeats:Array[Int] = seatingObj(seatingPlan).clone()
     var letterMap: Map[Int, Char] = Map()
     val lengthOfSeats = useSeats.count(_ == 2) + 1
     val numbers: Array[Int] = Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24)
@@ -110,7 +113,7 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     val times:Array[Int] = Array(540, 1410)
     val filmLength = Await.result(getFilmDocument, 10 seconds)(0)("length").asInt32().intValue() + 20
 
-    val timeList:Seq[String] = for(i <- times(0) to times(1) by filmLength if(i +filmLength < times(1))) yield {
+    val timeList:Seq[String] = for(i <- times(0) to times(1) by filmLength if(i + filmLength < times(1))) yield {
       var newInt = i
       var hours = 0
       while(newInt >= 60) {
@@ -134,9 +137,26 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
         case _ => ""
       }
     })
+    val receiptQuery = Document("filmTitle"->filmName, "date"->date.toInt, "time"->time)
+    val pullReceiptsFuture = Future{
+      receipts.find(receiptQuery).results()
+    }
+    pullReceiptsFuture.onSuccess{
+      case result => result
+    }
+    val receiptList = Await.result(pullReceiptsFuture, 5 seconds)
+
+    for(i <- seatLabels.indices) {
+      var found = false
+      receiptList.foreach(k => {
+        if(k("seats").asArray().getValues().contains(BsonString(seatLabels(i)))) {
+          useSeats.update(i, 5)
+        }
+      })
+    }
 
     Ok(
-      views.html.booking(useSeats)(lengthOfSeats)(seatLabels)(filmName)(timeList)(queryDate)
+      views.html.booking(useSeats)(lengthOfSeats)(seatLabels)(filmName)(timeList)(queryDate)(time)
     )
   }
 
@@ -157,7 +177,7 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     }
     Await.result(future, 10 seconds)
 
-    Redirect("/")
+    Ok("")
   }
 
   def sendEmail(from: String, name: String, subject: String, text: String): Unit ={

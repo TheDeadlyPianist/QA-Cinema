@@ -21,77 +21,171 @@
     </style>
     <div class="col-100">@navbar()</div>
 </head>
+<script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=15445666"></script>
 <body>
-    <div class="col-100" id="map">
-        <script>
-                var map;
-                var infowindow;
+    <div class="col-50" id="map"></div>
+    <br>
+    <div class="col-50" style="text-align: center" style="font-size: large">
+        <div class="item">
+            <div class="hyperColour">Enter Postcode:
+                <input type="text" id="start"/>
+                <input type="submit" value="Get Directions" onclick="onChangeHandler()" />
+            </div>
+            <div class="hyperColour">Mode of Travel:
+                <select id="mode">
+                    <option value="DRIVING">Driving</option>
+                    <option value="WALKING">Walking</option>
+                    <option value="BICYCLING">Bicycling</option>
+                    <option value="TRANSIT">Public Transport</option>
+                </select>
+            </div>
+            <div>
+                <h4 id="clickedplace" class="hyperColour">Click somewhere on the map for information</h4><br>
+                <h5 id="clickedplace1" class="hyperColour"></h5><br>
+                <h5 id="clickedplace2" class="hyperColour"></h5><br>
+                <h5 id="clickedplace3" class="hyperColour"></h5><br>
+            </div>
+        </div>
+    </div>
 
-                function initMap() {
-                    var cinema = new google.maps.LatLng(53.474589, -2.286499);
 
-                    map = new google.maps.Map(document.getElementById('map'), {
-                        zoom: 15,
-                        center: cinema,
-                        mapTypeId: 'terrain'
-                    });
+    <br>
+    <script>
+            var map;
+            var infowindow;
 
-                    var homeMarker = new google.maps.Marker({
-                        position: cinema,
-                        map: map,
-                        icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/movies.png'
+            function initMap() {
+                var cinema = new google.maps.LatLng(53.474589, -2.286499);
+                var parking = new google.maps.LatLng(53.474709, -2.285784);
 
-                    });
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 15,
+                    center: cinema,
+                    mapTypeId: 'terrain'
+                });
 
-                    infowindow = new google.maps.InfoWindow();
-                    var service = new google.maps.places.PlacesService(map);
-                    function createRest(string) {
-                        service.nearbySearch({
-                            location: cinema,
-                            radius: 1000,
-                            type: [string]
-                        }, callback);
-                    }
-                    function callback(results, status) {
-                        if (status === google.maps.places.PlacesServiceStatus.OK) {
-                            for (var i = 0; i < results.length; i++) {
-                                console.log(results[i]);
-                                createMarker(results[i]);
-                            }
+                var homeMarker = new google.maps.Marker({
+                    position: cinema,
+                    map: map,
+                    icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/movies.png'
+
+                });
+
+                var parkMarker = new google.maps.Marker({
+                    position: parking,
+                    map: map,
+                    icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/parkinglot.png'
+
+                });
+
+                infowindow = new google.maps.InfoWindow();
+                var service = new google.maps.places.PlacesService(map);
+
+                function createRest(string) {
+                    service.nearbySearch({
+                        location: cinema,
+                        radius: 1000,
+                        type: [string]
+                    }, callback);
+                }
+
+                function callback(results, status) {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        for (var i = 0; i < results.length; i++) {
+                            console.log(results[i]);
+                            createMarker(results[i]);
                         }
                     }
+                }
 
-                    function createMarker(place) {
-                        var placeLoc = place.geometry.location;
-                        if(place.types.includes("bar")){
-                        var marker = new google.maps.Marker({
-                            map: map,
-                            position: place.geometry.location,
-                            icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/restaurant.png'
-                        });}
-                        else if(place.types.includes("restaurant")){
+                function createMarker(place) {
+                    var placeLoc = place.geometry.location;
+                    for (var i = 0; i < place.types.length; i++) {
+                        if (place.types[i] == "bar") {
                             var marker = new google.maps.Marker({
                                 map: map,
                                 position: place.geometry.location,
                                 icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/bar.png'
                             });
+                            break;
                         }
-
-                        google.maps.event.addListener(marker, 'click', function () {
-                            infowindow.setContent(place.name);
-                            infowindow.open(map, this);
-                        });
+                        else if (place.types[i] == "restaurant") {
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: place.geometry.location,
+                                icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/restaurant.png'
+                            });
+                            break;
+                        }
                     }
 
-                    createRest('restaurant');
-                    createRest('bar')
-
+                    google.maps.event.addListener(marker, 'click', function () {
+                        infowindow.setContent(place.name);
+                        infowindow.open(map, this);
+                        document.getElementById("clickedplace").innerHTML = place.name;
+                        document.getElementById("clickedplace1").innerHTML = "Address: " + place.vicinity;
+//                            document.getElementById("clickedplace2").innerHTML = ;
+                        document.getElementById("clickedplace3").innerHTML = "Rating: " + place.rating + "/5";
+                    });
                 }
-        </script>
-        <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDULYRqPbZDrCSmoKNXZJPR3enCXhI226Q&libraries=places&callback=initMap" async defer>
-        </script>
-    </div>
+
+                createRest('restaurant');
+                createRest('bar');
+
+                google.maps.event.addListener(homeMarker, 'click', function () {
+                    infowindow.setContent("QA Cinemas\n\n\n Anchorage");
+                    infowindow.open(map, this);
+                    document.getElementById("clickedplace").innerHTML = "QA Cinemas";
+                    document.getElementById("clickedplace1").innerHTML = "Anchorage 1, Salford.";
+//                        document.getElementById("clickedplace2").innerHTML = ;
+                    document.getElementById("clickedplace3").innerHTML = "Rating: " + "10/5";
+                });
+
+                google.maps.event.addListener(parkMarker, 'click', function () {
+                    infowindow.setContent("QA Cinemas Parking");
+                    infowindow.open(map, this);
+                    document.getElementById("clickedplace").innerHTML = "QA Cinemas Parking";
+                    document.getElementById("clickedplace1").innerHTML = "Anchorage 1, Salford.";
+//                        document.getElementById("clickedplace2").innerHTML = ;
+//                        document.getElementById("clickedplace3").innerHTML = "Rating: " + "10/5";
+                });
+
+                var directionsService = new google.maps.DirectionsService;
+                var directionsDisplay = new google.maps.DirectionsRenderer;
+
+                directionsDisplay.setMap(map);
+
+                var onChangeHandler = function () {
+                    calculateAndDisplayRoute(directionsService, directionsDisplay);
+                };
+                document.getElementById('start').addEventListener('change', onChangeHandler);
+                document.getElementById('mode').addEventListener('change', function () {
+                    calculateAndDisplayRoute(directionsService, directionsDisplay);
+                });
+
+
+                function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+                    var selectedMode = document.getElementById('mode').value;
+                    directionsService.route({
+                        origin: document.getElementById('start').value,
+                        destination: cinema,
+                        travelMode: google.maps.TravelMode[selectedMode]
+
+
+                    }, function (response, status) {
+                        if (status === 'OK') {
+                            directionsDisplay.setDirections(response);
+                        } else {
+                            window.alert('Directions request failed due to ' + status + '. Please check your postcode and try again');
+                        }
+                    });
+                }
+
+            }
+    </script>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDULYRqPbZDrCSmoKNXZJPR3enCXhI226Q&libraries=places&callback=initMap" async defer>
+    </script>
     <div class="col-100">@defaultFooter()</div>
 </body>
 
