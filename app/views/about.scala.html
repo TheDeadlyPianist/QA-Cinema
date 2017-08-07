@@ -18,21 +18,6 @@
                 /*}*/
             }
 
-            #floating-panel {
-                position: absolute;
-                top: 10px;
-                left: 25%;
-                z-index: 5;
-                background-color: #fff;
-                padding: 5px;
-                border: 1px solid #999;
-                text-align: center;
-                font-family: 'Roboto','sans-serif';
-                line-height: 30px;
-                padding-left: 10px;
-            }
-
-
     </style>
     <div class="col-100">@navbar()</div>
 </head>
@@ -43,6 +28,16 @@
         <input type="text" id="start"/>
         <input type="submit" value="Get Directions" onclick="onChangeHandler()" />
     </div>
+    <div id="hyper colour">
+        <b id="hyper colour"> Mode of Travel: </b>
+        <select id="mode">
+            <option value="DRIVING">Driving</option>
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Bicycling</option>
+            <option value="TRANSIT">Transit</option>
+        </select>
+    </div>
+
     <br>
         <script>
                 var map;
@@ -149,14 +144,19 @@
                         calculateAndDisplayRoute(directionsService, directionsDisplay);
                     };
                     document.getElementById('start').addEventListener('change', onChangeHandler);
-
+                    document.getElementById('mode').addEventListener('change', function () {
+                        calculateAndDisplayRoute(directionsService, directionsDisplay);
+                    });
 
 
                     function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+                        var selectedMode = document.getElementById('mode').value;
                         directionsService.route({
                             origin: document.getElementById('start').value,
                             destination: cinema,
-                            travelMode: 'DRIVING'
+                            travelMode: google.maps.TravelMode[selectedMode]
+
+
                         }, function (response, status) {
                             if (status === 'OK') {
                                 directionsDisplay.setDirections(response);
@@ -171,7 +171,7 @@
         <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDULYRqPbZDrCSmoKNXZJPR3enCXhI226Q&libraries=places&callback=initMap" async defer>
         </script>
-    </div>
+
     <div>
         <h4 id="clickedplace" class="hyperColour">Click somewhere on the map for information</h4><br>
         <h5 id="clickedplace1" class="hyperColour"></h5><br>
