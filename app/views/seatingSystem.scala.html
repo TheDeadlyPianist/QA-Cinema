@@ -16,6 +16,7 @@
     <div class="seatSelector col-50" style="border: solid #727272;">
         <div align="center">@for(i <- useSeats.indices) {
             @useSeats(i) match {
+                case 5 => {<img src="@routes.Assets.at("images/unavailableSeat.png")" class="seatImg" id="@seatLabels(i)">}
                 case 4 => {<div class="emptyRow"></div>}
                 case 3 => {<span class="emptyRow"></span>}
                 case 2 => {<br class="emptyRow">}
@@ -102,6 +103,7 @@
         curSeats = seatOrder.length;
         deleteOverFlow();
     }
+
     function deleteOverFlow() {
         seatsNeeded = parseInt(document.getElementById("adult").value, 10)
                 + parseInt(document.getElementById("child").value, 10)
@@ -160,7 +162,7 @@
             xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if(this.readyState == 4 && this.status == 200) {
-
+                    window.location.href = "/";
                 }
             }
             xhttp.open("POST", "/sendRecepitRequest");
