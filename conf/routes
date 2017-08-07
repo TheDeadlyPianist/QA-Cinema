@@ -27,3 +27,5 @@ GET     /payment                    controllers.Application.payment
 POST    /charge                     controllers.Application.payment()
 
 GET     /movieInfo                  controllers.Application.theMovieInfo(movieID:Int)
+
+GET     /search/:theString          controllers.Application.theSearch(theString:String)
