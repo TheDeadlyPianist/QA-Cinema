@@ -22,6 +22,7 @@
     <div class="col-100">@navbar()</div>
 </head>
 <body>
+    <div class="hyperColour">This is a header</div>
     <div class="col-100" id="map">
         <script>
                 var map;
@@ -80,17 +81,37 @@
                         google.maps.event.addListener(marker, 'click', function () {
                             infowindow.setContent(place.name);
                             infowindow.open(map, this);
+                            document.getElementById("clickedplace").innerHTML = place.name;
+                            document.getElementById("clickedplace1").innerHTML = "Address: " + place.vicinity;
+//                            document.getElementById("clickedplace2").innerHTML = ;
+                            document.getElementById("clickedplace3").innerHTML = "Rating: " + place.rating + "/5";
                         });
                     }
 
                     createRest('restaurant');
                     createRest('bar')
 
+                    google.maps.event.addListener(homeMarker, 'click', function () {
+                        infowindow.setContent("QA Cinemas");
+                        infowindow.open(map, this);
+                        document.getElementById("clickedplace").innerHTML = "QA Cinemas";
+//                            document.getElementById("clickedplace1").innerHTML = ;
+//                        document.getElementById("clickedplace2").innerHTML = ;
+                        document.getElementById("clickedplace3").innerHTML = "Rating: " + "10/5";
+                    });
+
                 }
         </script>
         <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDULYRqPbZDrCSmoKNXZJPR3enCXhI226Q&libraries=places&callback=initMap" async defer>
         </script>
+    </div>
+    <div>
+        <h4 id="clickedplace" class="hyperColour">Click somewhere on the map for information</h4><br>
+        <h5 id="clickedplace1" class="hyperColour"></h5><br>
+        <h5 id="clickedplace2" class="hyperColour"></h5><br>
+        <h5 id="clickedplace3" class="hyperColour"></h5><br>
+
     </div>
     <div class="col-100">@defaultFooter()</div>
 </body>
