@@ -14,29 +14,38 @@ class IntegrationSpec extends Specification {
 
   "Application" should {
 
-    "work from within a browser" in new WithBrowser {
-
+    "Load the navbar and navigate perfectly with all of the navbar's links" in new WithBrowser {
+      //Connects to webpage and ensures the title is "Home", comfirming /index has loaded
       browser.goTo("http://localhost:" + "9000")
-      println(browser.webDriver.getPageSource)
-
       browser.title() must contain("Home")
-      println(browser.webDriver.getCurrentUrl)
-      val homebutton = webDriver.findElement(By.id("homebtn"))
-      homebutton.click()
-      println(browser.webDriver.getCurrentUrl)
-      val listingbutton = webDriver.findElement(By.id("listingsbutton"))
-      listingbutton.click()
-      println(browser.webDriver.getCurrentUrl)
-      val aboutusbutton = webDriver.findElement(By.id("aboutbutton"))
-      aboutusbutton.click()
-      println(browser.webDriver.getCurrentUrl)
-      val dealsbutton = webDriver.findElement(By.id("dealsbutton"))
-      dealsbutton.click()
-      println(browser.webDriver.getCurrentUrl)
+      browser.webDriver.getCurrentUrl mustEqual("http://localhost:9000/")
+
+      //Asserts that the listings navbar element exists
+      webDriver.findElement(By.id("listingsbutton")).click()
+      //Asserts that the listings button takes you to the Listings page
+      browser.webDriver.getCurrentUrl mustEqual("http://localhost:9000/listing")
+
+      //Asserts that the about navbar element exists
+      webDriver.findElement(By.id("aboutbutton")).click()
+      //Asserts that the about button takes you to the about page
+      browser.webDriver.getCurrentUrl mustEqual("http://localhost:9000/about")
+
+      //Asserts that the deals navbar element exists
+      webDriver.findElement(By.id("dealsbutton")).click()
+      //Asserts that the deals button takes you to the deals page
+      browser.webDriver.getCurrentUrl mustEqual("http://localhost:9000/deals")
+
+      //Asserts that the searchbar exists and can take text input
       webDriver.findElement(By.id("searchbar")).sendKeys("logan")
-      val searchbutton = webDriver.findElement(By.id("searchbutton"))
-      searchbutton.click()
-      println(browser.webDriver.getCurrentUrl)
+      //Asserts that the search button exists and is clickable
+      webDriver.findElement(By.id("searchbutton")).click()
+      //Asserts that the search result loads
+      browser.webDriver.getCurrentUrl mustEqual("http://localhost:9000/search/logan")
+
+      //Asserts that the home navbar element exists
+      webDriver.findElement(By.id("homebtn")).click()
+      //Asserts that the home button takes you to the Home page
+      browser.webDriver.getCurrentUrl mustEqual("http://localhost:9000/")
     }
   }
 }
