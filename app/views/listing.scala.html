@@ -1,15 +1,37 @@
 @(message: String)
-
+<script src="@routes.Assets.at("javascripts/watermark.js")" rel="javascript" type="text/javascript"></script>
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-<script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=15445666"></script>
+<body onload="doNowShowing()">
+
 <body>
     <div class="col-100">@navbar()</div>
 
-    <div id="theList" class="col-100">
 
-        <script src="@routes.Assets.at("javascripts/getListings.js")" rel="javascript"></script>
+    <div id="theList" class="col-100">
+        <script src="@routes.Assets.at("javascripts/getListings.js")" rel="javascript" type="text/javascript"></script>
     </div>
 
     <div class="col-100">@defaultFooter()</div>
+<script>
+
+    function doNowShowing(){
+        movieSearch(0)
+        document.getElementById("leftTab").style.backgroundColor = "#333"
+        document.getElementById("rightTab").style.backgroundColor = "#444"
+        document.getElementById("leftTab").style.boxShadow= ""
+        document.getElementById("rightTab").style.boxShadow= "1px 1px 5px #555 inset"
+    }
+
+    function doUpcoming(){
+        movieSearch(1)
+        document.getElementById("leftTab").style.backgroundColor = "#444"
+        document.getElementById("rightTab").style.backgroundColor = "#333"
+        document.getElementById("leftTab").style.boxShadow= "1px 1px 5px #555 inset"
+        document.getElementById("rightTab").style.boxShadow= ""
+    }
+
+</script>
+
+    <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=15445666"></script>
 
 </body>
