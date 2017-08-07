@@ -25,6 +25,11 @@
             <input type="text" id="searchbar" class="searchbox" placeholder="Search for an Item..." required>
             <input id="searchbutton" type="button" class="searchbutton" value="Search" onclick="doSearch(document.getElementById('searchbar').value)">
         </form>
+        <li class="navbar-right">
+            <form style="padding-top: 23px">
+                <input type="text" id="searchbar" class="searchbox"  placeholder="Search for an Item..." required>
+                <input type="submit" id="searchBtn" class="searchbutton" value="Search" onclick="doSearch(document.getElementById('searchbar').value)">
+            </form>
         </li>
         </ul>
     </div>
@@ -48,6 +53,7 @@
                 });
 
                 document.getElementById("nav_bar").style.height = document.getElementById("homebtn").offsetHeight + "px"
+
             });
 
             function doSearch(theSearch){
@@ -57,6 +63,6 @@
                 else{
                     window.location.href = "../search/" + theSearch
                 }
-
             }
+
     </script>
