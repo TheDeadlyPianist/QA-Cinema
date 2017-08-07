@@ -1,9 +1,21 @@
 @(message: String)
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-<body>
+<body onload="doTheSearch()">
     <div class="col-100">@navbar()</div>
+
+    <div id="theList" class="col-100">
+        <script src="@routes.Assets.at("javascripts/getListings.js")" rel="javascript" type="text/javascript"></script>
+    </div>
+
     <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=15445666"></script>
-    <div class="col-100"><p>THIS IS THE DEALS PAGE</p></div>
     <div class="col-100">@defaultFooter()</div>
 </body>
+
+<script>
+
+        function doTheSearch(){
+            movieSearch(2, "@message")
+        }
+
+</script>

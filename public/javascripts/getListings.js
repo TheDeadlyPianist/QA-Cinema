@@ -1,6 +1,7 @@
 
-function movieSearch(){
+function movieSearch(theSwitch, inSearch){
 
+    document.getElementById("theList").innerHTML = ""
     var movieInfo = [
         {
             movieID:"284053",
@@ -22,10 +23,6 @@ function movieSearch(){
             movieID: "281338",
             moviename: "War For The Planet Of The Apes",
             movieyear: "2017"
-        },{
-            movieID: "277834",
-            moviename: "Moana",
-            movieyear: "2016"
         },{
             movieID: "324852",
             moviename: "Despicable Me 3",
@@ -55,10 +52,6 @@ function movieSearch(){
             moviename: "Wind River",
             movieyear: "2017"
         },{
-            movieID: "562",
-            moviename: "Die Hard",
-            movieyear: "1988"
-        },{
             movieID: "251516",
             moviename: "Kung Fury",
             movieyear: "2015"
@@ -83,15 +76,42 @@ function movieSearch(){
             moviename: "Mad Max: Fury Road",
             movieyear: "2015"
         },{
-            movieID:" 263115",
+            movieID:"263115",
             moviename: "Logan",
             movieyear: "2017"
         },{
-            movieID:" 335984",
+            movieID:"335984",
             moviename: "Blade Runner 2049",
             movieyear: "2017"
+        },{
+            movieID:"284054",
+            moviename: "Black Panther",
+            movieyear: "2018"
+        },{
+            movieID:"141052",
+            moviename: "Justice League",
+            movieyear: "2017"
+        },{
+            movieID:"181808",
+            moviename: "Star Wars: The Last Jedi",
+            movieyear: "2017"
+        },{
+            movieID:"343668",
+            moviename: "Kingsman: The Golden Circle",
+            movieyear: "2017"
+        },{
+            movieID:"268896",
+            moviename: "Pacific Rim: Uprising",
+            movieyear: "2018"
+        },{
+            movieID:"293167",
+            moviename: "Kong: Skull Island",
+            movieyear: "2017"
+        },{
+            movieID:"339403",
+            moviename: "Baby Driver",
+            movieyear: "2017"
         }
-
 
     ];
 
@@ -106,22 +126,41 @@ function movieSearch(){
             "data": "{}"
         };
 
-
         $.ajax(settings).done(function (response) {
-            console.log(response);
 
-            document.getElementById("theList").innerHTML += '<div class="col-20"><div class="item"><div><h3><a class="hyperColour" href="/movieInfo?movieID='+response.id+'">'+response.original_title+'</a></h3></div><img class="listImg" src="https://image.tmdb.org/t/p/original'+response.poster_path+'" alt=""></div></div>';
-            // description
-            //<div class="theDescCont"><div class="theDesc">'+response.overview+'</div></div>
+            var theDate = new Date()
+            var movDate = new Date(response.release_date)
+
+            if(theSwitch == 0)
+            {
+                if(movDate <= theDate)
+                {
+                    document.getElementById("theList").innerHTML += '<div class="col-20"><div class="item"><div><h3><a id="mov'+response.id+'" class="hyperColour" href="/movieInfo?movieID=' + response.id + '">' + response.original_title + '</a></h3><img id="img' + response.movieID + '" class="listImg" src="https://image.tmdb.org/t/p/original' + response.poster_path + '" onclick="imgClick(' + response.id + ')"></div></div>';
+                }
+            }
+            else if(theSwitch == 1)
+            {
+                if(movDate > theDate)
+                {
+                    document.getElementById("theList").innerHTML += '<div class="col-20"><div class="item"><div><h3><a id="mov'+response.id+'" class="hyperColour" href="/movieInfo?movieID=' + response.id + '">' + response.original_title + '</a></h3><img id="img' + response.movieID + '" class="listImg" src="https://image.tmdb.org/t/p/original' + response.poster_path + '" onclick="imgClick(' + response.id + ')"></div></div>';
+                }
+            }
+
+            else if(theSwitch == 2 && inSearch.trim() != "")
+            {
+                if(response.original_title.toLowerCase().includes(inSearch.toLowerCase()) )
+                {
+                    document.getElementById("theList").innerHTML += '<div class="col-20"><div class="item"><div><h3><a id="mov'+response.id+'" class="hyperColour" href="/movieInfo?movieID=' + response.id + '">' + response.original_title + '</a></h3><img id="img' + response.movieID + '" class="listImg" src="https://image.tmdb.org/t/p/original' + response.poster_path + '" onclick="imgClick(' + response.id + ')"></div></div>';
+                }
+            }
+            console.log(response);
 
         });
 
     });
-    document.getElementById("theList").innerHTML += '<div class="divTitle"><p class="listTitle" text-align="center"><b><u>NOW SHOWING</u></b></p></div>'
 
 }
-$(document).ready(function(){
 
-    movieSearch()
-
-});
+function imgClick(theID){
+    document.getElementById("mov"+theID).click();
+}

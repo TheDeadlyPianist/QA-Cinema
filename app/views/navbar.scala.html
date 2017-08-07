@@ -20,7 +20,7 @@
         </li>
         <li class="navbar-right"><form style="padding-top: 23px">
             <input type="text" id="searchbar" class="searchbox" placeholder="Search for an Item..." required>
-            <input type="button" class="searchbutton" value="Search">
+            <input type="button" class="searchbutton" value="Search" onclick="doSearch(document.getElementById('searchbar').value)">
         </form>
         </li>
         </ul>
@@ -46,4 +46,14 @@
 
                 document.getElementById("nav_bar").style.height = document.getElementById("homebtn").offsetHeight + "px"
             });
+
+            function doSearch(theSearch){
+                if(theSearch.trim() == "") {
+                    window.alert("Please enter a valid search parameter.")
+                }
+                else{
+                    window.location.href = "../search/" + theSearch
+                }
+
+            }
     </script>

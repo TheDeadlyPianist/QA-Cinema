@@ -349,11 +349,13 @@ li.dropdown {
     border-width: 1px;
     margin:5%;
     background-color: #333;
+    font-size: 16px;
 }
 
 .listImg{
     width:90%;
     margin-bottom: 7%;
+    cursor:hand;
 }
 
 .col-100#theList {
@@ -361,17 +363,6 @@ li.dropdown {
     margin-bottom:1%;
 }
 
-/*
-.theDescCont{
-    text-align: center;
-    width:100%;
-}
-.theDesc{
-    text-align: left!important;
-    width: 50%;
-    display: inline-block
-}
-*/
 .listTitle{
     font-size: 24pt;
     color:#ccc;
@@ -379,6 +370,7 @@ li.dropdown {
 
 .hyperColour{
     color:#ddd;
+    font-size: 90%;
 }
 
 .divTitle{
@@ -386,6 +378,37 @@ li.dropdown {
     border-width: 1px;
     background-color:#333;
     margin-bottom: 1%;
+    display:table;
+    width:100%;
+    text-align:center;
+}
+
+.listMiddle{
+    display:table-row;
+    text-align:center;
+}
+
+.listBottom{
+    display:table-cell;
+    text-align:center;
+    width:50%;
+    padding-top:1%;
+    padding-bottom:1%;
+    cursor:hand;
+}
+
+#leftTab{
+    border-right: solid 1px black;
+}
+
+#rightTab{
+
+}
+
+.listTitle{
+    margin-top:2%;
+    text-align:center;
+    text-decoration: none;
 }
 
 #movieInfoContent{
@@ -393,6 +416,7 @@ li.dropdown {
     margin-right: 5%;
     text-align: center;
 }
+
 #movieImage img{
     width: 95%;
     padding-top: 4%;
@@ -415,7 +439,7 @@ li.dropdown {
     padding-right: 1%;
     margin: 1%;
 }
-#movieInformation h1,h2,h3{
+h1,h2,h3#movieInformation{
     color: white;
     padding-left: 6%;
     text-align: justify;
