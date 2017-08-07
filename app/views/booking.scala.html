@@ -1,7 +1,7 @@
-@(useSeats:Array[Int])(numberOfRows:Int)(seatLabels:Array[String])(filmInfo:String)(timerList:Seq[String])(dateInput:Int)
+@(useSeats:Array[Int])(numberOfRows:Int)(seatLabels:Array[String])(filmInfo:String)(timerList:Seq[String])(dateInput:Int)(timeInput:String)
 <html>
   <div class="col-100">@navbar()</div>
   <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=15445666"></script>
-  <div class="col-100">@seatingSystem(useSeats)(numberOfRows)(seatLabels)("Logan")(timerList)(dateInput)</div>
+  <div class="col-100">@seatingSystem(useSeats)(numberOfRows)(seatLabels)("Logan")(timerList)(dateInput)(timeInput)</div>
   <div class="col-100">@defaultFooter()</div>
 </html>
