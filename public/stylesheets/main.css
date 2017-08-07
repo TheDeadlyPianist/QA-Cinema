@@ -394,7 +394,7 @@ li.dropdown {
     text-align: center;
 }
 #movieImage img{
-    width: 95%;
+    width: 75%;
     padding-top: 4%;
     padding-left: 4%;
     padding-bottom: 4%;
@@ -402,10 +402,11 @@ li.dropdown {
 
 #movieImage{
     border-style: solid;
-    border-width: 5px;
+    border-width: 1px;
     background-color: #333;
     padding-right: 1%;
     margin: 1%;
+    width: 30%;
 }
 
 #movieInformation{
@@ -414,11 +415,13 @@ li.dropdown {
     background-color: #333;
     padding-right: 1%;
     margin: 1%;
+    width: 62%;
 }
 #movieInformation h1,h2,h3{
     color: white;
     padding-left: 6%;
     text-align: justify;
+    font-size: 25px;
 }
 
 #movieTrailer {
@@ -429,15 +432,14 @@ li.dropdown {
 }
 
 #filmTrailer {
-    width: 65%;
-    height: 65%;
+    width: 50%;
+    height: 50%;
 }
 
 #bookTicketBtn{
     position:absolute;
-    left: 38%;
+    left: 34.5%;
     margin-top: 1%;
-
     background-color: #4CAF50; /* Green */
     border: none;
     color: white;
