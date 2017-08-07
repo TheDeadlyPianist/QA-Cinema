@@ -17,4 +17,3 @@ libraryDependencies += "com.typesafe.play" %% "play-mailer-guice" % "6.0.0"
 
 unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )
 
-      
