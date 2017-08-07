@@ -355,6 +355,7 @@ li.dropdown {
 .listImg{
     width:90%;
     margin-bottom: 7%;
+    cursor:hand;
 }
 
 .col-100#theList {

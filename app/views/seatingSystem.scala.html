@@ -12,8 +12,11 @@
     <link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet">
     <!-- Bootstrap -->
 </head>
+
 <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=15445666"></script>
+
 <div id="dateVariable" value=@dateInput></div>
+
 <body onresize="resize()">
     <div id="movieTitle" style="color: white; text-align: center; margin-top: 4%; font-size: 500%">@filmInfo</div>
     <div class="seatSelector col-50" style="border: solid #727272;">
@@ -46,10 +49,9 @@
         <span style="color: white">Child Seats: </span><input id="child" type="number" value=0 onchange="deleteOverFlow()"><br><br>
         <span style="color: white">Elderly Seats: </span><input id="oap" type="number" value=0 onchange="deleteOverFlow()"><br><br>
         <span style="color: white">Student Seats: </span><input id="drunkard" type="number" value=0 onchange="deleteOverFlow()"><br><br>
-        <button onclick="debugSubmit()">Submit</button>
-    </div>
 
-    <div id="paypal-button-container"></div>
+        <div id="paypal-button-container" style = "visibility:hidden"></div>
+    </div>
 
     <style>
         .emptyRow {
@@ -83,7 +85,7 @@
 <script>
     window.onload = function(){
         resize();
-    }
+    };
 
     let selectedSeats = new Map;
     let seatsNeeded = 0;
@@ -128,6 +130,17 @@
             seatOrder.shift();
             curSeats = seatOrder.length;
         }
+        let filmName = document.getElementById("movieTitle").innerHTML;
+        let selectedTimeList = document.getElementById("timeSelection");
+        let selectedTime = selectedTimeList.options[selectedTimeList.selectedIndex].value;
+        let selectedDate = document.getElementById("dateInput").innerHTML;
+
+        if(seatsNeeded == 0 || selectedTime == "null" || seatsNeeded > curSeats || seatsNeeded < curSeats) {
+            document.getElementById("paypal-button-container").style.visibility = "hidden";
+        } else {
+            console.log("SHOWING")
+            document.getElementById("paypal-button-container").style.visibility = "visible";
+        }
     }
 
     function resize() {
@@ -156,39 +169,39 @@
         window.location.replace("/seatBooking?filmName=" + movTit.toString() + "&date=" + date.toString() + "&time=" + selectedTime)
     }
 
-    function debugSubmit() {
-        let adult = document.getElementById("adult").value;
-        let child = document.getElementById("child").value;
-        let oap = document.getElementById("oap").value;
-        let pleb = document.getElementById("drunkard").value;
-
-        let filmName = document.getElementById("movieTitle").innerHTML;
-        let selectedTimeList = document.getElementById("timeSelection");
-        let selectedTime = selectedTimeList.options[selectedTimeList.selectedIndex].value;
-        let selectedDate = document.getElementById("dateInput").innerHTML;
-
-
-
-        if(seatsNeeded == 0) {
-            window.alert("You haven't selected any tickets.");
-        } else if(selectedTime == "null") {
-            window.alert("You haven't selected a time.");
-        } else if(seatsNeeded > curSeats) {
-            window.alert("You haven't selected all your seats.");
-        } else if(seatsNeeded < curSeats) {
-            window.alert("You have (somehow) selected too many seats.");
-        } else {
-            let dataObject = {"filmTitle":filmName.toString(), "seats":seatOrder.sort().toString(), "time":selectedTime.toString(), "date":selectedDate.toString(), "totalCost":0};
-            xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if(this.readyState == 4 && this.status == 200) {
-                    window.location.href = "/";
-                }
-            };
-            xhttp.open("POST", "/sendRecepitRequest");
-            xhttp.send(JSON.stringify(dataObject));
-        }
-    }
+//    function paypalSubmit() {
+//        let adult = document.getElementById("adult").value;
+//        let child = document.getElementById("child").value;
+//        let oap = document.getElementById("oap").value;
+//        let pleb = document.getElementById("drunkard").value;
+//
+//        let filmName = document.getElementById("movieTitle").innerHTML;
+//        let selectedTimeList = document.getElementById("timeSelection");
+//        let selectedTime = selectedTimeList.options[selectedTimeList.selectedIndex].value;
+//        let selectedDate = document.getElementById("dateInput").innerHTML;
+//
+//
+//
+//        if(seatsNeeded == 0) {
+//            window.alert("You haven't selected any tickets.");
+//        } else if(selectedTime == "null") {
+//            window.alert("You haven't selected a time.");
+//        } else if(seatsNeeded > curSeats) {
+//            window.alert("You haven't selected all your seats.");
+//        } else if(seatsNeeded < curSeats) {
+//            window.alert("You have (somehow) selected too many seats.");
+//        } else {
+//            let dataObject = {"filmTitle":filmName.toString(), "seats":seatOrder.sort().toString(), "time":selectedTime.toString(), "date":selectedDate.toString(), "totalCost":0};
+//            xhttp = new XMLHttpRequest();
+//            xhttp.onreadystatechange = function() {
+//                if(this.readyState == 4 && this.status == 200) {
+//                    window.location.href = "/";
+//                }
+//            };
+//            xhttp.open("POST", "/sendRecepitRequest");
+//            xhttp.send(JSON.stringify(dataObject));
+//        }
+//    }
 
     paypal.Button.render({
 
@@ -207,12 +220,18 @@
         // payment() is called when the button is clicked
         payment: function(data, actions) {
 
+            let adultCost = parseInt(document.getElementById("adult").value, 10)*7;
+            let childrenCost = parseInt(document.getElementById("child").value, 10)*4;
+            let oldyCost = parseInt(document.getElementById("oap").value, 10)*5.5;
+            let moneyMuncherCost = parseInt(document.getElementById("drunkard").value, 10)*5.5;
+
+            let totalCost = adultCost + childrenCost + oldyCost + moneyMuncherCost;
             // Make a call to the REST api to create the payment
             return actions.payment.create({
                 payment: {
                     transactions: [
                         {
-                            amount: { total: '0.01', currency: 'GBP' }
+                            amount: { total: totalCost, currency: 'GBP' }
                         }
                     ]
                 }
@@ -224,8 +243,17 @@
 
             // Make a call to the REST api to execute the payment
             return actions.payment.execute().then(function() {
-                window.alert('Payment Complete!');
+//                window.alert('Payment Complete!');
 
+                let dataObject = {"filmTitle":filmName.toString(), "seats":seatOrder.sort().toString(), "time":selectedTime.toString(), "date":selectedDate.toString(), "totalCost":0};
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if(this.readyState == 4 && this.status == 200) {
+                        window.location.href = "/";
+                    }
+                };
+                xhttp.open("POST", "/sendRecepitRequest");
+                xhttp.send(JSON.stringify(dataObject));
             });
         }
 

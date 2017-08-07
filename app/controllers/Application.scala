@@ -84,6 +84,10 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     Ok(views.html.deals("Deals: Success"))
   }
 
+  def theSearch(inString:String) = Action {
+    Ok(views.html.search(inString))
+  }
+
   def seating(filmName:String, date:String, time:String) = Action {
 
     val queryDate = date.toInt
