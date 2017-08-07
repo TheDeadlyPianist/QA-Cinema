@@ -25,18 +25,29 @@
 <body>
     <div class="col-50" id="map"></div>
     <br>
-    <div class="hyperColour">Enter Postcode:
-        <input type="text" id="start"/>
-        <input type="submit" value="Get Directions" onclick="onChangeHandler()" />
+    <div class="col-50" style="text-align: center" style="font-size: large">
+        <div class="item">
+            <div class="hyperColour">Enter Postcode:
+                <input type="text" id="start"/>
+                <input type="submit" value="Get Directions" onclick="onChangeHandler()" />
+            </div>
+            <div class="hyperColour">Mode of Travel:
+                <select id="mode">
+                    <option value="DRIVING">Driving</option>
+                    <option value="WALKING">Walking</option>
+                    <option value="BICYCLING">Bicycling</option>
+                    <option value="TRANSIT">Public Transport</option>
+                </select>
+            </div>
+            <div>
+                <h4 id="clickedplace" class="hyperColour">Click somewhere on the map for information</h4><br>
+                <h5 id="clickedplace1" class="hyperColour"></h5><br>
+                <h5 id="clickedplace2" class="hyperColour"></h5><br>
+                <h5 id="clickedplace3" class="hyperColour"></h5><br>
+            </div>
+        </div>
     </div>
-    <div class="hyperColour">Mode of Travel:
-        <select id="mode">
-            <option value="DRIVING">Driving</option>
-            <option value="WALKING">Walking</option>
-            <option value="BICYCLING">Bicycling</option>
-            <option value="TRANSIT">Public Transport</option>
-        </select>
-    </div>
+
 
     <br>
     <script>
@@ -165,7 +176,7 @@
                         if (status === 'OK') {
                             directionsDisplay.setDirections(response);
                         } else {
-                            window.alert('Directions request failed due to ' + status);
+                            window.alert('Directions request failed due to ' + status + '. Please check your postcode and try again');
                         }
                     });
                 }
@@ -175,14 +186,6 @@
     <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDULYRqPbZDrCSmoKNXZJPR3enCXhI226Q&libraries=places&callback=initMap" async defer>
     </script>
-
-    <div>
-        <h4 id="clickedplace" class="hyperColour">Click somewhere on the map for information</h4><br>
-        <h5 id="clickedplace1" class="hyperColour"></h5><br>
-        <h5 id="clickedplace2" class="hyperColour"></h5><br>
-        <h5 id="clickedplace3" class="hyperColour"></h5><br>
-
-    </div>
     <div class="col-100">@defaultFooter()</div>
 </body>
 
