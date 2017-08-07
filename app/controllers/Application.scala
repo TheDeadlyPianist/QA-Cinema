@@ -202,7 +202,29 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
 
   def theMovieInfo(movieID:Int) = Action {
 
-    Ok(views.html.moviesInfo("MovieInfo: Success")(movieID))
+    var sDate = ""
+    var eDate = ""
+
+    val searchQuery = Document("apiID" -> movieID)
+    val getFilmDocument = Future{movies.find(searchQuery).results()}
+    getFilmDocument.onSuccess {
+      case result => result
+    }
+
+    val moviesInDB = Await.result[Seq[Document]](getFilmDocument, 10 seconds)
+
+    for(i <- 0 until moviesInDB.length) {
+
+      val startDate = moviesInDB(i)("startDate").asInt32().getValue
+      val endDate = moviesInDB(i)("endDate").asInt32().getValue
+
+      sDate += startDate.toString
+      eDate += endDate.toString
+    }
+
+     Ok(views.html.moviesInfo("MovieInfo: Success")(movieID)(sDate)(eDate))
 
   }
+
+
 }

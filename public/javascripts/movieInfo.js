@@ -1,6 +1,7 @@
 $(document).ready(function(){
     getMovieInformation();
     getMovieTrailer();
+    getDates();
 });
 
 function getMovieInformation(){
@@ -43,6 +44,8 @@ function getMovieInformation(){
         $('<h2 id="productionCompanies">'+"Production Companies: " + '</br></br>' + productionCompanies+'</h2>').appendTo('#movieInformation');
 
         getAgeRating();
+
+        $('<div><select><option>ABC</option><option>EFG</option></select></div>').appendTo('#movieInformation')
 
     });
 
@@ -91,6 +94,8 @@ function getAgeRating(){
         //$('<h2 id="ageRating">'+"Age Rating: " + ageRating+'</h2></br>').appendTo('#movieInformation');
         $('<h2 id="ageRating">'+"Age Rating: " + '</br>' + '<img src="'+ageRating+'" id="ageRatingImg">'+'</h2>' + '<button id="bookTicketBtn" onclick="bookTicket()">Book</button>').appendTo('#movieInformation');
 
+
+
     });
 }
 
@@ -123,6 +128,41 @@ function getMovieTrailer(){
 function bookTicket() {
 
     alert("Book Ticket")
+
+
+}
+
+
+function getDates(){
+
+    var getStartDate = movieIDGlobalObject.startDate.toString();
+    var getEndDate = movieIDGlobalObject.endDate.toString();
+
+    var sDate = getStartDate.match(/(\d\d)(\d\d)(\d\d\d\d)/);
+    var convertedStartDate = new Date(sDate[3], sDate[1] - 1, sDate[2]);
+
+    var eDate = getEndDate.match(/(\d\d)(\d\d)(\d\d\d\d)/);
+    var convertedEndDate = new Date(eDate[3], eDate[1] - 1, eDate[2]);
+
+    var getDates = function(startDate, endDate) {
+        var dates = [],
+            currentDate = startDate,
+            addDays = function(days) {
+                var date = new Date(this.valueOf());
+                date.setDate(date.getDate() + days);
+                return date;
+            };
+        while (currentDate <= endDate) {
+            dates.push(currentDate);
+            currentDate = addDays.call(currentDate, 1);
+        }
+        return dates;
+    };
+
+    var dates = getDates(convertedStartDate, convertedEndDate);
+    dates.forEach(function(date) {
+        console.log(date);
+    });
 
 
 }
