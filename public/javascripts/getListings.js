@@ -1,6 +1,7 @@
 
-function movieSearch(){
+function movieSearch(theSwitch){
 
+    document.getElementById("theList").innerHTML = ""
     var movieInfo = [
         {
             movieID:"284053",
@@ -22,10 +23,6 @@ function movieSearch(){
             movieID: "281338",
             moviename: "War For The Planet Of The Apes",
             movieyear: "2017"
-        },{
-            movieID: "277834",
-            moviename: "Moana",
-            movieyear: "2016"
         },{
             movieID: "324852",
             moviename: "Despicable Me 3",
@@ -92,7 +89,6 @@ function movieSearch(){
             movieyear: "2017"
         }
 
-
     ];
 
     $.each(movieInfo, function(key, movie) {
@@ -106,22 +102,38 @@ function movieSearch(){
             "data": "{}"
         };
 
-
         $.ajax(settings).done(function (response) {
-            console.log(response);
 
-            document.getElementById("theList").innerHTML += '<div class="col-20"><div class="item"><div><h3><a class="hyperColour" href="/movieInfo?movieID='+response.id+'">'+response.original_title+'</a></h3></div><img class="listImg" src="https://image.tmdb.org/t/p/original'+response.poster_path+'" alt=""></div></div>';
-            // description
-            //<div class="theDescCont"><div class="theDesc">'+response.overview+'</div></div>
+            var theDate = new Date()
+            var movDate = new Date(response.release_date)
+
+            if(theSwitch == 0)
+            {
+                if(movDate <= theDate)
+                {
+                    document.getElementById("theList").innerHTML += '<div class="col-20"><div class="item"><div><h3><a class="hyperColour" href="/movieInfo?movieID=' + response.id + '">' + response.original_title + '</a></h3><img id="img' + response.movieID + '" class="listImg" src="https://image.tmdb.org/t/p/original' + response.poster_path + '"></div></div>';
+                }
+            }
+            else if(theSwitch == 1)
+            {
+                if(movDate > theDate)
+                {
+                    document.getElementById("theList").innerHTML += '<div class="col-20"><div class="item"><div><h3><a class="hyperColour" href="/movieInfo?movieID=' + response.id + '">' + response.original_title + '</a></h3><img id="img' + response.movieID + '" class="listImg" src="https://image.tmdb.org/t/p/original' + response.poster_path + '"></div></div>';
+                }
+            }
+
+            console.log(response);
 
         });
 
     });
-    document.getElementById("theList").innerHTML += '<div class="divTitle"><p class="listTitle" text-align="center"><b><u>NOW SHOWING</u></b></p></div>'
+    document.getElementById("theList").innerHTML += '<div class="divTitle"><div class="listMiddle"><div id="leftTab" class="listBottom"  onclick="doNowShowing()"><a class="listTitle" href="javascript:void(0);"  text-align="center"><b>NOW SHOWING</b></a></div><div ID="rightTab" class="listBottom"  onclick="doUpcoming()"><a class="listTitle" href="javascript:void(0);"  text-align="center"><b>UPCOMING RELEASES</b></a></div></div></div>'
 
 }
+/*
 $(document).ready(function(){
 
     movieSearch()
 
 });
+*/

@@ -5,14 +5,15 @@
 # Home page
 GET     /                           controllers.Application.index
 
-GET     /testSeating                controllers.Application.seating(filmName:String)
+GET     /seatBooking                controllers.Application.seating(filmName:String, date:String, time:String)
+POST    /sendRecepitRequest         controllers.Application.seatingRequest()
 
 GET     /listing                    controllers.Application.theListing
 
 GET     /about                      controllers.Application.theAbout
 
 GET     /deals                      controllers.Application.theDeals
-GET    /contactUs                  controllers.Application.submitForm
+GET     /contactUs                  controllers.Application.submitForm
 POST    /contactUs                  controllers.Application.submitForm
 
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
