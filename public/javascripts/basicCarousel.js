@@ -1,6 +1,6 @@
-let selected = 0;
-let allItems = document.getElementsByClassName("listItem");
-let allText = document.getElementsByClassName("imgText");
+var selected = 0;
+var allItems = document.getElementsByClassName("listItem");
+var allText = document.getElementsByClassName("imgText");
 
 function init() {
     if (allItems.length == allText.length) {
