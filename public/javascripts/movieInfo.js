@@ -131,7 +131,7 @@ function bookTicket() {
     var strUser = e.options[e.selectedIndex].value.toString();
 
     var formatDate = new Date(strUser);
-    var getHours = ('0'+formatDate.getHours()).substr(-2);;
+    var getHours = formatDate.getHours();
     var getMinutes = ('0'+formatDate.getMinutes()).substr(-2);
     var totalTime = getHours + ":" + getMinutes;
     var properlyFormatted = formatDate.getFullYear() + ("0" + (formatDate.getMonth() + 1)).slice(-2) + ("0" + formatDate.getDate()).slice(-2);
