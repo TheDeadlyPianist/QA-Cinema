@@ -21,7 +21,9 @@
     </style>
     <div class="col-100">@navbar()</div>
 </head>
+<script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=15445666"></script>
 <body>
+    <div class="hyperColour">This is a header</div>
     <div class="col-100" id="map">
         <script>
                 var map;
@@ -38,20 +40,24 @@
 
                     var homeMarker = new google.maps.Marker({
                         position: cinema,
-                        map: map
+                        map: map,
+                        icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/movies.png'
+
                     });
 
                     infowindow = new google.maps.InfoWindow();
                     var service = new google.maps.places.PlacesService(map);
-                    service.nearbySearch({
-                        location: cinema,
-                        radius: 1000,
-                        type: ['bar']
-                    }, callback);
-
+                    function createRest(string) {
+                        service.nearbySearch({
+                            location: cinema,
+                            radius: 1000,
+                            type: [string]
+                        }, callback);
+                    }
                     function callback(results, status) {
                         if (status === google.maps.places.PlacesServiceStatus.OK) {
                             for (var i = 0; i < results.length; i++) {
+                                console.log(results[i]);
                                 createMarker(results[i]);
                             }
                         }
@@ -59,22 +65,54 @@
 
                     function createMarker(place) {
                         var placeLoc = place.geometry.location;
+                        if(place.types.includes("bar")){
                         var marker = new google.maps.Marker({
                             map: map,
-                            position: place.geometry.location
-                        });
+                            position: place.geometry.location,
+                            icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/restaurant.png'
+                        });}
+                        else if(place.types.includes("restaurant")){
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: place.geometry.location,
+                                icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/bar.png'
+                            });
+                        }
 
                         google.maps.event.addListener(marker, 'click', function () {
                             infowindow.setContent(place.name);
                             infowindow.open(map, this);
+                            document.getElementById("clickedplace").innerHTML = place.name;
+                            document.getElementById("clickedplace1").innerHTML = "Address: " + place.vicinity;
+//                            document.getElementById("clickedplace2").innerHTML = ;
+                            document.getElementById("clickedplace3").innerHTML = "Rating: " + place.rating + "/5";
                         });
                     }
-                }
 
+                    createRest('restaurant');
+                    createRest('bar')
+
+                    google.maps.event.addListener(homeMarker, 'click', function () {
+                        infowindow.setContent("QA Cinemas");
+                        infowindow.open(map, this);
+                        document.getElementById("clickedplace").innerHTML = "QA Cinemas";
+//                            document.getElementById("clickedplace1").innerHTML = ;
+//                        document.getElementById("clickedplace2").innerHTML = ;
+                        document.getElementById("clickedplace3").innerHTML = "Rating: " + "10/5";
+                    });
+
+                }
         </script>
         <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDULYRqPbZDrCSmoKNXZJPR3enCXhI226Q&libraries=places&callback=initMap" async defer>
         </script>
+    </div>
+    <div>
+        <h4 id="clickedplace" class="hyperColour">Click somewhere on the map for information</h4><br>
+        <h5 id="clickedplace1" class="hyperColour"></h5><br>
+        <h5 id="clickedplace2" class="hyperColour"></h5><br>
+        <h5 id="clickedplace3" class="hyperColour"></h5><br>
+
     </div>
     <div class="col-100">@defaultFooter()</div>
 </body>
