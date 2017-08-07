@@ -84,7 +84,7 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     Ok(views.html.deals("Deals: Success"))
   }
 
-  def seating(filmName:String, date:String) = Action {
+  def seating(filmName:String, date:String, time:String) = Action {
 
     val queryDate = date.toInt
 
@@ -133,7 +133,7 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
         case _ => ""
       }
     })
-    val receiptQuery = Document("filmTitle"->filmName, "date"->date.toInt)
+    val receiptQuery = Document("filmTitle"->filmName, "date"->date.toInt, "time"->time)
     val pullReceiptsFuture = Future{
       receipts.find(receiptQuery).results()
     }
@@ -152,7 +152,7 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     }
 
     Ok(
-      views.html.booking(useSeats)(lengthOfSeats)(seatLabels)(filmName)(timeList)(queryDate)
+      views.html.booking(useSeats)(lengthOfSeats)(seatLabels)(filmName)(timeList)(queryDate)(time)
     )
   }
 
