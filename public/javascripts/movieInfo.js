@@ -1,6 +1,7 @@
 $(document).ready(function(){
     getMovieInformation();
     getMovieTrailer();
+    getDates();
 });
 
 function getMovieInformation(){
@@ -18,7 +19,7 @@ function getMovieInformation(){
         console.log(response);
 
 
-        $(('<h1>'+response.original_title+'</h1>' + '<h2>Release Date: '+response.release_date+'</h2>' + '<h2>Runtime: '+response.runtime+' Minutes</h2>' + '<h2>Movie Rating: '+response.vote_average+'</h2>' + '<h2>Overview: '+response.overview+'</h2>')).appendTo('#movieInformation');
+        $(('<h1 id="filmTitle">'+response.original_title+'</h1>' + '<h2>Release Date: '+response.release_date+'</h2>' + '<h2>Runtime: '+response.runtime+' Minutes</h2>' + '<h2>Movie Rating: '+response.vote_average+'</h2>' + '<h2>Overview: '+response.overview+'</h2>')).appendTo('#movieInformation');
         $('<img src="https://image.tmdb.org/t/p/original'+response.poster_path+'">').appendTo('#movieImage');
 
         var genres = "";
@@ -91,6 +92,8 @@ function getAgeRating(){
         //$('<h2 id="ageRating">'+"Age Rating: " + ageRating+'</h2></br>').appendTo('#movieInformation');
         $('<h2 id="ageRating">'+"Age Rating: " + '</br>' + '<img src="'+ageRating+'" id="ageRatingImg">'+'</h2>' + '<button id="bookTicketBtn" onclick="bookTicket()">Book</button>').appendTo('#movieInformation');
 
+
+
     });
 }
 
@@ -122,7 +125,67 @@ function getMovieTrailer(){
 
 function bookTicket() {
 
-    alert("Book Ticket")
+    var getTitle = document.getElementById("filmTitle").textContent;
+
+    var e = document.getElementById("dates");
+    var strUser = e.options[e.selectedIndex].value.toString();
+
+    var formatDate = new Date(strUser);
+    var getHours = ('0'+formatDate.getHours()).substr(-2);;
+    var getMinutes = ('0'+formatDate.getMinutes()).substr(-2);
+    var totalTime = getHours + ":" + getMinutes;
+    var properlyFormatted = formatDate.getFullYear() + ("0" + (formatDate.getMonth() + 1)).slice(-2) + ("0" + formatDate.getDate()).slice(-2);
+
+    window.location = "/seatBooking?filmName="+getTitle+"&date="+properlyFormatted+"&time=9:00";
+
+}
 
 
+function getDates(){
+
+    var getStartDate = movieIDGlobalObject.startDate;
+    var getEndDate = movieIDGlobalObject.endDate;
+
+
+    var startDateYear = getStartDate.substring(0,4);
+    var startDateMonth = getStartDate.substring(4,6);
+    var startDateDay = getStartDate.substring(6,8);
+
+    var convertedStartDate = new Date(startDateYear, startDateMonth-1, startDateDay);
+
+
+    var endDateYear = getEndDate.substring(0,4);
+    var endDateMonth = getEndDate.substring(4,6);
+    var endDateDay = getEndDate.substring(6,8);
+
+    var convertedEndDate = new Date(endDateYear, endDateMonth-1, endDateDay);
+
+
+    var getDates = function(startDate, endDate) {
+        var dates = [],
+            currentDate = startDate,
+            addDays = function(days) {
+                var date = new Date(this.valueOf());
+                date.setHours(9);
+                date.setDate(date.getDate() + days);
+
+
+                return date;
+            };
+        while (currentDate <= endDate) {
+            dates.push(currentDate);
+            currentDate = addDays.call(currentDate, 1);
+        }
+        return dates;
+    };
+
+    var completedDate = "";
+
+    var dates = getDates(convertedStartDate, convertedEndDate);
+
+    dates.forEach(function(date) {
+        completedDate += '<option>'+date+'</option>'
+    });
+
+    $('<div><select id="dates">'+completedDate+'</select></div>').appendTo('#movieInformation')
 }

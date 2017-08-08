@@ -53,7 +53,6 @@ class ContactSpec extends PlaySpecification with Results {
       val request = route(FakeRequest(POST, "/contactUs").withFormUrlEncodedBody("email" -> "test@gmail.com", "name" -> "test",
         "subject" -> "test", "content" -> "This should pass" ))
       status(request.get) should equalTo(SEE_OTHER)
-
     }
   }
 }
