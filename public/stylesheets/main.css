@@ -156,6 +156,7 @@ li.dropdown {
     color: white
 
 }
+
 .searchbutton {
     position:relative;
     left:-8px;
@@ -349,11 +350,13 @@ li.dropdown {
     border-width: 1px;
     margin:5%;
     background-color: #333;
+    font-size: 16px;
 }
 
 .listImg{
     width:90%;
     margin-bottom: 7%;
+    cursor:hand;
 }
 
 .col-100#theList {
@@ -361,17 +364,6 @@ li.dropdown {
     margin-bottom:1%;
 }
 
-/*
-.theDescCont{
-    text-align: center;
-    width:100%;
-}
-.theDesc{
-    text-align: left!important;
-    width: 50%;
-    display: inline-block
-}
-*/
 .listTitle{
     font-size: 24pt;
     color:#ccc;
@@ -379,6 +371,7 @@ li.dropdown {
 
 .hyperColour{
     color:#ddd;
+    font-size: 90%;
 }
 
 .divTitle{
@@ -386,6 +379,37 @@ li.dropdown {
     border-width: 1px;
     background-color:#333;
     margin-bottom: 1%;
+    display:table;
+    width:100%;
+    text-align:center;
+}
+
+.listMiddle{
+    display:table-row;
+    text-align:center;
+}
+
+.listBottom{
+    display:table-cell;
+    text-align:center;
+    width:50%;
+    padding-top:1%;
+    padding-bottom:1%;
+    cursor:hand;
+}
+
+#leftTab{
+    border-right: solid 1px black;
+}
+
+#rightTab{
+
+}
+
+.listTitle{
+    margin-top:2%;
+    text-align:center;
+    text-decoration: none;
 }
 
 #movieInfoContent{
@@ -393,8 +417,9 @@ li.dropdown {
     margin-right: 5%;
     text-align: center;
 }
+
 #movieImage img{
-    width: 95%;
+    width: 75%;
     padding-top: 4%;
     padding-left: 4%;
     padding-bottom: 4%;
@@ -402,10 +427,11 @@ li.dropdown {
 
 #movieImage{
     border-style: solid;
-    border-width: 5px;
+    border-width: 1px;
     background-color: #333;
     padding-right: 1%;
     margin: 1%;
+    width: 30%;
 }
 
 #movieInformation{
@@ -414,11 +440,13 @@ li.dropdown {
     background-color: #333;
     padding-right: 1%;
     margin: 1%;
+    width: 62%;
 }
-#movieInformation h1,h2,h3{
+h1,h2,h3#movieInformation{
     color: white;
     padding-left: 6%;
     text-align: justify;
+    font-size: 25px;
 }
 
 #movieTrailer {
@@ -429,15 +457,14 @@ li.dropdown {
 }
 
 #filmTrailer {
-    width: 65%;
-    height: 65%;
+    width: 50%;
+    height: 50%;
 }
 
 #bookTicketBtn{
     position:absolute;
-    left: 38%;
+    left: 34.5%;
     margin-top: 1%;
-
     background-color: #4CAF50; /* Green */
     border: none;
     color: white;

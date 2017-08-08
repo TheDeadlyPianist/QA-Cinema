@@ -1,8 +1,39 @@
 @(message: String)
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+<script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=15445666"></script>
 <body>
     <div class="col-100">@navbar()</div>
-    <div class="col-100"><p>THIS IS THE DEALS PAGE</p></div>
+
+    <div class="col-33" style="text-align: center">
+        <div class="item">
+            <h3 class="hyperColour" style="text-align: center">DEAL 1</h3>
+            <h2 class="hyperColour">Buy 5 pints in DOCKyard and receive a free ticket to any viewing of any film.</h2>
+            <br>
+            <img height="300" width="300" src="@routes.Assets.at("images/deal1.jpg")"/>
+            <p></p>
+        </div>
+    </div>
+
+    <div class="col-33" style="text-align: center">
+        <div class="item">
+            <h3 class="hyperColour" style="text-align: center">DEAL 2</h3>
+            <h2 class="hyperColour">Free kids subway meal when buying a child's ticket.</h2>
+            <br>
+            <img height="300" width="300" src="@routes.Assets.at("images/deal2.jpg")"/>
+            <p></p>
+        </div>
+    </div>
+
+    <div class="col-33" style="text-align: center">
+        <div class="item">
+            <h3 class="hyperColour" style="text-align: center">DEAL 3</h3>
+            <h2 class="hyperColour">Buy 1 get 1 free on all popcorn.</h2>
+            <br>
+            <img height="300" width="300" src="@routes.Assets.at("images/deal3.jpg")"/>
+            <p></p>
+        </div>
+    </div>
+
     <div class="col-100">@defaultFooter()</div>
 </body>
