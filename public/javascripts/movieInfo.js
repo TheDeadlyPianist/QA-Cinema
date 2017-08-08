@@ -19,7 +19,7 @@ function getMovieInformation(){
         console.log(response);
 
 
-        $(('<h1 id="filmTitle">'+response.original_title+'</h1>' + '<h2>Release Date: '+response.release_date+'</h2>' + '<h2>Runtime: '+response.runtime+' Minutes</h2>' + '<h2>Movie Rating: '+response.vote_average+'</h2>' + '<h2>Overview: '+response.overview+'</h2>')).appendTo('#movieInformation');
+        $(('<h1 id="filmTitle">'+response.original_title+'</h1>' + '<h2>Release Date: '+response.release_date+'</h2>' + '<h2>Runtime: '+response.runtime+' Minutes</h2>' + '<h2>Movie Rating: '+response.vote_average+'</h2>' + '<h2>Overview: '+response.overview+'</h2>')).appendTo('#movieInformationSub');
         $('<img src="https://image.tmdb.org/t/p/original'+response.poster_path+'">').appendTo('#movieImage');
 
         var genres = "";
@@ -30,7 +30,7 @@ function getMovieInformation(){
 
         };
 
-        $('<h2 id="genres">'+"Genres: " + '</br></br>' + genres +'</h2>').appendTo('#movieInformation');
+        $('<h2 id="genres">'+"Genres: " + '</br></br>' + genres +'</h2>').appendTo('#movieInformationSub');
 
 
         var productionCompanies = "";
@@ -41,7 +41,7 @@ function getMovieInformation(){
 
         };
 
-        $('<h2 id="productionCompanies">'+"Production Companies: " + '</br></br>' + productionCompanies+'</h2>').appendTo('#movieInformation');
+        $('<h2 id="productionCompanies">'+"Production Companies: " + '</br></br>' + productionCompanies+'</h2>').appendTo('#movieInformationSub');
 
         getAgeRating();
 
@@ -90,11 +90,7 @@ function getAgeRating(){
         };
 
         //$('<h2 id="ageRating">'+"Age Rating: " + ageRating+'</h2></br>').appendTo('#movieInformation');
-        document.getElementById('movieInformation').innerHTML += '<h2 id="ageRating">'+"Age Rating: " + '</br>' + '<img src="'+ageRating+'" id="ageRatingImg">'+'</h2>'
-        document.getElementById('movieBtn').innerHTML +=  '<button id="bookTicketBtn" onclick="bookTicket()">Book</button>'
-
-
-
+        document.getElementById('movieInformationSub').innerHTML += '<h2 id="ageRating">'+"Age Rating: " + '</br>' + '<img src="'+ageRating+'" id="ageRatingImg">'+'</h2>'
     });
 }
 
@@ -129,6 +125,7 @@ function bookTicket() {
     var getTitle = document.getElementById("filmTitle").textContent;
 
     var e = document.getElementById("dates");
+
     var strUser = e.options[e.selectedIndex].value.toString();
 
     var formatDate = new Date(strUser);
@@ -174,7 +171,7 @@ function getDates(){
                 return date;
             };
         while (currentDate <= endDate) {
-            dates.push(currentDate);
+            dates.push(new Date(currentDate).toDateString());
             currentDate = addDays.call(currentDate, 1);
         }
         return dates;
@@ -188,5 +185,6 @@ function getDates(){
         completedDate += '<option>'+date+'</option>'
     });
 
-    $('<div><select id="dates">'+completedDate+'</select></div>').appendTo('#movieInformation')
+    $('<div><h2 id="dateTitle" class="col-33" float="left" width="auto">Select a date: </h2><select class="col-33">'+completedDate+'</select></div>').appendTo('#dates')
+    $('<button id="bookTicketBtn" onclick="bookTicket()">Book</button>').appendTo('#movieBtn')
 }

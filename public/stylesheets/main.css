@@ -416,6 +416,7 @@ li.dropdown {
     margin-top: 2%;
     margin-right: 5%;
     text-align: center;
+
 }
 
 #movieImage img{
@@ -461,20 +462,6 @@ h1,h2,h3#movieInformation{
     height: 50%;
 }
 
-#bookTicketBtn{
-    position:absolute;
-    left: 34.5%;
-    margin-top: 1%;
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 1% 4%;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-
-}
 
 #ageRatingImg{
     padding-top: 2%;
@@ -547,3 +534,41 @@ label {
     margin-bottom:3% !important;;
 }
 
+#dates{
+
+
+}
+
+#movieBtn{
+
+width:auto;
+}
+
+.theMovieDateBook{
+
+    margin-top:5%;
+    text-align:center;
+
+
+}
+
+.theMovieDateBook #dateTitle{
+    margin-top:-1%;
+}
+
+#bookTicketBtn{
+    background-color: #062f4f;
+    /*
+    position:absolute;
+    left: 34.5%;
+    margin-top: 1%;
+
+    border: none;
+    color: white;
+    padding: 1% 4%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+*/
+}
