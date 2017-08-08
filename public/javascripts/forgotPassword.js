@@ -13,7 +13,7 @@
 
 
     const btnReset = document.getElementById("btnReset");
-    const txtEmail = document.getElementById('txtEmail');
+    const txtEmail = document.getElementById("txtEmail");
 
 
     btnReset.addEventListener("click", (e) => {

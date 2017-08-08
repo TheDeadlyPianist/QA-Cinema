@@ -12,12 +12,12 @@
     firebase.initializeApp(config);
 
 
-    const txtEmail = document.getElementById('txtEmail');
-    const txtPassword = document.getElementById('txtPassword');
-    const btnLogin = document.getElementById('btnLogin');
-    const btnSignUp = document.getElementById('btnSignUp');
-    const btnLogout = document.getElementById('btnLogout');
-    const btnReset = document.getElementById('btnReset');
+    const txtEmail = document.getElementById("txtEmail");
+    const txtPassword = document.getElementById("txtPassword");
+    const btnLogin = document.getElementById("btnLogin");
+    const btnSignUp = document.getElementById("btnSignUp");
+    const btnLogout = document.getElementById("btnLogout");
+    const btnReset = document.getElementById("btnReset");
 
 
     // Login
@@ -37,7 +37,7 @@
     });
 
 
-    btnReset.addEventListener('click', e => {
+    btnReset.addEventListener("click", (e) => {
 
         window.location.href = "../forgotPassword";
 
@@ -61,7 +61,7 @@
     // });
 
 
-    btnLogout.addEventListener('click', e => {
+    btnLogout.addEventListener("click", (e) => {
         firebase.auth().signOut();
         //console.log('User logged out')
         location.reload();
@@ -74,7 +74,7 @@
             window.location.href = "../myAccount";
         }
         else {
-            console.log('Not signed in');
+            console.log("Not signed in");
 
         }
 
