@@ -12,11 +12,11 @@
     firebase.initializeApp(config);
 
 
-    const btnLogout = document.getElementById('btnLogout');
+    const btnLogout = document.getElementById("btnLogout");
 
 
 
-    btnLogout.addEventListener('click', e => {
+    btnLogout.addEventListener("click", (e) => {
         firebase.auth().signOut();
         //console.log('User logged out')
         location.reload();
@@ -25,15 +25,15 @@
     firebase.auth().onAuthStateChanged(firebaseUser => {
 
         if(firebaseUser) {
-            console.log(firebaseUser)
+            console.log(firebaseUser);
             // btnLogout.classList.remove('hide');
             //btnLogin.style.display.block
             document.getElementById("btnLogout").style.display = "block";
-            document.getElementById("myAccountLabel").innerText = 'Logged in as ' + firebaseUser.email;
+            document.getElementById("myAccountLabel").innerText = "Logged in as " + firebaseUser.email;
             // btnLogin.classList.add('hide');
         }
         else {
-            console.log('Not signed in');
+            console.log("Not signed in");
             window.location.href = "../login";
 
         }

@@ -22,7 +22,7 @@
 
     // Login
 
-    btnLogin.addEventListener('click', e => {
+    btnLogin.addEventListener("click", (e) => {
 
         const email = txtEmail.value;
         const pass = txtPassword.value;
@@ -32,7 +32,7 @@
         const promise = auth.signInWithEmailAndPassword(email, pass);
         promise.catch(e => console.log(e.message))
 
-        console.log('logged in as ', email)
+        console.log("logged in as " + email);
 
     });
 
@@ -40,6 +40,7 @@
     btnReset.addEventListener('click', e => {
 
         window.location.href = "../forgotPassword";
+
 
     });
 

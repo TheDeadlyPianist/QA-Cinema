@@ -12,20 +12,21 @@
     firebase.initializeApp(config);
 
 
-    const btnReset = document.getElementById('btnReset');
+    const btnReset = document.getElementById("btnReset");
+    const txtEmail = document.getElementById('txtEmail');
 
 
-    btnReset.addEventListener('click', e => {
+    btnReset.addEventListener("click", (e) => {
 
         const email = txtEmail.value;
         const auth = firebase.auth();
 
         const promise = auth.sendPasswordResetEmail(email);
-        promise.catch(e => console.log(e.message))
+        promise.catch(e => console.log(e.message));
 
 
         //window.console.log("Email sent to " + email + " follow steps on email to reset password")
-        alert("Email sent to " + email + " follow steps on email to reset password")
+        alert("Email sent to " + email + " follow steps on email to reset password");
         //window.location.href = "../login";
 
 
@@ -36,12 +37,12 @@
     firebase.auth().onAuthStateChanged(firebaseUser => {
 
         if(firebaseUser) {
-            console.log(firebaseUser)
+            console.log(firebaseUser);
 
             window.location.href = "../myAccount";
         }
         else {
-            console.log('Not signed in');
+            console.log("Not signed in");
             //window.location.href = "../login"
 
         }
