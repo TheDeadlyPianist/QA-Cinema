@@ -67,17 +67,21 @@ function getAgeRating(){
 
         for (var i = 0; i < response.results.length; i++) {
             if (response.results[i].iso_3166_1 == "GB"){
-                for (var j = 0; j  < response.results[i].release_dates.length; j ++) {
 
-                    ageRating = response.results[i].release_dates[j].certification;
+                for (var j = 0; j < response.results[i].release_dates.length; j++) {
 
-
+                    if (response.results[i].release_dates[j].certification != "")
+                    {
+                        ageRating = response.results[i].release_dates[j].certification
+                    }
                 };
             };
         };
 
-
-
+        if(ageRating == "")
+        {
+            ageRating = "TBC"
+        }
         document.getElementById('movieInformationSub').innerHTML += '<h2 id="ageRating">'+"Age Rating: " +'</h2></br>' + '<img id="ageRatingImg" src="">'
         document.getElementById('ageRatingImg').src="/assets/images/ratings/" + ageRating + ".png";
     });
