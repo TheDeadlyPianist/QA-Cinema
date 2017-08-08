@@ -169,39 +169,39 @@
         window.location.replace("/seatBooking?filmName=" + movTit.toString() + "&date=" + date.toString() + "&time=" + selectedTime)
     }
 
-//    function paypalSubmit() {
+    function paypalSubmit() {
 //        let adult = document.getElementById("adult").value;
 //        let child = document.getElementById("child").value;
 //        let oap = document.getElementById("oap").value;
 //        let pleb = document.getElementById("drunkard").value;
 //
-//        let filmName = document.getElementById("movieTitle").innerHTML;
-//        let selectedTimeList = document.getElementById("timeSelection");
-//        let selectedTime = selectedTimeList.options[selectedTimeList.selectedIndex].value;
-//        let selectedDate = document.getElementById("dateInput").innerHTML;
-//
-//
-//
-//        if(seatsNeeded == 0) {
-//            window.alert("You haven't selected any tickets.");
-//        } else if(selectedTime == "null") {
-//            window.alert("You haven't selected a time.");
-//        } else if(seatsNeeded > curSeats) {
-//            window.alert("You haven't selected all your seats.");
-//        } else if(seatsNeeded < curSeats) {
-//            window.alert("You have (somehow) selected too many seats.");
-//        } else {
-//            let dataObject = {"filmTitle":filmName.toString(), "seats":seatOrder.sort().toString(), "time":selectedTime.toString(), "date":selectedDate.toString(), "totalCost":0};
-//            xhttp = new XMLHttpRequest();
-//            xhttp.onreadystatechange = function() {
-//                if(this.readyState == 4 && this.status == 200) {
-//                    window.location.href = "/";
-//                }
-//            };
-//            xhttp.open("POST", "/sendRecepitRequest");
-//            xhttp.send(JSON.stringify(dataObject));
-//        }
-//    }
+        let filmName = document.getElementById("movieTitle").innerHTML;
+        let selectedTimeList = document.getElementById("timeSelection");
+        let selectedTime = selectedTimeList.options[selectedTimeList.selectedIndex].value;
+        let selectedDate = document.getElementById("dateInput").innerHTML;
+
+
+
+        if(seatsNeeded == 0) {
+            window.alert("You haven't selected any tickets.");
+        } else if(selectedTime == "null") {
+            window.alert("You haven't selected a time.");
+        } else if(seatsNeeded > curSeats) {
+            window.alert("You haven't selected all your seats.");
+        } else if(seatsNeeded < curSeats) {
+            window.alert("You have (somehow) selected too many seats.");
+        } else {
+            let dataObject = {"filmTitle":filmName.toString(), "seats":seatOrder.sort().toString(), "time":selectedTime.toString(), "date":selectedDate.toString(), "totalCost":0};
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if(this.readyState == 4 && this.status == 200) {
+                    window.location.href = "/";
+                }
+            };
+            xhttp.open("POST", "/sendRecepitRequest");
+            xhttp.send(JSON.stringify(dataObject));
+        }
+    }
 
     paypal.Button.render({
 
@@ -243,17 +243,7 @@
 
             // Make a call to the REST api to execute the payment
             return actions.payment.execute().then(function() {
-//                window.alert('Payment Complete!');
-
-                let dataObject = {"filmTitle":filmName.toString(), "seats":seatOrder.sort().toString(), "time":selectedTime.toString(), "date":selectedDate.toString(), "totalCost":0};
-                xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if(this.readyState == 4 && this.status == 200) {
-                        window.location.href = "/";
-                    }
-                };
-                xhttp.open("POST", "/sendRecepitRequest");
-                xhttp.send(JSON.stringify(dataObject));
+                paypalSubmit();
             });
         }
 
