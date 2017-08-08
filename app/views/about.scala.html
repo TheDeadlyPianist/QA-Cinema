@@ -5,9 +5,10 @@
             /* Always set the map height explicitly to define the size of the div
              * element that contains the map. */
             #map {
+
                 height: 50%;
                 width: 50%;
-                margin: 0;
+                margin: 2%;
                 padding: 0;
 
                 /* Optional: Makes the sample page fill the window. */
@@ -23,14 +24,17 @@
 </head>
 <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=15445666"></script>
 <body>
-    <div class="col-50" id="map"></div>
-    <br>
+    <div id="aboutCol1" class="col-70">
+    <div class="col-50" id="map" class="moveMap"></div>
+
     <div class="col-50" style="text-align: center" style="font-size: large">
-        <div class="item">
+        <div id="mapDirections" class="item">
+            <br>
             <div class="hyperColour">Enter Postcode:
                 <input type="text" id="start"/>
                 <input type="submit" value="Get Directions" onclick="onChangeHandler()" />
             </div>
+            <br>
             <div class="hyperColour">Mode of Travel:
                 <select id="mode">
                     <option value="DRIVING">Driving</option>
@@ -40,16 +44,19 @@
                 </select>
             </div>
             <div>
-                <h4 id="clickedplace" class="hyperColour">Click somewhere on the map for information</h4><br>
-                <h5 id="clickedplace1" class="hyperColour"></h5><br>
-                <h5 id="clickedplace2" class="hyperColour"></h5><br>
-                <h5 id="clickedplace3" class="hyperColour"></h5><br>
+                <h4 id="clickedplace" class="hyperColour">Click somewhere on the map for information</h4>
+                <h5 id="clickedplace1" class="hyperColour"></h5>
+                <h5 id="clickedplace2" class="hyperColour"></h5>
+                <h5 id="clickedplace3" class="hyperColour"></h5>
             </div>
         </div>
     </div>
+    </div>
 
+    <div id="aboutCol2" class="col-30">
+        Hi there
+    </div>
 
-    <br>
     <script>
             var map;
             var infowindow;

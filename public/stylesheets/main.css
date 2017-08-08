@@ -539,3 +539,11 @@ label {
 .link{
     color: white;
 }
+
+#mapDirections{
+    margin-top:0 !important;
+    margin-right:0 !important;
+    margin-left:7% !important;
+    margin-bottom:3% !important;;
+}
+

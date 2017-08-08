@@ -90,7 +90,8 @@ function getAgeRating(){
         };
 
         //$('<h2 id="ageRating">'+"Age Rating: " + ageRating+'</h2></br>').appendTo('#movieInformation');
-        $('<h2 id="ageRating">'+"Age Rating: " + '</br>' + '<img src="'+ageRating+'" id="ageRatingImg">'+'</h2>' + '<button id="bookTicketBtn" onclick="bookTicket()">Book</button>').appendTo('#movieInformation');
+        document.getElementById('movieInformation').innerHTML += '<h2 id="ageRating">'+"Age Rating: " + '</br>' + '<img src="'+ageRating+'" id="ageRatingImg">'+'</h2>'
+        document.getElementById('movieBtn').innerHTML +=  '<button id="bookTicketBtn" onclick="bookTicket()">Book</button>'
 
 
 
