@@ -22,6 +22,10 @@ GET     /register                   controllers.Application.register
 
 GET     /login                      controllers.Application.login
 
+GET     /myAccount                  controllers.Application.myAccount
+
+GET     /forgotPassword             controllers.Application.forgotPassword
+
 GET     /payment                    controllers.Application.payment
 
 GET     /movieInfo                  controllers.Application.theMovieInfo(movieID:Int)

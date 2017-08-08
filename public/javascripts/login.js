@@ -17,6 +17,7 @@
     const btnLogin = document.getElementById('btnLogin');
     const btnSignUp = document.getElementById('btnSignUp');
     const btnLogout = document.getElementById('btnLogout');
+    const btnReset = document.getElementById('btnReset');
 
 
     // Login
@@ -33,8 +34,16 @@
 
         console.log('logged in as ', email)
 
+    });
+
+
+    btnReset.addEventListener('click', e => {
+
+        window.location.href = "../forgotPassword";
 
     });
+
+
 
 
     // register
@@ -54,19 +63,18 @@
     btnLogout.addEventListener('click', e => {
         firebase.auth().signOut();
         //console.log('User logged out')
+        location.reload();
     });
 
     firebase.auth().onAuthStateChanged(firebaseUser => {
 
         if(firebaseUser) {
             console.log(firebaseUser)
-            btnLogout.classList.remove('hide');
-            btnLogin.classList.add('hide');
+            window.location.href = "../myAccount";
         }
         else {
             console.log('Not signed in');
-            btnLogout.classList.add('hide');
-            btnLogin.classList.remove('hide');
+
         }
 
     });

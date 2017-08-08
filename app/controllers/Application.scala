@@ -72,6 +72,14 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     Ok(views.html.login())
   }
 
+  def myAccount = Action {
+    Ok(views.html.myAccount())
+  }
+
+  def forgotPassword = Action {
+    Ok(views.html.forgotPassword())
+  }
+
   def payment = Action {
     Ok(views.html.payment())
   }

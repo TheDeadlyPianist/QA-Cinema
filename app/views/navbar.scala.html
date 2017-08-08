@@ -1,4 +1,5 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
 <div id="banner">
     <img width="100%" style=": center" src="@routes.Assets.at("images/neon.png")">
 </div>
@@ -15,22 +16,16 @@
     <div class="floatright">
         <ul>
         <li class="dropdown" style="padding-right: 20px">
-            <a href="javascript:void(0)" class="dropbtn">Log In</a>
+            <a href="javascript:void(0)" id="dropbtn" class="dropbtn">Log In</a>
             <div class="dropdown-content">
-                <a href="../login">Log In</a>
-                <a href="../register">Sign Up</a>
+                <a id="aLogin" href="../login">Log In</a>
+                <a id="aRegister" href="../register">Sign Up</a>
             </div>
         </li>
         <li class="navbar-right"><form style="padding-top: 23px">
             <input type="text" id="searchbar" class="searchbox" placeholder="Search for an Item..." required>
             <input id="searchbutton" type="button" class="searchbutton" value="Search" onclick="doSearch(document.getElementById('searchbar').value)">
         </form>
-        <li class="navbar-right">
-            <form style="padding-top: 23px">
-                <input type="text" id="searchbar" class="searchbox"  placeholder="Search for an Item..." required>
-                <input type="submit" id="searchBtn" class="searchbutton" value="Search" onclick="doSearch(document.getElementById('searchbar').value)">
-            </form>
-        </li>
         </ul>
     </div>
 </nav>
