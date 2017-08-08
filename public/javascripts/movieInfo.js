@@ -19,7 +19,7 @@ function getMovieInformation(){
         console.log(response);
 
 
-        $(('<h1 id="filmTitle">'+response.original_title+'</h1>' + '<h2>Release Date: '+response.release_date+'</h2>' + '<h2>Runtime: '+response.runtime+' Minutes</h2>' + '<h2>Movie Rating: '+response.vote_average+'</h2>' + '<h2>Overview: '+response.overview+'</h2>')).appendTo('#movieInformation');
+        $(('<h1 id="filmTitle">'+response.original_title+'</h1>' + '<h2>Release Date: '+response.release_date+'</h2>' + '<h2>Runtime: '+response.runtime+' Minutes</h2>' + '<h2>Movie Rating: '+response.vote_average+'</h2>' + '<h2>Overview: '+response.overview+'</h2>')).appendTo('#movieInformationSub');
         $('<img src="https://image.tmdb.org/t/p/original'+response.poster_path+'">').appendTo('#movieImage');
 
         var genres = "";
@@ -30,7 +30,7 @@ function getMovieInformation(){
 
         };
 
-        $('<h2 id="genres">'+"Genres: " + '</br></br>' + genres +'</h2>').appendTo('#movieInformation');
+        $('<h2 id="genres">'+"Genres: " + '</br></br>' + genres +'</h2>').appendTo('#movieInformationSub');
 
 
         var productionCompanies = "";
@@ -41,7 +41,7 @@ function getMovieInformation(){
 
         };
 
-        $('<h2 id="productionCompanies">'+"Production Companies: " + '</br></br>' + productionCompanies+'</h2>').appendTo('#movieInformation');
+        $('<h2 id="productionCompanies">'+"Production Companies: " + '</br></br>' + productionCompanies+'</h2>').appendTo('#movieInformationSub');
 
         getAgeRating();
 
@@ -63,37 +63,27 @@ function getAgeRating(){
     $.ajax(settings).done(function (response) {
         console.log(response);
 
-        var ageRating = "";
+        var ageRating = ""
 
         for (var i = 0; i < response.results.length; i++) {
             if (response.results[i].iso_3166_1 == "GB"){
-                for (var j = 0; j  < response.results[i].release_dates.length; j ++) {
 
-                    if(response.results[i].release_dates[j].certification == "U"){
-                        ageRating += "https://vignette4.wikia.nocookie.net/memoryalpha/images/3/37/BBFC_U.png/revision/20120614184504/scale-to-width-down/120?path-prefix=en";
-                    }else if(response.results[i].release_dates[j].certification == "PG"){
-                        ageRating += "https://jaybullimore98.files.wordpress.com/2014/12/pg.png";
-                    }else if(response.results[i].release_dates[j].certification == "12"){
-                        ageRating += "https://jaybullimore98.files.wordpress.com/2014/12/12.png";
-                    }else if(response.results[i].release_dates[j].certification == "12A"){
-                        ageRating += "https://jaybullimore98.files.wordpress.com/2014/12/12a.png";
-                    }else if(response.results[i].release_dates[j].certification == "15"){
-                        ageRating += "https://jaybullimore98.files.wordpress.com/2014/12/15.png";
-                    }else if(response.results[i].release_dates[j].certification == "18"){
-                        ageRating += "https://jaybullimore98.files.wordpress.com/2014/12/18.png";
-                    }else if(response.results[i].release_dates[j].certification == "R18"){
-                        ageRating += "http://www.erotictradeonly.com/wp-content/uploads/2014/01/LOGO_BBFC_R18-175x109.jpg";
+                for (var j = 0; j < response.results[i].release_dates.length; j++) {
+
+                    if (response.results[i].release_dates[j].certification != "")
+                    {
+                        ageRating = response.results[i].release_dates[j].certification
                     }
-
                 };
             };
         };
 
-        //$('<h2 id="ageRating">'+"Age Rating: " + ageRating+'</h2></br>').appendTo('#movieInformation');
-        $('<h2 id="ageRating">'+"Age Rating: " + '</br>' + '<img src="'+ageRating+'" id="ageRatingImg">'+'</h2>' + '<button id="bookTicketBtn" onclick="bookTicket()">Book</button>').appendTo('#movieInformation');
-
-
-
+        if(ageRating == "")
+        {
+            ageRating = "TBC"
+        }
+        document.getElementById('movieInformationSub').innerHTML += '<h2 id="ageRating">'+"Age Rating: " +'</h2></br>' + '<img id="ageRatingImg" src="">'
+        document.getElementById('ageRatingImg').src="/assets/images/ratings/" + ageRating + ".png";
     });
 }
 
@@ -108,6 +98,7 @@ function getMovieTrailer(){
         "headers": {},
         "data": "{}"
     };
+
 
     $.ajax(settings).done(function (response) {
         console.log(response);
@@ -127,13 +118,12 @@ function bookTicket() {
 
     var getTitle = document.getElementById("filmTitle").textContent;
 
-    var e = document.getElementById("dates");
+    var e = document.getElementById("movieShowingDates");
+
     var strUser = e.options[e.selectedIndex].value.toString();
 
     var formatDate = new Date(strUser);
-    var getHours = ('0'+formatDate.getHours()).substr(-2);;
-    var getMinutes = ('0'+formatDate.getMinutes()).substr(-2);
-    var totalTime = getHours + ":" + getMinutes;
+    var totalTime = "9:00";
     var properlyFormatted = formatDate.getFullYear() + ("0" + (formatDate.getMonth() + 1)).slice(-2) + ("0" + formatDate.getDate()).slice(-2);
 
     window.location = "/seatBooking?filmName="+getTitle+"&date="+properlyFormatted+"&time=9:00";
@@ -173,7 +163,7 @@ function getDates(){
                 return date;
             };
         while (currentDate <= endDate) {
-            dates.push(currentDate);
+            dates.push(new Date(currentDate).toDateString());
             currentDate = addDays.call(currentDate, 1);
         }
         return dates;
@@ -187,5 +177,6 @@ function getDates(){
         completedDate += '<option>'+date+'</option>'
     });
 
-    $('<div><select id="dates">'+completedDate+'</select></div>').appendTo('#movieInformation')
+    $('<div><h2 id="dateTitle" class="col-33" float="left" width="auto">Select a date: </h2><select class="col-33" id="movieShowingDates">'+completedDate+'</select></div>').appendTo('#dates')
+    $('<button id="bookTicketBtn" onclick="bookTicket()">Book</button>').appendTo('#movieBtn')
 }
