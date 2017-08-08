@@ -124,14 +124,12 @@ function bookTicket() {
 
     var getTitle = document.getElementById("filmTitle").textContent;
 
-    var e = document.getElementById("dates");
+    var e = document.getElementById("movieShowingDates");
 
     var strUser = e.options[e.selectedIndex].value.toString();
 
     var formatDate = new Date(strUser);
-    var getHours = ('0'+formatDate.getHours()).substr(-2);;
-    var getMinutes = ('0'+formatDate.getMinutes()).substr(-2);
-    var totalTime = getHours + ":" + getMinutes;
+    var totalTime = "9:00";
     var properlyFormatted = formatDate.getFullYear() + ("0" + (formatDate.getMonth() + 1)).slice(-2) + ("0" + formatDate.getDate()).slice(-2);
 
     window.location = "/seatBooking?filmName="+getTitle+"&date="+properlyFormatted+"&time=9:00";
@@ -185,6 +183,6 @@ function getDates(){
         completedDate += '<option>'+date+'</option>'
     });
 
-    $('<div><h2 id="dateTitle" class="col-33" float="left" width="auto">Select a date: </h2><select class="col-33">'+completedDate+'</select></div>').appendTo('#dates')
+    $('<div><h2 id="dateTitle" class="col-33" float="left" width="auto">Select a date: </h2><select class="col-33" id="movieShowingDates">'+completedDate+'</select></div>').appendTo('#dates')
     $('<button id="bookTicketBtn" onclick="bookTicket()">Book</button>').appendTo('#movieBtn')
 }
