@@ -124,7 +124,7 @@ function bookTicket() {
 
     var getTitle = document.getElementById("filmTitle").textContent;
 
-    var e = document.getElementById("dates");
+    var e = document.getElementById("movieShowingDates");
 
     var strUser = e.options[e.selectedIndex].value.toString();
 
@@ -183,6 +183,6 @@ function getDates(){
         completedDate += '<option>'+date+'</option>'
     });
 
-    $('<div><h2 id="dateTitle" class="col-33" float="left" width="auto">Select a date: </h2><select class="col-33">'+completedDate+'</select></div>').appendTo('#dates')
+    $('<div><h2 id="dateTitle" class="col-33" float="left" width="auto">Select a date: </h2><select class="col-33" id="movieShowingDates">'+completedDate+'</select></div>').appendTo('#dates')
     $('<button id="bookTicketBtn" onclick="bookTicket()">Book</button>').appendTo('#movieBtn')
 }
