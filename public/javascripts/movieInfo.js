@@ -69,6 +69,7 @@ function getAgeRating(){
             if (response.results[i].iso_3166_1 == "GB"){
                 for (var j = 0; j  < response.results[i].release_dates.length; j ++) {
 
+
                     if(response.results[i].release_dates[j].certification == "U"){
                         ageRating += "https://vignette4.wikia.nocookie.net/memoryalpha/images/3/37/BBFC_U.png/revision/20120614184504/scale-to-width-down/120?path-prefix=en";
                     }else if(response.results[i].release_dates[j].certification == "PG"){
