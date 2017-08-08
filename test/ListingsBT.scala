@@ -16,7 +16,8 @@ class ListingsBT extends Specification {
       browser.goTo("http://localhost:" + "9000" + "/listing")
       //Asserts that the listings button takes you to the Listings page
       browser.webDriver.getCurrentUrl mustEqual("http://localhost:9000/listing")
-
+      //Ensures that the tab content loads dynamically
+      webDriver.manage.timeouts.implicitlyWait(10, TimeUnit.SECONDS)
       webDriver.findElement(By.id("imgundefined")).click()
       val showingmovie = browser.webDriver.getCurrentUrl
       assert(browser.webDriver.getCurrentUrl.contains("http://localhost:9000/movieInfo?movieID="))
