@@ -2,6 +2,14 @@
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
 <head>
     <div class="col-100">@navbar()</div>
+    <style>
+            #find-title {
+                font-size: xx-large;
+                text-align: center;
+                background-color: #333;
+                text-transform: uppercase;
+            }
+    </style>
 </head>
 <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=15445666"></script>
 <body>
@@ -9,15 +17,12 @@
     <div class="col-100"><h1 id="find-title">About QA Cinemas</h1></div>
     <div id="aboutCol1" class="col-70">
         <div class="col-50"></div>
-        <div class="col-50" style="text-align: center" style="font-size: large">
-            <br>
-            <div class="hyperColour">Enter Postcode:
-                <br>
-            </div>
-        </div>
+        <img height="600" width="600" src="@routes.Assets.at("images/deal1.jpg")"/>
     </div>
 
+    <div class="col-50" style="text-align: center" style="font-size: large">
 
+    </div>
     <div id="right-panel" class="col-30">
     </div>
     <div class="col-100">@defaultFooter()</div>
