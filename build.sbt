@@ -17,4 +17,3 @@ libraryDependencies += "com.typesafe.play" %% "play-mailer-guice" % "6.0.0"
 libraryDependencies += "org.seleniumhq.selenium" % "selenium-java" % "2.35.0" % "test"
 
 unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )
-
