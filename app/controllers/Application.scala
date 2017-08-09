@@ -105,7 +105,6 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     getFilmDocument.onSuccess {
       case result => result
     }
-    println("STUFFS: " + Await.result(getFilmDocument, 10 seconds))
     val seatingPlan = "screen" + Await.result(getFilmDocument, 10 seconds)(0)("screen").asInt32().intValue()
 
     val seatingObj:Map[String, Array[Int]] = Map("screen1" -> seats1, "screen2" -> seats2, "screen3" -> seats3, "screen4" -> seats4, "screen5" -> seats5, "screen6" -> seats6, "screen7" -> seats8, "screen8" -> seats8)
@@ -172,29 +171,37 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
   def seatingRequest = Action { implicit request =>
     val retVal = Json.parse(request.body.toString().replace("AnyContentAsText(", "").replace(")", ""))
 
+    val receiptID = (retVal \ "receiptID").as[String]
     val filmTitle = (retVal \ "filmTitle").as[String]
     val time = (retVal \ "time").as[String]
     val date = (retVal \ "date").as[String].toInt
     val seats = (retVal \ "seats").as[String].split(",")
     val cost = (retVal \ "totalCost").as[Float].toString()
 
-    val inputQuery = Document("filmTitle"->filmTitle,"time"->time,"date"->date,"cost"->cost,"seats"->(for(i <- 0 until seats.length) yield {seats(i)}))
+    val inputQuery = Document("receiptID"->receiptID,"filmTitle"->filmTitle,"time"->time,"date"->date,"cost"->cost,"seats"->(for(i <- 0 until seats.length) yield {seats(i)}))
     val future = Future(receipts.insertOne(inputQuery).results())
     future.onSuccess{
       case result => result
     }
     Await.result(future, 10 seconds)
 
-    val searchFuture = Future(receipts.find(inputQuery).results())
-    val returnDocument = Await.result(searchFuture, 10 seconds)
-    val dbID = returnDocument(0)("_id").asObjectId().getValue.toString()
-    println("Got to this point")
-    Ok(views.html.receipt(dbID))
+    Ok("")
   }
 
   def receiptView(receiptID:String) = Action {
+    val inputQuery = Document("receiptID" -> receiptID)
+    val searchFuture = Future(receipts.find(inputQuery).results())
+    val returnDocument = Await.result(searchFuture, 10 seconds)
+    val filmTitle = returnDocument(0)("filmTitle").asString().getValue
+    val time = returnDocument(0)("time").asString().getValue
+    val date = returnDocument(0)("date").asInt32().getValue.toString()
+    val cost = returnDocument(0)("cost").asString().getValue
+    val seats = (for (i <- 0 until returnDocument(0)("seats").asArray().toArray.length) yield {returnDocument(0)("seats").asArray().toArray()(i).toString().replace("BsonString{value='", "").replace("'}", "")}).toArray
+
+    seats.foreach(i => println(i))
+
     Ok(
-      views.html.receipt(receiptID)
+      views.html.receipt(receiptID)(filmTitle)(time)(date)(cost)(seats)
     )
   }
 
