@@ -9,7 +9,7 @@
             movieIDGlobalObject["endDate"] = "@endDate";
 
     </script>
-
+    <title>Movie Information</title>
 </head>
 <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=15445666"></script>
 <body>
@@ -25,14 +25,21 @@
 
 
         <div id="movieImage" class="col-25"></div>
-        <div id="movieInformation" class="col-50"></div>
+        <div id="movieInformation" class="col-50">
+<div id="movieInformationSub">
+            <div class="theMovieDateBook">
+                <div id="dates"></div>
+                <div id="movieBtn">
+
+                </div>
+                <br>
+            </div>
+</div>
+        </div>
+
 
     </div>
     <div id="movieTrailer" class="col-100"></div>
-
-    <div>
-        <h2>@startDate</h2>
-    </div>
 
 
     <div class="col-100">@defaultFooter()</div>

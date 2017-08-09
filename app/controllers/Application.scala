@@ -43,7 +43,7 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     }
     val moviesInDB = Await.result[Seq[Document]](pullDB, 10 seconds)
 
-    for(i <- 0 until moviesInDB.length) {
+    for(i <- 0 until moviesInDB.length if i < 4) {
       val newName = moviesInDB(i)("title").asString().getValue
       val newYear = moviesInDB(i)("year").asInt32().getValue
       val newURL = s"https://api.themoviedb.org/3/search/movie?api_key=324938bccc324fb58e236a92cb0a9bc3&language=en-US&query=$newName&page=1&include_adult=true&year=$newYear".replace(" ", "%20")
@@ -70,6 +70,14 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
 
   def login = Action {
     Ok(views.html.login())
+  }
+
+  def myAccount = Action {
+    Ok(views.html.myAccount())
+  }
+
+  def forgotPassword = Action {
+    Ok(views.html.forgotPassword())
   }
 
   def payment = Action {
@@ -99,7 +107,7 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     }
     val seatingPlan = "screen" + Await.result(getFilmDocument, 10 seconds)(0)("screen").asInt32().intValue()
 
-    val seatingObj:Map[String, Array[Int]] = Map("screen1" -> seats1, "screen2" -> seats2)
+    val seatingObj:Map[String, Array[Int]] = Map("screen1" -> seats1, "screen2" -> seats2, "screen3" -> seats3, "screen4" -> seats4, "screen5" -> seats5, "screen6" -> seats6, "screen7" -> seats8, "screen8" -> seats8)
     var useSeats:Array[Int] = seatingObj(seatingPlan).clone()
     var letterMap: Map[Int, Char] = Map()
     val lengthOfSeats = useSeats.count(_ == 2) + 1
@@ -163,14 +171,14 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
   def seatingRequest = Action { implicit request =>
     val retVal = Json.parse(request.body.toString().replace("AnyContentAsText(", "").replace(")", ""))
 
+    val receiptID = (retVal \ "receiptID").as[String]
     val filmTitle = (retVal \ "filmTitle").as[String]
     val time = (retVal \ "time").as[String]
     val date = (retVal \ "date").as[String].toInt
     val seats = (retVal \ "seats").as[String].split(",")
     val cost = (retVal \ "totalCost").as[Float].toString()
 
-    val inputQuery = Document("filmTitle"->filmTitle,"time"->time,"date"->date,"cost"->cost,"seats"->(for(i <- 0 until seats.length) yield {seats(i)}))
-
+    val inputQuery = Document("receiptID"->receiptID,"filmTitle"->filmTitle,"time"->time,"date"->date,"cost"->cost,"seats"->(for(i <- 0 until seats.length) yield {seats(i)}))
     val future = Future(receipts.insertOne(inputQuery).results())
     future.onSuccess{
       case result => result
@@ -178,6 +186,23 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     Await.result(future, 10 seconds)
 
     Ok("")
+  }
+
+  def receiptView(receiptID:String) = Action {
+    val inputQuery = Document("receiptID" -> receiptID)
+    val searchFuture = Future(receipts.find(inputQuery).results())
+    val returnDocument = Await.result(searchFuture, 10 seconds)
+    val filmTitle = returnDocument(0)("filmTitle").asString().getValue
+    val time = returnDocument(0)("time").asString().getValue
+    val date = returnDocument(0)("date").asInt32().getValue.toString()
+    val cost = returnDocument(0)("cost").asString().getValue
+    val seats = (for (i <- 0 until returnDocument(0)("seats").asArray().toArray.length) yield {returnDocument(0)("seats").asArray().toArray()(i).toString().replace("BsonString{value='", "").replace("'}", "")}).toArray
+
+    seats.foreach(i => println(i))
+
+    Ok(
+      views.html.receipt(receiptID)(filmTitle)(time)(date)(cost)(seats)
+    )
   }
 
   def sendEmail(from: String, name: String, subject: String, text: String): Unit ={

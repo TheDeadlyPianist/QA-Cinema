@@ -1,380 +1,617 @@
-html {
-    min-height: 100%;
-    background-color: #111;
-}
-body {
-    margin: 0;
-    background-color: #111;
-    font-family: "Calibri", sans-serif;
-    font-size: 18px;
-}
-h1 {
-    padding:20px;
-}
+    html {
+        min-height: 100%;
+        background-color: #111;
+    }
 
-h1.noPadding{
-    padding: 0px;
-}
+    body {
+        margin: 0;
+        background-color: #111;
+        font-family: "Calibri", sans-serif;
+        font-size: 18px;
+    }
 
-.sideSize{
-    padding-left: 15%;
-    padding-right: 15%;
-}
+    h1 {
+        padding: 20px;
+    }
 
-/*Navbar*/
-#header.fixed{
-    background-color: black;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    -webkit-transition: all 0.3s ease-in;
-    transition: all 0.3s ease-in;
-    color: #000;
-}
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #062f4f;
-    font-family: "Calibri", sans-serif, bold;
+    h1.noPadding {
+        padding: 0px;
+    }
+
+    .sideSize {
+        padding-left: 15%;
+        padding-right: 15%;
+    }
+
+    /*Navbar*/
+    #header.fixed {
+        background-color: black;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        -webkit-transition: all 0.3s ease-in;
+        transition: all 0.3s ease-in;
+        color: #000;
+    }
+
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #062f4f;
+        font-family: "Calibri", sans-serif, bold;
+        font-size: 20px;
+        top: 0;
+        width: 100%;
+    }
+
+    nav li {
+        float: left;
+    }
+
+    nav li a:hover, .dropdown:hover .dropbtn {
+        background-color: #813772;
+    }
+
+    nav li a, .dropbtn {
+        display: inline-block;
+        color: #ffffff;
+        padding: 25px 20px;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    nav li.dropdown {
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #062f4f;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: #ffffff;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #813772
+    }
+
+    h1 {
+        padding: 20px;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #062f4f;
+        font-family: "Calibri", sans-serif, bold;
+        font-size: 20px;
+        top: 0;
+        width: 100%;
+    }
+
+    li {
+        float: left;
+        background-colour: #813772;
+    }
+
+    li a:hover, .dropdown:hover .dropbtn {
+        background-color: #813772;
+    }
+
+    li a, .dropbtn {
+        background-color: #062f4f;
+        display: inline-block;
+        color: #ffffff;
+        padding: 25px 20px;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    li.dropdown {
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #062f4f;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: #ffffff;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #813772
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /*P!nk class*/
+    .pink {
+        width: 100%;
+        margin: auto;
+        background-color: #062f4f;
+        font-family: "Calibri", sans-serif;
+        color: white
+    }
+
+
+        /*Navbar floating*/
+        .floatleft {
+            float: left;
+
+        }
+
+
+    .floatright {
+        float: right;
+    }
+
+    /*Search Bar*/
+    .searchbox {
+        background: rgba(50, 50, 50, 0.2);
+        border: 0px solid #dbdbdb;
+        font-family: "Calibri", sans-serif;
+        color: white
+
+    }
+
+    .searchbutton {
+        position: relative;
+        left: -8px;
+        border: 1px solid #813772;
+        background-color: #062f4f;
+        color: #fff0f8;
+        font-family: "Calibri", sans-serif, bold;
+    }
+
+    .searchbutton:hover {
+        background-color: #fafafa;
+        color: #813772;
+        font-family: "Calibri", sans-serif, bold;
+    }
+
+    .largeBtn {
+        position: relative;
+        width: 8%;
+        height: 4%;
+        border: 1px solid #813772;
+        background-color: #062f4f;
+        color: #fff0f8;
+        font-family: "Calibri", sans-serif, bold;
+    }
+
+    .largeBtn:hover {
+        background-color: #fafafa;
+        color: #813772;
+        font-family: "Calibri", sans-serif, bold;
+    }
+
+    /* my css */
+    .navbar-fixed {
+        top: 0;
+        z-index: 100;
+        position: fixed;
+        width: 100%;
+    }
+
+    #body_div {
+        top: 0;
+        position: relative;
+    }
+
+    #banner {
+        width: 100%;
+        background-color: gray;
+        overflow: hidden;
+    }
+
+    #nav_bar {
+        border: 0;
+        background-color: #062f4f;
+        color: #ffffff;
+        border-radius: 0px;
+        margin-bottom: 0;
+        height: 30px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav_links {
+        margin: 0;
+    }
+
+    .nav_links li {
+        display: inline-block;
+        margin-top: 4px;
+    }
+
+    .nav_links li a {
+        padding: 0 15.5px;
+        color: #3498db;
+        text-decoration: none;
+    }
+
+    /* Movies Carousel CSS */
+    .cImg {
+        width: 100%;
+    }
+
+    /*Formatting CSS*/
+    .col-10 {
+        width: 10%;
+        float: left;
+        background-color: black;
+    }
+
+    .col-20 {
+        width: 20%;
+        float: left;
+    }
+
+    .col-25 {
+        width: 25%;
+        float: left;
+    }
+
+    .col-50 {
+        width: 50%;
+        float: left;
+    }
+
+    .col-100 {
+        width: 100%;
+        float: left;
+    }
+
+    .col-33 {
+        width: 33.33%;
+        float: left;
+    }
+
+    .selfContainer {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .basicPad {
+        margin: 1% 1% 1% 1%;
+        border: solid 5pt black;
+    }
+
+    /* Basic Carousel Classes*/
+    .selected {
+        display: block;
+        animation-name: newSel;
+        animation-duration: 1s;
+    }
+
+    .nonSelected {
+        display: none;
+    }
+
+    .dirBut {
+        cursor: pointer;
+        display: inline-block;
+        position: absolute;
+        top: 0%;
+        height: 100%;
+        width: 5%;
+        background-color: rgba(0, 0, 0, 0.2);
+        font-size: 24pt;
+        text-align: center;
+        color: white;
+    }
+
+    .dirBut:hover {
+        background-color: rgba(0, 0, 0, 0.35);
+    }
+
+    .rightBut {
+        right: 0%;
+    }
+
+    .leftBut {
+        left: 0%;
+    }
+
+    .vertAlign {
+        position: relative;
+        top: 50%;
+    }
+
+    .textContainer {
+        position: absolute;
+        top: 80%;
+        width: 100%;
+        font-size: 30pt;
+        text-align: center;
+    }
+
+    .imgText {
+        position: relative;
+        margin: 0% 35% 0% 35%;
+        padding: 2% 0% 2% 0%;
+        background-color: rgba(0, 0, 0, 0.25);
+        color: white;
+    }
+
+    .itemList {
+        overflow: hidden;
+    }
+
+    @keyframes newSel {
+        from {
+            opacity: 0.2;
+        }
+        to {
+            opcacity: 1;
+        }
+    }
+
+    .item {
+        border-style: solid;
+        border-width: 1px;
+        margin: 5%;
+        background-color: #333;
+        font-size: 16px;
+    }
+
+    .listImg {
+        width: 90%;
+        margin-bottom: 7%;
+        cursor: hand;
+    }
+
+    .col-100#theList {
+        text-align: center !important;
+        margin-bottom: 1%;
+    }
+
+    .listTitle {
+        font-size: 24pt;
+        color: #ccc;
+    }
+
+    .hyperColour {
+        color: #ddd;
+        font-size: 90%;
+    }
+
+    .divTitle {
+        border-style: solid;
+        border-width: 1px;
+        background-color: #333;
+        margin-bottom: 1%;
+        display: table;
+        width: 100%;
+        text-align: center;
+    }
+
+    .listMiddle {
+        display: table-row;
+        text-align: center;
+    }
+
+    .listBottom {
+        display: table-cell;
+        text-align: center;
+        width: 50%;
+        padding-top: 1%;
+        padding-bottom: 1%;
+        cursor: hand;
+    }
+
+    #leftTab {
+        border-right: solid 1px black;
+    }
+
+    #rightTab {
+
+    }
+
+    .listTitle {
+        margin-top: 2%;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    #movieInfoContent {
+        margin-top: 1%;
+        margin-right: 5%;
+        text-align: center;
+
+    }
+
+    #movieImage img {
+        width: 75%;
+        padding-top: 4%;
+        padding-left: 4%;
+        padding-bottom: 4%;
+    }
+
+    #movieImage {
+        border-style: solid;
+        border-width: 1px;
+        background-color: #333;
+        padding-right: 1%;
+        margin: 1%;
+        width: 30%;
+    }
+
+    #movieInformation {
+        border-style: solid;
+        border-width: 5px;
+        background-color: #333;
+        padding-right: 1%;
+        margin: 1%;
+        width: 62%;
+    }
+
+    h1, h2, h3#movieInformation {
+        color: white;
+        padding-left: 6%;
+        text-align: justify;
+        font-size: 25px;
+    }
+
+    #movieTrailer {
+        padding-top: 4%;
+        padding-bottom: 2%;
+        text-align: center;
+
+    }
+
+    #filmTrailer {
+        width: 50%;
+        height: 50%;
+    }
+
+    #ageRatingImg {
+        padding-top: 2%;
+        width: 8%;
+    }
+
+    input[type=text].basicInput {
+        width: 100%;
+        padding-left: 0px;
+        padding-bottom: 10px;
+        Padding-top: 5px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        font-size: 18px;
+        font-family: "Calibri", sans-serif;
+        border: 4px solid #062f4f;
+    }
+
+    input[type=text].basicInput:focus {
+        border: 4px solid #813772;
+    }
+
+    textarea.contact {
+        width: 100%;
+        height: 20%;
+        padding-left: 0px;
+        padding-bottom: 10px;
+        Padding-top: 5px;
+        margin: 0px 0;
+        box-sizing: border-box;
+        font-size: 18px;
+        resize: none;
+        font-family: "Calibri", sans-serif;
+        border: 4px solid #062f4f;
+        align-self: auto;
+    }
+
+    textarea.contact:focus {
+        border: 4px solid #813772;
+    }
+
+    dd {
+        display: block;
+
+        margin-left: 0px;
+        font-size: 20px;
+        color: #882601;
+    }
+
+label {
     font-size: 20px;
-    top:0;
-    width: 100%;
-}
-nav li {
-    float: left;
-}
-nav li a:hover, .dropdown:hover .dropbtn {
-    background-color: #813772;
-}
-nav li a, .dropbtn {
-    display: inline-block;
-    color: #ffffff;
-    padding: 25px 20px;
-    text-decoration: none;
-    text-align: center;
-}
-nav li.dropdown {
-    display: inline-block;
-}
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #062f4f;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-.dropdown-content a {
-    color: #ffffff;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
-.dropdown-content a:hover {background-color: #813772
-}
-
-h1 {
-    padding:20px;
-}
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #062f4f;
-    font-family: "Calibri", sans-serif, bold;
-    font-size: 20px;
-    top:0;
-    width: 100%;
-}
-li {
-    float: left;
-    background-colour: #813772;
-}
-li a:hover, .dropdown:hover .dropbtn {
-    background-color: #813772;
-}
-li a, .dropbtn {
-    background-color: #062f4f;
-    display: inline-block;
-    color: #ffffff;
-    padding: 25px 20px;
-    text-decoration: none;
-    text-align: center;
-}
-li.dropdown {
-    display: inline-block;
-}
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #062f4f;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-.dropdown-content a {
-    color: #ffffff;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
-.dropdown-content a:hover {background-color: #813772
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/*P!nk class*/
-.pink {
-    width: 100%;
-    margin: auto;
-    background-color: #062f4f;
     font-family: "Calibri", sans-serif;
-    color: white
+    font-style: italic;
+    color: white;
 }
 
-/*Navbar floating*/
-.floatleft {
+    .feedbackMessage {
+        font-size: 20px;
+        font-family: "Calibri", sans-serif;
+        font-style: italic;
+    }
+
+    .link {
+        color: white;
+    }
+
+    #mapDirections {
+        margin-top: 0 !important;
+        margin-right: 0 !important;
+        margin-left: 7% !important;
+        margin-bottom: 3% !important;;
+    }
+
+    #dates {
+
+    }
+
+    #movieBtn {
+
+        width: auto;
+    }
+
+    .theMovieDateBook {
+
+        margin-top: 5%;
+        text-align: center;
+        border-bottom: solid 1px black;
+
+    }
+
+    .theMovieDateBook #dateTitle {
+        margin-top: -1%;
+
+    }
+
+    #bookTicketBtn {
+        background-color: #062f4f;
+        border: solid 1px black;
+        color: white;
+        padding: 1% 4%;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        margin-top: -1%;
+    }
+
+    #bookTicketBtn:hover {
+        background-color: #813772;
+    }
+
+    #movieShowingDates {
+        background-color: #062f4f;
+        color: white;
+        border: solid 1px black;
+    }
+
+#ageRatingImg{
     float:left;
-}
-.floatright {
-    float:right;
-}
-
-/*Search Bar*/
-.searchbox {
-    background:rgba(50, 50, 50, 0.2);
-    border:0px solid #dbdbdb;
-    font-family: "Calibri", sans-serif;
-    color: white
-
-}
-
-.searchbutton {
-    position:relative;
-    left:-8px;
-    border:1px solid #813772;
-    background-color: #062f4f;
-    color: #fff0f8;
-    font-family: "Calibri", sans-serif, bold;
-}
-.searchbutton:hover  {
-    background-color:#fafafa;
-    color: #813772;
-    font-family: "Calibri", sans-serif, bold;
-}
-
-.largeBtn {
-    position:relative;
-    width: 8%;
-    height: 4%;
-    border:1px solid #813772;
-    background-color: #062f4f;
-    color: #fff0f8;
-    font-family: "Calibri", sans-serif, bold;
-}
-
-.largeBtn:hover  {
-    background-color:#fafafa;
-    color: #813772;
-    font-family: "Calibri", sans-serif, bold;
-}
-
-/* my css */
-
-.navbar-fixed {
-    top: 0;
-    z-index: 100;
-    position: fixed;
-    width: 100%;
-}
-
-#body_div {
-    top: 0;
-    position: relative;
-}
-
-#banner {
-    width: 100%;
-    background-color: gray;
-    overflow: hidden;
-}
-
-#nav_bar {
-    border: 0;
-    background-color: #062f4f;
-    color:#ffffff;
-    border-radius: 0px;
-    margin-bottom: 0;
-    height: 30px;
-}
-
-.nav_links {
-    margin: 0;
-}
-
-.nav_links li {
-    display: inline-block;
-    margin-top: 4px;
-}
-.nav_links li a {
-    padding: 0 15.5px;
-    color: #3498db;
-    text-decoration: none;
-}
-
-
-/* Movies Carousel CSS */
-
-.cImg {
-    width: 100%;
-}
-
-/*Formatting CSS*/
-.col-10 {
-    width: 10%;
-    float: left;
-    background-color: black;
-}
-
-.col-20 {
-    width: 20%;
-    float: left;
-}
-
-.col-25 {
-    width: 25%;
-    float: left;
-}
-
-.col-50 {
-    width: 50%;
-    float: left;
-}
-
-.col-100 {
-    width: 100%;
-    float: left;
-}
-
-.col-33 {
-    width: 33.33%;
-    float: left;
-}
-
-.selfContainer {
-    position: relative;
-    overflow: hidden;
-}
-
-.basicPad {
-    margin: 1% 1% 1% 1%;
-    border: solid 5pt black;
-}
-
-/* Basic Carousel Classes*/
-.selected {
-    display: block;
-    animation-name: newSel;
-    animation-duration: 1s;
-}
-
-.nonSelected {
-    display: none;
-}
-
-.dirBut {
-    cursor: pointer;
-    display: inline-block;
-    position: absolute;
-    top: 0%;
-    height:100%;
-    width:5%;
-    background-color: rgba(0,0,0,0.2);
-    font-size: 24pt;
-    text-align: center;
-    color: white;
-}
-
-.dirBut:hover {
-    background-color: rgba(0,0,0,0.35);
-}
-
-.rightBut {
-    right: 0%;
-}
-
-.leftBut {
-    left: 0%;
-}
-
-.vertAlign {
-    position: relative;
-    top:50%;
-}
-
-.textContainer {
-    position: absolute;
-    top: 80%;
-    width: 100%;
-    font-size: 30pt;
-    text-align: center;
-}
-
-.imgText {
-    position: relative;
-    margin: 0% 35% 0% 35%;
-    padding: 2% 0% 2% 0%;
-    background-color: rgba(0,0,0,0.25);
-    color: white;
-}
-
-.itemList {
-    overflow: hidden;
-}
-
-@keyframes newSel {
-    from{opacity:0.2;}
-    to{opcacity:1;}
-}
-
-.item{
-    border-style: solid;
-    border-width: 1px;
-    margin:5%;
-    background-color: #333;
-    font-size: 16px;
-}
-
-.listImg{
-    width:90%;
-    margin-bottom: 7%;
-    cursor:hand;
-}
-
-.col-100#theList {
-    text-align:center !important;
-    margin-bottom:1%;
-}
-
-.listTitle{
-    font-size: 24pt;
-    color:#ccc;
-}
-
-.hyperColour{
-    color:#ddd;
-    font-size: 90%;
-}
-
-.divTitle{
+    margin-top:-3%;
+    margin-left:6.5%;
+    margin-bottom:4%;
+}.listDeals{
     border-style: solid;
     border-width: 1px;
     background-color:#333;
@@ -384,158 +621,3 @@ li.dropdown {
     text-align:center;
 }
 
-.listMiddle{
-    display:table-row;
-    text-align:center;
-}
-
-.listBottom{
-    display:table-cell;
-    text-align:center;
-    width:50%;
-    padding-top:1%;
-    padding-bottom:1%;
-    cursor:hand;
-}
-
-#leftTab{
-    border-right: solid 1px black;
-}
-
-#rightTab{
-
-}
-
-.listTitle{
-    margin-top:2%;
-    text-align:center;
-    text-decoration: none;
-}
-
-#movieInfoContent{
-    margin-top: 2%;
-    margin-right: 5%;
-    text-align: center;
-}
-
-#movieImage img{
-    width: 75%;
-    padding-top: 4%;
-    padding-left: 4%;
-    padding-bottom: 4%;
-}
-
-#movieImage{
-    border-style: solid;
-    border-width: 1px;
-    background-color: #333;
-    padding-right: 1%;
-    margin: 1%;
-    width: 30%;
-}
-
-#movieInformation{
-    border-style: solid;
-    border-width: 5px;
-    background-color: #333;
-    padding-right: 1%;
-    margin: 1%;
-    width: 62%;
-}
-h1,h2,h3#movieInformation{
-    color: white;
-    padding-left: 6%;
-    text-align: justify;
-    font-size: 25px;
-}
-
-#movieTrailer {
-    padding-top: 4%;
-    padding-bottom: 2%;
-    text-align: center;
-
-}
-
-#filmTrailer {
-    width: 50%;
-    height: 50%;
-}
-
-#bookTicketBtn{
-    position:absolute;
-    left: 34.5%;
-    margin-top: 1%;
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 1% 4%;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-
-}
-
-#ageRatingImg{
-    padding-top: 2%;
-    width: 8%;
-}
-
-input[type=text].basicInput {
-    width: 100%;
-    padding-left: 0px;
-    padding-bottom: 10px;
-    Padding-top: 5px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    font-size: 18px;
-    font-family: "Calibri", sans-serif;
-    border: 4px solid #062f4f;
-}
-
-input[type=text].basicInput:focus {
-    border: 4px solid #813772;
-}
-
-textarea.contact{
-    width: 100%;
-    height: 20%;
-    padding-left: 0px;
-    padding-bottom: 10px;
-    Padding-top: 5px;
-    margin: 0px 0;
-    box-sizing: border-box;
-    font-size: 18px;
-    resize: none;
-    font-family: "Calibri", sans-serif;
-    border: 4px solid #062f4f;
-    align-self: auto;
-}
-
-textarea.contact:focus{
-    border: 4px solid #813772;
-}
-
-dd {
-    display: block;
-
-    margin-left: 0px;
-    font-size: 20px;
-    color: #882601;
-}
-
-label {
-    font-size: 20px;
-    font-family: "Calibri", sans-serif;
-    font-style: italic;
-}
-
-.feedbackMessage {
-    font-size: 20px;
-    font-family: "Calibri", sans-serif;
-    font-style: italic;
-}
-
-.link{
-    color: white;
-}

@@ -7,6 +7,7 @@ GET     /                           controllers.Application.index
 
 GET     /seatBooking                controllers.Application.seating(filmName:String, date:String, time:String)
 POST    /sendRecepitRequest         controllers.Application.seatingRequest()
+GET     /receipt                    controllers.Application.receiptView(receiptID:String)
 
 GET     /listing                    controllers.Application.theListing
 
@@ -17,10 +18,13 @@ GET     /contactUs                  controllers.Application.submitForm
 POST    /contactUs                  controllers.Application.submitForm
 
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
-
 GET     /register                   controllers.Application.register
 
 GET     /login                      controllers.Application.login
+
+GET     /myAccount                  controllers.Application.myAccount
+
+GET     /forgotPassword             controllers.Application.forgotPassword
 
 GET     /payment                    controllers.Application.payment
 

@@ -1,4 +1,5 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
 <div id="banner">
     <img width="100%" style=": center" src="@routes.Assets.at("images/neon.png")">
 </div>
@@ -9,31 +10,65 @@
             <li><a id="homebtn" href="../">Home</a>
                 <a id="listingsbutton" href="../listing">Listings</a>
                 <a id="aboutbutton" href="../about">About Us</a>
-                <a id="dealsbutton" href="../deals">Deals</a></li></ul>
+                <a id="dealsbutton" href="../deals">Deals</a>
+            </li>
+        </ul>
     </div>
 
     <div class="floatright">
         <ul>
         <li class="dropdown" style="padding-right: 20px">
-            <a href="javascript:void(0)" class="dropbtn">Log In</a>
+            <a href="javascript:void(0)" id="dropbtn" class="dropbtn">Log In</a>
             <div class="dropdown-content">
-                <a>Log In</a>
-                <a>Sign Up</a>
+                <a id="aLogin" href="../login">Log In</a>
+                <a id="aRegister" href="../register">Sign Up</a>
             </div>
         </li>
         <li class="navbar-right"><form style="padding-top: 23px">
             <input type="text" id="searchbar" class="searchbox" placeholder="Search for an Item..." required>
             <input id="searchbutton" type="button" class="searchbutton" value="Search" onclick="doSearch(document.getElementById('searchbar').value)">
         </form>
-        <li class="navbar-right">
-            <form style="padding-top: 23px">
-                <input type="text" id="searchbar" class="searchbox"  placeholder="Search for an Item..." required>
-                <input type="submit" id="searchBtn" class="searchbutton" value="Search" onclick="doSearch(document.getElementById('searchbar').value)">
-            </form>
-        </li>
         </ul>
     </div>
 </nav>
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize Firebase
+            const config = {
+                apiKey: "AIzaSyAsoLmgYoUIcZAq8O6NJVWtYfzr7_ZEjn0",
+                authDomain: "qa-cinema.firebaseapp.com",
+                databaseURL: "https://qa-cinema.firebaseio.com",
+                projectId: "qa-cinema",
+                storageBucket: "qa-cinema.appspot.com",
+                messagingSenderId: "712079829380"
+            };
+            firebase.initializeApp(config);
+
+
+            firebase.auth().onAuthStateChanged(firebaseUser => {
+
+                if(firebaseUser) {
+                    console.log(firebaseUser)
+                    document.getElementById("dropbtn").innerText = 'Logged in as ' + firebaseUser.email;
+                    document.getElementById("aLogin").innerText = 'My Account';
+                    document.getElementById("aRegister").innerText = 'Logout';
+                    document.getElementById("aRegister").onclick = function() {firebase.auth().signOut();}
+
+                }
+                else {
+                    console.log('Not signed in');
+                }
+
+            });
+
+
+        }());
+
+
+
+    </script>
 
 
 <script>

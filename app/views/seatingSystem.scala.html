@@ -191,11 +191,17 @@
         } else if(seatsNeeded < curSeats) {
             window.alert("You have (somehow) selected too many seats.");
         } else {
-            let dataObject = {"filmTitle":filmName.toString(), "seats":seatOrder.sort().toString(), "time":selectedTime.toString(), "date":selectedDate.toString(), "totalCost":0};
+
+            let randKey = function () {
+                return Math.random().toString(36).substr(2, 9);
+            };
+
+            let dataObject = {"receiptID":randKey(), "filmTitle":filmName.toString(), "seats":seatOrder.sort().toString(), "time":selectedTime.toString(), "date":selectedDate.toString(), "totalCost":0};
             xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if(this.readyState == 4 && this.status == 200) {
-                    window.location.href = "/";
+                    console.log("/receipt?id="+dataObject["receiptID"]);
+                    window.location.href = "/receipt?receiptID="+dataObject["receiptID"];
                 }
             };
             xhttp.open("POST", "/sendRecepitRequest");
@@ -210,8 +216,10 @@
         // PayPal Client IDs - replace with your own
         // Create a PayPal app: https://developer.paypal.com/developer/applications/create
         client: {
-            sandbox:    'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
-            production: '<insert production client id>'
+            sandbox:    'ATIZ-UpYCRuIxx4K8rc8Rd2nGm3hAatG5JW8IfPK9Xwmf56A3kWxSBhD4gKjYiPXI2oFpYCfPakJNERx',
+            //<insert production client id> => This was the previous "string" in the production section however been
+            //subbed with the sandbox id
+            production: 'ATIZ-UpYCRuIxx4K8rc8Rd2nGm3hAatG5JW8IfPK9Xwmf56A3kWxSBhD4gKjYiPXI2oFpYCfPakJNERx'
         },
 
         // Show the buyer a 'Pay Now' button in the checkout flow
