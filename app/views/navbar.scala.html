@@ -1,4 +1,5 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
 <div id="banner">
     <img width="100%" style=": center" src="@routes.Assets.at("images/neon.png")">
 </div>
@@ -17,10 +18,10 @@
     <div class="floatright">
         <ul>
         <li class="dropdown" style="padding-right: 20px">
-            <a href="javascript:void(0)" class="dropbtn">Log In</a>
+            <a href="javascript:void(0)" id="dropbtn" class="dropbtn">Log In</a>
             <div class="dropdown-content">
-                <a>Log In</a>
-                <a>Sign Up</a>
+                <a id="aLogin" href="../login">Log In</a>
+                <a id="aRegister" href="../register">Sign Up</a>
             </div>
         </li>
         <li class="navbar-right"><form style="padding-top: 23px">
@@ -30,6 +31,44 @@
         </ul>
     </div>
 </nav>
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize Firebase
+            const config = {
+                apiKey: "AIzaSyAsoLmgYoUIcZAq8O6NJVWtYfzr7_ZEjn0",
+                authDomain: "qa-cinema.firebaseapp.com",
+                databaseURL: "https://qa-cinema.firebaseio.com",
+                projectId: "qa-cinema",
+                storageBucket: "qa-cinema.appspot.com",
+                messagingSenderId: "712079829380"
+            };
+            firebase.initializeApp(config);
+
+
+            firebase.auth().onAuthStateChanged(firebaseUser => {
+
+                if(firebaseUser) {
+                    console.log(firebaseUser)
+                    document.getElementById("dropbtn").innerText = 'Logged in as ' + firebaseUser.email;
+                    document.getElementById("aLogin").innerText = 'My Account';
+                    document.getElementById("aRegister").innerText = 'Logout';
+                    document.getElementById("aRegister").onclick = function() {firebase.auth().signOut();}
+
+                }
+                else {
+                    console.log('Not signed in');
+                }
+
+            });
+
+
+        }());
+
+
+
+    </script>
 
 
 <script>

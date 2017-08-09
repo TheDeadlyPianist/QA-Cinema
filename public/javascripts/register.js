@@ -61,6 +61,8 @@
         if(firebaseUser) {
             console.log(firebaseUser)
             btnLogout.classList.remove('hide');
+            window.location.href = "../myAccount";
+
         }
         else {
             console.log('Not signed in');
@@ -68,6 +70,7 @@
         }
 
     });
+
 
 
 
