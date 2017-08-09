@@ -26,7 +26,7 @@ function getMovieInformation(){
 
         for(var i=0; i < response.genres.length; i++){
 
-           genres += response.genres[i].name +  '</br>';
+            genres += response.genres[i].name +  '</br>';
 
         };
 
