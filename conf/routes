@@ -6,7 +6,8 @@
 GET     /                           controllers.Application.index
 
 GET     /seatBooking                controllers.Application.seating(filmName:String, date:String, time:String)
-POST    /sendRecepitRequest         controllers.Application.seatingRequest()
+GET    /sendRecepitRequest         controllers.Application.seatingRequest()
+GET    /receipt                    controllers.Application.receiptView(receiptID:String="")
 
 GET     /listing                    controllers.Application.theListing
 

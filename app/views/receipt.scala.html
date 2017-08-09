@@ -1,0 +1,8 @@
+@(receiptID:String)
+
+<link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet">
+<div class="col-100">@navbar()</div>
+<div style="width:80%; margin:auto; background-color: #727272; padding: 3% 3% 3% 3%; color: white">
+    Receipt Number: @receiptID
+</div>
+<div class="col-100">@defaultFooter()</div>
