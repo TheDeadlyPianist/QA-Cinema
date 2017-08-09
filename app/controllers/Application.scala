@@ -84,6 +84,10 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     Ok(views.html.deals("Deals: Success"))
   }
 
+  def theFind = Action {
+    Ok(views.html.find("find: Success"))
+  }
+
   def theSearch(inString:String) = Action {
     Ok(views.html.search(inString))
   }
