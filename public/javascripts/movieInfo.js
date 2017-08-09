@@ -19,7 +19,7 @@ function getMovieInformation(){
         console.log(response);
 
 
-        $(('<h1 id="filmTitle">'+response.original_title+'</h1>' + '<h2>Release Date: '+response.release_date+'</h2>' + '<h2>Runtime: '+response.runtime+' Minutes</h2>' + '<h2>Movie Rating: '+response.vote_average+'</h2>' + '<h2>Overview: '+response.overview+'</h2>')).appendTo('#movieInformationSub');
+        $(('<h1 id="filmTitle">'+response.original_title+'</h1>' + '<h2 id="releaseDate">Release Date: '+response.release_date+'</h2>' + '<h2 id="runtime">Runtime: '+response.runtime+' Minutes</h2>' + '<h2 id="movieRating">Movie Rating: '+response.vote_average+'</h2>' + '<h2 id="overview">Overview: '+response.overview+'</h2>')).appendTo('#movieInformationSub');
         $('<img src="https://image.tmdb.org/t/p/original'+response.poster_path+'">').appendTo('#movieImage');
 
         var genres = "";
@@ -180,3 +180,4 @@ function getDates(){
     $('<div><h2 id="dateTitle" class="col-33" float="left" width="auto">Select a date: </h2><select class="col-33" id="movieShowingDates">'+completedDate+'</select></div>').appendTo('#dates')
     $('<button id="bookTicketBtn" onclick="bookTicket()">Book</button>').appendTo('#movieBtn')
 }
+
