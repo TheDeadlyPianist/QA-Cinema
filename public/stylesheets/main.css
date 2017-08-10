@@ -621,3 +621,10 @@ label {
     text-align:center;
 }
 
+    .mylivechat_offline_name_lbl{
+        color: black;
+    }
+
+    .mylivechat_offline_lbl{
+        color: black;
+    }
