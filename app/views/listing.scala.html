@@ -1,6 +1,16 @@
-@(message: String)
+@(message: String)(movieInformation:{})
 <script src="@routes.Assets.at("javascripts/watermark.js")" rel="javascript" type="text/javascript"></script>
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+
+<head>
+    <script>
+
+            var movieInformationGlobalObject = {};
+            movieInformationGlobalObject["movieInfo"] = "@movieInformation";
+
+    </script>
+</head>
+
 <body onload="doNowShowing()">
 
 <body>
