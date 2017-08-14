@@ -60,7 +60,27 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
   }
 
   def theListing = Action {
-    Ok(views.html.listing("Listing: Success"))
+
+    var movieInformation:ArrayBuffer[Map[String, String]] = ArrayBuffer()
+
+    val pullDB = Future{movies.find().results()}
+    pullDB.onSuccess {
+      case result => result
+    }
+
+    val moviesInDB = Await.result[Seq[Document]](pullDB, 10 seconds)
+
+    for(i <- 0 until moviesInDB.length) {
+      val apiID = moviesInDB(i)("apiID").asInt32().getValue
+      val newName = moviesInDB(i)("title").asString().getValue
+      val newYear = moviesInDB(i)("year").asInt32().getValue
+
+      movieInformation += Map("apiID" -> apiID.toString, "movieName" -> newName, "movieYear" -> newYear.toString)
+
+    }
+
+    Ok(views.html.listing("Listing: Success")(Json.toJson(movieInformation)))
+
   }
 
 
