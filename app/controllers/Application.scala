@@ -68,6 +68,10 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     Ok(views.html.register())
   }
 
+  def profile = Action {
+    Ok(views.html.userProfile())
+  }
+
   def login = Action {
     Ok(views.html.login())
   }

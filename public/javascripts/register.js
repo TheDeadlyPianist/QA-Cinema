@@ -11,7 +11,10 @@
     };
     firebase.initializeApp(config);
 
+    var database = firebase.database();
 
+    const txtFirstName = document.getElementById('txtFirstName');
+    const txtLastName = document.getElementById('txtLastName');
     const txtEmail = document.getElementById('txtEmail');
     const txtPassword = document.getElementById('txtPassword');
     const btnLogin = document.getElementById('btnLogin');
@@ -36,6 +39,14 @@
     //
     // });
 
+    function writeUserData(userId, email,firstName, lastName) {
+        firebase.database().ref('users/' + userId).set({
+            email: email,
+            firstName: firstName,
+            lastName: lastName
+        });
+    }
+
 
     // register
 
@@ -43,12 +54,20 @@
 
         const email = txtEmail.value;
         const pass = txtPassword.value;
+        const firstName = txtFirstName.value;
+        const lastName = txtLastName.value;
         const auth = firebase.auth();
 
-        const promise = auth.createUserWithEmailAndPassword(email, pass);
+        const promise = auth.createUserWithEmailAndPassword(email, pass).then(function() {
+            console.log('Working!')
+        }).catch(function(error) {
+            console.log("Error")
+        });
+
         promise.catch(e => console.log(e.message))
 
     });
+
 
 
     // btnLogout.addEventListener('click', e => {
@@ -59,6 +78,7 @@
     firebase.auth().onAuthStateChanged(firebaseUser => {
 
         if(firebaseUser) {
+            writeUserData(firebaseUser.uid, firebaseUser.email, txtFirstName.value, txtLastName.value)
             console.log(firebaseUser)
             btnLogout.classList.remove('hide');
             window.location.href = "../myAccount";
