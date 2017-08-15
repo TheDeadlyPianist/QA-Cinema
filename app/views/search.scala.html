@@ -1,6 +1,14 @@
-@(message: String)
+@(message: String)(movieInformation:{})
 
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+<head>
+    <script>
+
+            var movieInformationGlobalObject = {};
+            movieInformationGlobalObject["movieInfo"] = "@movieInformation";
+
+    </script>
+</head>
 <body onload="doTheSearch()">
     <div class="col-100">@navbar()</div>
 
@@ -13,9 +21,7 @@
 </body>
 
 <script>
-
         function doTheSearch(){
-            movieSearch(2, "@message")
+            search("@message")
         }
-
 </script>

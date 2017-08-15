@@ -12,13 +12,58 @@
 </head>
 
 <body onload="doNowShowing()">
-
-<body>
     <div class="col-100">@navbar()</div>
     <div class="divTitle">
         <div class="listMiddle">
             <div id="leftTab" class="listBottom"  onclick="doNowShowing()"><a class="listTitle" href="javascript:void(0);"  text-align="center"><b>NOW SHOWING</b></a></div>
             <div ID="rightTab" class="listBottom"  onclick="doUpcoming()"><a class="listTitle" href="javascript:void(0);"  text-align="center"><b>UPCOMING RELEASES</b></a></div>
+        </div>
+    </div>
+
+    <div class="col-33">
+        <div style="text-align: center">
+            <label>Genre : </label>
+            <select id="genre">
+                <option>All</option>
+                <option>Action</option>
+                <option>Adventure</option>
+                <option>Animation</option>
+                <option>Comedy</option>
+                <option>Crime</option>
+                <option>Documentary</option>
+                <option>Drama</option>
+                <option>Family</option>
+                <option>Fantasy</option>
+                <option>History</option>
+                <option>Horror</option>
+                <option>Music</option>
+                <option>Mystery</option>
+                <option>Romance</option>
+                <option>Science Fiction</option>
+                <option>TV Movie</option>
+                <option>Thriller</option>
+                <option>War</option>
+                <option>Western</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-33">
+        <div style="text-align: center">
+            <label>Age Rating : </label>
+            <select id="age">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-33">
+        <div style="text-align: center">
+            <label>Sort By : </label>
+            <select id="sort">
+                <option>Alphabetical</option>
+                <opticn>Popular</opticn>
+            </select>
         </div>
     </div>
 
@@ -30,7 +75,7 @@
 <script>
 
     function doNowShowing(){
-        movieSearch(0, "")
+        getNowShowing();
         document.getElementById("leftTab").style.backgroundColor = "#333"
         document.getElementById("rightTab").style.backgroundColor = "#444"
         document.getElementById("leftTab").style.boxShadow= ""
@@ -38,7 +83,7 @@
     }
 
     function doUpcoming(){
-        movieSearch(1, "")
+        getUpcoming();
         document.getElementById("leftTab").style.backgroundColor = "#444"
         document.getElementById("rightTab").style.backgroundColor = "#333"
         document.getElementById("leftTab").style.boxShadow= "1px 1px 5px #555 inset"
