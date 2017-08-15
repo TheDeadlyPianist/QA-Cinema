@@ -139,7 +139,6 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
   def seating(filmName:String, date:String, time:String) = Action {
 
     val queryDate = date.toInt
-
     val searchQuery = Document("title" -> filmName)
     val getFilmDocument = Future{movies.find(searchQuery).results()}
     getFilmDocument.onSuccess {
@@ -148,7 +147,7 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     val seatingPlan = "screen" + Await.result(getFilmDocument, 10 seconds)(0)("screen").asInt32().intValue()
 
     val seatingObj:Map[String, Array[Int]] = Map("screen1" -> seats1, "screen2" -> seats2, "screen3" -> seats3, "screen4" -> seats4, "screen5" -> seats5, "screen6" -> seats6, "screen7" -> seats8, "screen8" -> seats8)
-    var useSeats:Array[Int] = seatingObj(seatingPlan).clone()
+    val useSeats:Array[Int] = seatingObj(seatingPlan).clone()
     var letterMap: Map[Int, Char] = Map()
     val lengthOfSeats = useSeats.count(_ == 2) + 1
     val numbers: Array[Int] = Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24)
