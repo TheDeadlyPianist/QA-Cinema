@@ -136,13 +136,13 @@ function getDates(){
     var getStartDate = movieIDGlobalObject.startDate;
     var getEndDate = movieIDGlobalObject.endDate;
 
-
     var startDateYear = getStartDate.substring(0,4);
     var startDateMonth = getStartDate.substring(4,6);
     var startDateDay = getStartDate.substring(6,8);
 
     var convertedStartDate = new Date(startDateYear, startDateMonth-1, startDateDay);
 
+    const getCurrentDate = new Date();
 
     var endDateYear = getEndDate.substring(0,4);
     var endDateMonth = getEndDate.substring(4,6);
@@ -150,6 +150,20 @@ function getDates(){
 
     var convertedEndDate = new Date(endDateYear, endDateMonth-1, endDateDay);
 
+    if(convertedStartDate > getCurrentDate){
+
+        dateValidation(convertedStartDate,convertedEndDate)
+
+    }else if(convertedStartDate < getCurrentDate && convertedEndDate < getCurrentDate){
+        dateValidation(0,0)
+    }
+    else{
+        dateValidation(getCurrentDate,convertedEndDate)
+    }
+
+}
+
+function dateValidation(showingDate, endingDate){
 
     var getDates = function(startDate, endDate) {
         var dates = [],
@@ -171,13 +185,23 @@ function getDates(){
 
     var completedDate = "";
 
-    var dates = getDates(convertedStartDate, convertedEndDate);
 
-    dates.forEach(function(date) {
-        completedDate += '<option>'+date+'</option>'
-    });
+    if(showingDate == 0 && endingDate == 0){
+
+        completedDate = '<option>There is no time slot available for this movie at the moment</option>'
+
+    }else{
+        var dates = getDates(showingDate, endingDate);
+
+        dates.forEach(function(date) {
+            completedDate += '<option>'+date+'</option>'
+        });
+
+        $('<button id="bookTicketBtn" onclick="bookTicket()">Book</button>').appendTo('#movieBtn')
+
+    }
+
 
     $('<div><h2 id="dateTitle" class="col-33" float="left" width="auto">Select a date: </h2><select class="col-33" id="movieShowingDates">'+completedDate+'</select></div>').appendTo('#dates')
-    $('<button id="bookTicketBtn" onclick="bookTicket()">Book</button>').appendTo('#movieBtn')
-}
 
+}
