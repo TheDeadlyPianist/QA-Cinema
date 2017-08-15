@@ -61,8 +61,9 @@
             }
 
             #right-panel {
+                height: 100%;
                 float: none;
-                width: auto;
+                width: 30%;
             }
 
             #find-title {
@@ -99,11 +100,15 @@
                             <option value="TRANSIT">Public Transport</option>
                         </select>
                     </div>
-                    <div>
-                        <h4 id="clickedplace" class="hyperColour">Click an icon on the map for information</h4>
-                        <h5 id="clickedplace1" class="hyperColour"></h5>
-                        <h5 id="clickedplace2" class="hyperColour"></h5>
-                        <h5 id="clickedplace3" class="hyperColour"></h5>
+                    <br>
+                    <div style="border:5px solid white;">
+                        <h3 class="hyperColour" style="font-size: large">Click an icon on the map for more information</h3>
+                        <h4 class="hyperColour">Map Key:</h4>
+                        <h5 class="hyperColour">QA Cinemas<img height="25" width="25" src="@routes.Assets.at("images/movies.png")"/></h5>
+                        <h5 class="hyperColour">Disabled Access <img height="25" width="25" src="@routes.Assets.at("images/wheel_chair_accessible.png")"/></h5>
+                        <h5 class="hyperColour">Parking<img height="25" width="25" src="@routes.Assets.at("images/parkinglot.png")"/></h5>
+                        <h5 class="hyperColour">Restaurants <img height="25" width="25" src="@routes.Assets.at("images/restaurant.png")"/></h5>
+                        <h5 class="hyperColour">Bars <img height="25" width="25" src="@routes.Assets.at("images/bar.png")"/></h5>
                     </div>
                 </div>
             </div>
@@ -121,7 +126,7 @@
             function initMap() {
                 const cinema = new google.maps.LatLng(53.474589, -2.286499);
                 const parking = new google.maps.LatLng(53.474709, -2.285784);
-                const wheelChair = new google.maps.LatLng(53.474507, -2.286517)
+                const wheelChair = new google.maps.LatLng(53.474400, -2.286400)
 
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 15,
