@@ -119,8 +119,9 @@
             var infowindow;
 
             function initMap() {
-                var cinema = new google.maps.LatLng(53.474589, -2.286499);
-                var parking = new google.maps.LatLng(53.474709, -2.285784);
+                const cinema = new google.maps.LatLng(53.474589, -2.286499);
+                const parking = new google.maps.LatLng(53.474709, -2.285784);
+                const wheelChair = new google.maps.LatLng(53.474507, -2.286517)
 
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 15,
@@ -139,6 +140,13 @@
                     position: parking,
                     map: map,
                     icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/parkinglot.png'
+
+                });
+
+                var wheelChairMarker = new google.maps.Marker({
+                    position: wheelChair,
+                    map: map,
+                    icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/wheel_chair_accessible.png'
 
                 });
 
@@ -201,6 +209,12 @@
                     infowindow.setContent("QA Cinemas Parking");
                     infowindow.open(map, this);
                 });
+
+                google.maps.event.addListener(wheelChairMarker, 'click', function () {
+                    infowindow.setContent("QA Cinemas <br> Disabled Access");
+                    infowindow.open(map, this);
+                });
+
 
                 var directionsService = new google.maps.DirectionsService;
                 var directionsDisplay = new google.maps.DirectionsRenderer;
