@@ -606,6 +606,16 @@ label {
         border: solid 1px black;
     }
 
+    #popularMoviesContent{
+        padding-left: 5%;
+        padding-top: 5%;
+    }
+
+    #popularMoviesHeader{
+        text-align: center;
+        font-size: 60px;
+    }
+
 #ageRatingImg{
     float:left;
     margin-top:-3%;
