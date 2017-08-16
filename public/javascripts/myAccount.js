@@ -13,6 +13,7 @@
 
 
     const btnLogout = document.getElementById("btnLogout");
+    const btnProfile = document.getElementById("btnProfile");
 
 
 
@@ -21,6 +22,10 @@
         //console.log('User logged out')
         location.reload();
     });
+
+    btnProfile.addEventListener("click", (e) => {
+        window.location.href = "../profile";
+    })
 
     firebase.auth().onAuthStateChanged(firebaseUser => {
 

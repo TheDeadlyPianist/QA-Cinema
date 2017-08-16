@@ -29,6 +29,8 @@ GET     /forgotPassword             controllers.Application.forgotPassword
 
 GET     /payment                    controllers.Application.payment
 
+GET     /profile                    controllers.Application.profile
+
 GET     /movieInfo                  controllers.Application.theMovieInfo(movieID:Int)
 
 GET     /search/:theString          controllers.Application.theSearch(theString:String)
