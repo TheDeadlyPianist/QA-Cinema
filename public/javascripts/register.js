@@ -40,7 +40,7 @@
     // });
 
     function writeUserData(userId, email,firstName, lastName) {
-        firebase.database().ref('users/' + userId).set({
+        database.ref('users/' + userId).set({
             email: email,
             firstName: firstName,
             lastName: lastName
