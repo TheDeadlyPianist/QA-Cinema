@@ -191,11 +191,17 @@
         } else if(seatsNeeded < curSeats) {
             window.alert("You have (somehow) selected too many seats.");
         } else {
-            let dataObject = {"filmTitle":filmName.toString(), "seats":seatOrder.sort().toString(), "time":selectedTime.toString(), "date":selectedDate.toString(), "totalCost":0};
+
+            let randKey = function () {
+                return Math.random().toString(36).substr(2, 9);
+            };
+
+            let dataObject = {"receiptID":randKey(), "filmTitle":filmName.toString(), "seats":seatOrder.sort().toString(), "time":selectedTime.toString(), "date":selectedDate.toString(), "totalCost":0};
             xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if(this.readyState == 4 && this.status == 200) {
-                    window.location.href = "/";
+                    console.log("/receipt?id="+dataObject["receiptID"]);
+                    window.location.href = "/receipt?receiptID="+dataObject["receiptID"];
                 }
             };
             xhttp.open("POST", "/sendRecepitRequest");

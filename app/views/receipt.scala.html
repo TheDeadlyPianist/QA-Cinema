@@ -1,0 +1,21 @@
+@(receiptID:String)(filmTitle:String)(time:String)(date:String)(cost:String)(seats:Array[String])
+
+<link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet">
+<div class="col-100">@navbar()</div>
+<div style="width:80%; margin:auto; background-color: #727272; padding: 3% 3% 3% 3%; color: white";>
+    Receipt Number: @receiptID<br>
+    <div style="padding-left: 3%;">
+        Film Title: @filmTitle<br>
+        Booked Time: @time<br>
+        Booked Date: @date<br>
+        Total Cost: @cost<br>
+        Seats Booked:
+        <div style="padding-left: 3%">
+            @for(i <- seats.indices) {
+                @seats(i)
+                <br>
+            }
+        </div>
+    </div>
+</div>
+<div class="col-100">@defaultFooter()</div>

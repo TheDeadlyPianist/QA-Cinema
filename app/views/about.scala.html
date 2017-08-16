@@ -1,198 +1,51 @@
 @(message: String)
 <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
 <head>
-    <style>
-            /* Always set the map height explicitly to define the size of the div
-             * element that contains the map. */
-            #map {
-
-                height: 50%;
-                width: 50%;
-                margin: 2%;
-                padding: 0;
-
-                /* Optional: Makes the sample page fill the window. */
-                /*html, body {*/
-                /*height: 100%;*/
-                /*margin: 0;*/
-                /*padding: 0;*/
-                /*}*/
-            }
-
-    </style>
     <div class="col-100">@navbar()</div>
+    <style>
+            #find-title {
+                font-size: xx-large;
+                text-align: center;
+                background-color: #333;
+                text-transform: uppercase;
+            }
+    </style>
 </head>
 <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=15445666"></script>
 <body>
-    <div id="aboutCol1" class="col-70">
-    <div class="col-50" id="map" class="moveMap"></div>
+    <div class="col-100"><h1 id="find-title">About QA Cinemas</h1></div>
+    <div class="item">
+        <div class="col-50">
+            <img height="600" width="800" src="@routes.Assets.at("images/anchorage.jpg")"/>
+        </div>
+    </div>
 
     <div class="col-50" style="text-align: center" style="font-size: large">
-        <div id="mapDirections" class="item">
-            <br>
-            <div class="hyperColour">Enter Postcode:
-                <input type="text" id="start"/>
-                <input type="submit" value="Get Directions" onclick="onChangeHandler()" />
-            </div>
-            <br>
-            <div class="hyperColour">Mode of Travel:
-                <select id="mode">
-                    <option value="DRIVING">Driving</option>
-                    <option value="WALKING">Walking</option>
-                    <option value="BICYCLING">Bicycling</option>
-                    <option value="TRANSIT">Public Transport</option>
-                </select>
-            </div>
-            <div>
-                <h4 id="clickedplace" class="hyperColour">Click somewhere on the map for information</h4>
-                <h5 id="clickedplace1" class="hyperColour"></h5>
-                <h5 id="clickedplace2" class="hyperColour"></h5>
-                <h5 id="clickedplace3" class="hyperColour"></h5>
+        <div class="item">
+            <div class="hyperColour">
+                Lorem ipsum dolor sit amet, quando persequeris liberavisse ut vis. Vocibus petentium laboramus ut eos, cum fierent complectitur et. His in nullam quaestio, no duo nullam albucius. Eu qui dicta assueverit, mutat ornatus accusata ex vis, sed nisl singulis ad. An purto euismod epicurei vis, malorum alterum voluptua ea pri.
+
+                Nobis delenit instructior id nec, habeo summo sed id. Ut mei quas putant disputationi. Cum ei erat tollit quaerendum, sit an putent sanctus assentior. Usu natum audire ea. Et recusabo dissentiet accommodare qui, munere nostrud vim an, ius ex noster sanctus nostrum.
+
+                Iisque eligendi repudiandae ut eos, vidit soleat vix ut. Pri mollis ullamcorper ut. Eum cu illud liber, eum ullum laudem volutpat ut, ius alii oblique maluisset id. Natum soleat legimus per et. Semper nostrud inciderint sit cu, per ad nostrud sensibus pertinacia, eu pro vitae ponderum quaestio.
+
+                Ut sed amet oportere. An choro imperdiet neglegentur vis. Ad paulo complectitur his, veri veritus minimum ius no. No has saperet intellegam. Per modo cibo inciderint ea. Mel ad wisi sonet pertinax, sit cu commune sententiae.
+
+                An vis regione integre. Homero accumsan no nec. Mundi melius duo ea, his id nostro democritum intellegam. Vis facete voluptatibus reprehendunt ei, te sit euismod corrumpit. Eam ut aliquip alterum urbanitas.
+
+                At etiam constituam quaerendum sit. Ullum audiam liberavisse at vim, per ex novum omittantur, no sea luptatum imperdiet definiebas. Eirmod volutpat ei pro, eu his eruditi cotidieque, alienum lucilius ne vim. Et noluisse democritum nec. Ea eam quas primis democritum, quo causae gloriatur no. Ea etiam abhorreant mea.
+
+                Et cum hinc sale habemus, ad sed cibo repudiandae, te mea equidem fierent scriptorem. Quando possim invidunt sea ut, pri te suas nobis officiis, efficiantur consequuntur id has. Vim utroque instructior ex. Dicta oratio accumsan in his. Eu nec quot alienum, tollit vivendum nominati ius eu. Id vel dicant fuisset partiendo, has eros facer insolens ad. Sed facer discere atomorum at.
+
+                Mei in suas nonumes. Integre qualisque te cum. Malis utinam usu ea, sed assentior adipiscing an, est ad saepe pertinax constituam. Insolens adipisci per ad, ut pri incorrupte contentiones. Cum stet tamquam neglegentur no, ea graeco volutpat mnesarchum sea, ei quo nulla docendi ullamcorper.
+
+                Discere praesent euripidis ad eos, aliquip blandit insolens id sed. Illum dolore ocurreret te pri, sed cibo definiebas delicatissimi id, id virtute dolores facilisis cum. At brute tractatos explicari duo, nibh aperiri tincidunt ea sed, justo nonumy oportere an nec. Qui et solum prompta legimus, sit exerci platonem ex, has sint ignota phaedrum et.
+
+                Copiosae deseruisse vis ad. Pro eu ignota veritus ocurreret, ius cu dico mutat vulputate, vide aliquip repudiare an ius. Et qui vidit feugait pericula, enim aeterno voluptua at qui. Quodsi temporibus mei id. Malis percipitur sit no, ei essent adolescens scriptorem mel, id illum omittantur sed. Homero atomorum ea has. Hinc tation pri no, ne sea malis putent.
             </div>
         </div>
     </div>
-    </div>
 
-    <div id="aboutCol2" class="col-30">
-        Hi there
-    </div>
-
-    <script>
-            var map;
-            var infowindow;
-
-            function initMap() {
-                var cinema = new google.maps.LatLng(53.474589, -2.286499);
-                var parking = new google.maps.LatLng(53.474709, -2.285784);
-
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 15,
-                    center: cinema,
-                    mapTypeId: 'terrain'
-                });
-
-                var homeMarker = new google.maps.Marker({
-                    position: cinema,
-                    map: map,
-                    icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/movies.png'
-
-                });
-
-                var parkMarker = new google.maps.Marker({
-                    position: parking,
-                    map: map,
-                    icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/parkinglot.png'
-
-                });
-
-                infowindow = new google.maps.InfoWindow();
-                var service = new google.maps.places.PlacesService(map);
-
-                function createRest(string) {
-                    service.nearbySearch({
-                        location: cinema,
-                        radius: 1000,
-                        type: [string]
-                    }, callback);
-                }
-
-                function callback(results, status) {
-                    if (status === google.maps.places.PlacesServiceStatus.OK) {
-                        for (var i = 0; i < results.length; i++) {
-                            console.log(results[i]);
-                            createMarker(results[i]);
-                        }
-                    }
-                }
-
-                function createMarker(place) {
-                    var placeLoc = place.geometry.location;
-                    for (var i = 0; i < place.types.length; i++) {
-                        if (place.types[i] == "bar") {
-                            var marker = new google.maps.Marker({
-                                map: map,
-                                position: place.geometry.location,
-                                icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/bar.png'
-                            });
-                            break;
-                        }
-                        else if (place.types[i] == "restaurant") {
-                            var marker = new google.maps.Marker({
-                                map: map,
-                                position: place.geometry.location,
-                                icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/restaurant.png'
-                            });
-                            break;
-                        }
-                    }
-
-                    google.maps.event.addListener(marker, 'click', function () {
-                        infowindow.setContent(place.name);
-                        infowindow.open(map, this);
-                        document.getElementById("clickedplace").innerHTML = place.name;
-                        document.getElementById("clickedplace1").innerHTML = "Address: " + place.vicinity;
-//                            document.getElementById("clickedplace2").innerHTML = ;
-                        document.getElementById("clickedplace3").innerHTML = "Rating: " + place.rating + "/5";
-                    });
-                }
-
-                createRest('restaurant');
-                createRest('bar');
-
-                google.maps.event.addListener(homeMarker, 'click', function () {
-                    infowindow.setContent("QA Cinemas\n\n\n Anchorage");
-                    infowindow.open(map, this);
-                    document.getElementById("clickedplace").innerHTML = "QA Cinemas";
-                    document.getElementById("clickedplace1").innerHTML = "Anchorage 1, Salford.";
-//                        document.getElementById("clickedplace2").innerHTML = ;
-                    document.getElementById("clickedplace3").innerHTML = "Rating: " + "10/5";
-                });
-
-                google.maps.event.addListener(parkMarker, 'click', function () {
-                    infowindow.setContent("QA Cinemas Parking");
-                    infowindow.open(map, this);
-                    document.getElementById("clickedplace").innerHTML = "QA Cinemas Parking";
-                    document.getElementById("clickedplace1").innerHTML = "Anchorage 1, Salford.";
-//                        document.getElementById("clickedplace2").innerHTML = ;
-//                        document.getElementById("clickedplace3").innerHTML = "Rating: " + "10/5";
-                });
-
-                var directionsService = new google.maps.DirectionsService;
-                var directionsDisplay = new google.maps.DirectionsRenderer;
-
-                directionsDisplay.setMap(map);
-
-                var onChangeHandler = function () {
-                    calculateAndDisplayRoute(directionsService, directionsDisplay);
-                };
-                document.getElementById('start').addEventListener('change', onChangeHandler);
-                document.getElementById('mode').addEventListener('change', function () {
-                    calculateAndDisplayRoute(directionsService, directionsDisplay);
-                });
-
-
-                function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-                    var selectedMode = document.getElementById('mode').value;
-                    directionsService.route({
-                        origin: document.getElementById('start').value,
-                        destination: cinema,
-                        travelMode: google.maps.TravelMode[selectedMode]
-
-
-                    }, function (response, status) {
-                        if (status === 'OK') {
-                            directionsDisplay.setDirections(response);
-                        } else {
-                            window.alert('Directions request failed due to ' + status + '. Please check your postcode and try again');
-                        }
-                    });
-                }
-
-            }
-    </script>
-    <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDULYRqPbZDrCSmoKNXZJPR3enCXhI226Q&libraries=places&callback=initMap" async defer>
-    </script>
     <div class="col-100">@defaultFooter()</div>
 </body>
 

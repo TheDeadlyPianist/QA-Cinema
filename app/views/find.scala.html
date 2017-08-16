@@ -1,0 +1,263 @@
+@(message: String)
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+<head>
+    <style>
+            #map {
+                height: 50%;
+                width: 50%;
+                margin: 2%;
+                padding: 0;
+            }
+
+            #right-panel {
+                font-family: 'Roboto', 'sans-serif';
+                line-height: 30px;
+                padding-left: 10px;
+            }
+
+            #right-panel select, #right-panel input {
+                font-size: 15px;
+            }
+
+            #right-panel select {
+                width: 100%;
+            }
+
+            .adp-substep b {
+                font-size: 15px;
+                color: #ffffff;
+                font-weight: bold;
+            }
+
+            .adp-summary {
+                color: #ffffff;
+                font-weight: bold;
+            }
+
+            /*map colour*/
+            .adp-substep {
+                font-size: 15px;
+                color: #ffffff;
+            }
+
+            .adp-placemark tbody {
+                background-color: #062F4F;
+            }
+
+            .adp-text {
+                color: #ffffff;
+            }
+
+            #right-panel i {
+                font-size: 15px;
+                color: #ffffff;
+            }
+
+            #right-panel {
+                height: 100%;
+                float: left;
+                width: 200px;
+                overflow: auto;
+            }
+
+            #right-panel {
+                height: 100%;
+                float: none;
+                width: 30%;
+            }
+
+            #find-title {
+                font-size: xx-large;
+                text-align: center;
+                background-color: #333;
+                text-transform: uppercase;
+            }
+    </style>
+    <div class="col-100">@navbar()</div>
+</head>
+<script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=15445666"></script>
+<body>
+
+    <div class="col-100"><h1 id="find-title">How To Find Us</h1></div>
+    <div id="aboutCol1" class="col-70">
+        <div class="col-50" id="map" class="moveMap"></div>
+        <div class="col-50" style="text-align: center" style="font-size: large">
+            <div id="mapDirections" class="item">
+                <br>
+                <div class="hyperColour">Enter Postcode:
+                    <form action="http://maps.google.com/maps" method="get" target="_blank">
+                        <input type="text" name="saddr" id="start" class="dir-input"/>
+                        <input type="button" value="Get Directions" onclick="onChangeHandler()" />
+                        <input type="hidden" name="daddr" value="1 Anchorage Quay, Salford, M50 3YL, UK " />
+                        <input type="submit" value="Open In Google Maps" class="dir-button button" />
+                    </form>
+                    <br>
+                    <div class="hyperColour">Mode of Travel:
+                        <select id="mode">
+                            <option value="DRIVING">Driving</option>
+                            <option value="WALKING">Walking</option>
+                            <option value="BICYCLING">Cycling</option>
+                            <option value="TRANSIT">Public Transport</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div style="border:5px solid white;">
+                        <h3 class="hyperColour" style="font-size: large">Click an icon on the map for more information</h3>
+                        <h4 class="hyperColour">Map Key:</h4>
+                        <h5 class="hyperColour">QA Cinemas<img height="25" width="25" src="@routes.Assets.at("images/movies.png")"/></h5>
+                        <h5 class="hyperColour">Disabled Access <img height="25" width="25" src="@routes.Assets.at("images/wheel_chair_accessible.png")"/></h5>
+                        <h5 class="hyperColour">Parking<img height="25" width="25" src="@routes.Assets.at("images/parkinglot.png")"/></h5>
+                        <h5 class="hyperColour">Restaurants <img height="25" width="25" src="@routes.Assets.at("images/restaurant.png")"/></h5>
+                        <h5 class="hyperColour">Bars <img height="25" width="25" src="@routes.Assets.at("images/bar.png")"/></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="right-panel" class="col-30">
+    </div>
+
+    <script>
+            var map;
+            var infowindow;
+
+            function initMap() {
+                const cinema = new google.maps.LatLng(53.474589, -2.286499);
+                const parking = new google.maps.LatLng(53.474709, -2.285784);
+                const wheelChair = new google.maps.LatLng(53.474400, -2.286400)
+
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 15,
+                    center: cinema,
+                    mapTypeId: 'terrain'
+                });
+
+                var homeMarker = new google.maps.Marker({
+                    position: cinema,
+                    map: map,
+                    icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/movies.png'
+
+                });
+
+                var parkMarker = new google.maps.Marker({
+                    position: parking,
+                    map: map,
+                    icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/parkinglot.png'
+
+                });
+
+                var wheelChairMarker = new google.maps.Marker({
+                    position: wheelChair,
+                    map: map,
+                    icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/wheel_chair_accessible.png'
+
+                });
+
+                infowindow = new google.maps.InfoWindow();
+                var service = new google.maps.places.PlacesService(map);
+
+                function createRest(string) {
+                    service.nearbySearch({
+                        location: cinema,
+                        radius: 1000,
+                        type: [string]
+                    }, callback);
+                }
+
+                function callback(results, status) {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        for (var i = 0; i < results.length; i++) {
+                            console.log(results[i]);
+                            createMarker(results[i]);
+                        }
+                    }
+                }
+
+                function createMarker(place) {
+                    var placeLoc = place.geometry.location;
+                    for (var i = 0; i < place.types.length; i++) {
+                        if (place.types[i] === "bar") {
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: place.geometry.location,
+                                icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/bar.png'
+                            });
+                            break;
+                        }
+                        else if (place.types[i] === "restaurant") {
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: place.geometry.location,
+                                icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/restaurant.png'
+                            });
+                            break;
+                        }
+                    }
+
+                    google.maps.event.addListener(marker, 'click', function () {
+                        infowindow.setContent(place.name + " <br>" + place.vicinity + " <br> Rating: " + place.rating);
+                        infowindow.open(map, this);
+                    });
+                }
+
+                createRest('restaurant');
+                createRest('bar');
+
+                google.maps.event.addListener(homeMarker, 'click', function () {
+                    infowindow.setContent("QA Cinemas <br> Anchorage 1 <br> Salford <br> M50 3YL");
+                    infowindow.open(map, this);
+                });
+
+                google.maps.event.addListener(parkMarker, 'click', function () {
+                    infowindow.setContent("QA Cinemas Parking");
+                    infowindow.open(map, this);
+                });
+
+                google.maps.event.addListener(wheelChairMarker, 'click', function () {
+                    infowindow.setContent("QA Cinemas <br> Disabled Access");
+                    infowindow.open(map, this);
+                });
+
+
+                var directionsService = new google.maps.DirectionsService;
+                var directionsDisplay = new google.maps.DirectionsRenderer;
+
+                directionsDisplay.setMap(map);
+                directionsDisplay.setPanel(document.getElementById('right-panel'));
+
+
+                var onChangeHandler = function () {
+                    calculateAndDisplayRoute(directionsService, directionsDisplay);
+                };
+                document.getElementById('start').addEventListener('change', onChangeHandler);
+                document.getElementById('mode').addEventListener('change', function () {
+                    calculateAndDisplayRoute(directionsService, directionsDisplay);
+                });
+
+
+                function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+                    var selectedMode = document.getElementById('mode').value;
+                    directionsService.route({
+                        origin: document.getElementById('start').value,
+                        destination: cinema,
+                        travelMode: google.maps.TravelMode[selectedMode]
+                    }, function (response, status) {
+                        if (status === 'OK') {
+                            directionsDisplay.setDirections(response);
+                        } else {
+                            window.alert('Directions request failed due to ' + status + '. Please check your postcode and try again');
+                        }
+                    });
+                }
+
+            }
+    </script>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDULYRqPbZDrCSmoKNXZJPR3enCXhI226Q&libraries=places&callback=initMap" async defer>
+    </script>
+    <div class="col-100">@defaultFooter()</div>
+</body>
+
+

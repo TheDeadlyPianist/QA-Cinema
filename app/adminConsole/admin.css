@@ -1,0 +1,22 @@
+#selection {
+    -fx-background-color: green;
+    -fx-border-color: black;
+    -fx-cursor: hand;
+}
+#selection:hover {
+    -fx-background-color: lawngreen;
+}
+.backButton {
+    -fx-padding: 5px 5px 5px 5px;
+}
+.viewingArea {
+    -fx-background-color: #5385ff;
+    -fx-alignment: top-left;
+    -fx-padding: 20px 20px 20px 20px;
+    -fx-border-style: solid;
+    -fx-border-width: 3px;
+    -fx-border-color: #43bbc5;
+}
+.itemText {
+    -fx-font-size: 12pt;
+}
