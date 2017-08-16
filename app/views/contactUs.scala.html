@@ -3,6 +3,7 @@
     <link rel="stylesheet" type="text/css" href='@routes.Assets.at("stylesheets/main.css")'>
     <div class="col-100">@navbar()</div>
     <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=15445666"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <body >
         <section style="color: white" class="sideSize">
             <h1 class="noPadding"><ins>Contact US</ins></h1>
@@ -42,10 +43,11 @@
                 @helper.textarea(form("content"), '_label -> "Your Question", '_showConstraints -> false, 'class -> "contact",
                     'placeholder -> "Please enter your question. minimum 10 characters, maximum 500",
                     'alt -> "Please enter your question. Minimum 10 characters, Maximum 500", 'maxlength -> "500")
-                <button type="submit" class="largeBtn"> Send </button>
+                <button type="submit" id="submitButton" disabled="true" class="largeBtn"> Send </button>
             }
             </form>
         </section>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/contactVerification.js")"></script>
     </body>
     <div class="col-100">@defaultFooter()</div>
 </html>
