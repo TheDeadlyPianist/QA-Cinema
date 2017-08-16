@@ -1,5 +1,7 @@
 package controllers
 
+import java.text.SimpleDateFormat
+import java.util.Date
 import javax.inject.Inject
 
 import models.ContactDetails
@@ -25,6 +27,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{Await, Future}
 import scalaEnum.seatingPlanArray._
 import scalaj.http.Http
+import org.mongodb.scala.model.Sorts._
+import org.mongodb.scala.model.Filters._
 
 class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerClient)
   extends Controller with I18nSupport {
@@ -56,8 +60,34 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
       pushArray += Map("title" -> ((returnV \ "results")(0)\"title").as[String], "imageUrl" -> ("https://image.tmdb.org/t/p/original" + ((returnV \ "results")(0)\"backdrop_path").as[String]), "id" -> ((returnV \ "results")(0)\"id").as[Int].toString())
     }
 
-    Ok(views.html.index("Index: Success")(pushArray.toArray))
+
+    var getPopularMoviesArray:ArrayBuffer[Map[String, String]] = ArrayBuffer()
+
+    val formatDate = new SimpleDateFormat("yyyyMMdd");
+    val getCurrentDate = formatDate.format(new Date());
+
+    val pullDataFromDB = Future{movies.find().sort(descending("rating")).limit(5).results()}
+
+    pullDataFromDB.onSuccess {
+      case result => result
+    }
+
+    val moviesInDatabase = Await.result[Seq[Document]](pullDataFromDB, 10 seconds)
+
+    for(i <- 0 until moviesInDatabase.length) {
+      val apiID = moviesInDatabase(i)("apiID").asInt32().getValue
+      val newName = moviesInDatabase(i)("title").asString().getValue
+      val newYear = moviesInDatabase(i)("year").asInt32().getValue
+      val startDate = moviesInDatabase(i)("startDate").asInt32().getValue
+      val rating = moviesInDatabase(i)("rating").asString().getValue
+
+      getPopularMoviesArray += Map("apiID" -> apiID.toString, "movieName" -> newName, "movieYear" -> newYear.toString, "startDate" -> startDate.toString, "rating" -> rating)
+
+    }
+
+    Ok(views.html.index("Index: Success")(pushArray.toArray)(Json.toJson(getPopularMoviesArray)))
   }
+
 
   def theListing = Action {
 

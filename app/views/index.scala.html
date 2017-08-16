@@ -1,9 +1,26 @@
 @import org.mongodb.scala.bson.collection.mutable.Document
-@(message :String)(moviesArray:Array[Map[String, String]])
-<title>Home</title>
-<div class="col-100">@navbar()</div>
-<br>
-<script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=15445666"></script>
-<div class="col-100">@nowShowingMovies(moviesArray)</div>
-<a class="twitter-timeline" class="col-50" data-theme="dark" data-width="400" data-height="600" href="https://twitter.com/qacinemas">Tweets by QA Cinemas</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-<div class="col-100">@defaultFooter()</div>\
+@(message :String)(moviesArray:Array[Map[String, String]])(popularMoviesArray:{})
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <script>
+            var popularMoviesGlobalObject = {};
+            popularMoviesGlobalObject["getPopularMovies"] = "@popularMoviesArray";
+    </script>
+</head>
+
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="@routes.Assets.at("javascripts/homepageMovies.js")" rel="javascript"></script>
+    <link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet">
+
+    <div class="col-100">@navbar()</div>
+    <br>
+    <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=15445666"></script>
+    <div class="col-100">@nowShowingMovies(moviesArray)</div>
+    <div class="col-100" id="popularMoviesSection"></div>
+    <a class="twitter-timeline" class="col-50" data-theme="dark" data-width="400" data-height="600" href="https://twitter.com/qacinemas">Tweets by QA Cinemas</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <div class="col-100">@defaultFooter()</div>\
+</body>

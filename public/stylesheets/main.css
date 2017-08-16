@@ -606,6 +606,10 @@ label {
         border: solid 1px black;
     }
 
+    #popularMoviesContent{
+        padding-left: 5%;
+    }
+
 #ageRatingImg{
     float:left;
     margin-top:-3%;
