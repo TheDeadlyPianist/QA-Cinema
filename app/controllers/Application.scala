@@ -63,7 +63,7 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
 
     var getPopularMoviesArray:ArrayBuffer[Map[String, String]] = ArrayBuffer()
 
-    val formatDate = new SimpleDateFormat("yyyyMMdd");
+    val formatDate = new SimpleDateFormat("yyyy-MM-dd");
     val getCurrentDate = formatDate.format(new Date());
 
     val pullDataFromDB = Future{movies.find().sort(descending("rating")).limit(5).results()}
@@ -75,15 +75,25 @@ class Application @Inject()(val messagesApi: MessagesApi, mailerClient: MailerCl
     val moviesInDatabase = Await.result[Seq[Document]](pullDataFromDB, 10 seconds)
 
     for(i <- 0 until moviesInDatabase.length) {
+
       val apiID = moviesInDatabase(i)("apiID").asInt32().getValue
       val newName = moviesInDatabase(i)("title").asString().getValue
       val newYear = moviesInDatabase(i)("year").asInt32().getValue
-      val startDate = moviesInDatabase(i)("startDate").asInt32().getValue
-      val rating = moviesInDatabase(i)("rating").asString().getValue
 
-      getPopularMoviesArray += Map("apiID" -> apiID.toString, "movieName" -> newName, "movieYear" -> newYear.toString, "startDate" -> startDate.toString, "rating" -> rating)
+      val newURL = s"https://api.themoviedb.org/3/search/movie?year=$newYear&page=1&query=$newName&api_key=324938bccc324fb58e236a92cb0a9bc3".replace(" ", "%20")
+      val stuffs = Future{Http(newURL).asString}
+      stuffs.onSuccess{
+        case result => result
+      }
+      val returnV = Json.parse(Await.result(stuffs, 10 seconds).body)
 
+      val releaseDate = ((returnV \ "results")(0)\"release_date").as[String]
+
+      if(releaseDate < getCurrentDate){
+        getPopularMoviesArray += Map("apiID" -> apiID.toString, "movieName" -> newName, "movieYear" -> newYear.toString)
+      }
     }
+
 
     Ok(views.html.index("Index: Success")(pushArray.toArray)(Json.toJson(getPopularMoviesArray)))
   }
